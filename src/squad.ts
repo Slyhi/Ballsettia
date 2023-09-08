@@ -156,6 +156,13 @@ const TYPE_TO_BALL_TYPE_DEF: { [type: number]: BallTypeDef } = {
     142: { factory: config => new Balls.Mimic(config), purchasable: false, tier: 4, pack: 'community' },
     143: { factory: config => new Balls.BowlingBall(config), purchasable: true, tier: 1, pack: 'community', isUnlocked: () => hasCompletedAchievement('KillEnemiesInRound') },
     144: { factory: config => new Balls.Stopper(config), purchasable: true, tier: 3, pack: 'community' },
+
+    //Ballsettia Mod
+    420: { factory: config => new Balls.AmericanFootball(config), purchasable: false, tier: 1, pack: 'classic' },
+    421: { factory: config => new Balls.WebShooter(config), purchasable: false, tier: 2, pack: 'classic' },
+    422: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'classic' },
+    423: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'classic' },
+    424: { factory: config => new Balls.Reverser(config), purchasable: false, tier: 2, pack: 'classic' },
 }
 
 const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
@@ -215,6 +222,16 @@ const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
     53: { factory: (x, y) => new BallItems.Curry(x, y), purchasable: true, tier: 3 },
     54: { factory: (x, y) => new BallItems.TheBug(x, y), purchasable: true, tier: 2, shopChance: 0.5 },
     55: { factory: (x, y) => new BallItems.Mocha(x, y), purchasable: true, tier: 3, isUnlocked: () => hasCompletedAchievement('KillBeforeBattle') },
+
+    //Ballsettia Mod
+    420: { factory: (x, y) => new BallItems.Tweezers(x, y), purchasable: false, tier: 1 },
+    421: { factory: (x, y) => new BallItems.DFour(x, y), purchasable: true, tier: 2 },
+    422: { factory: (x, y) => new BallItems.GnomeDustPouch(x, y), purchasable: true, tier: 3 },
+    423: { factory: (x, y) => new BallItems.ShootingStar(x, y), purchasable: false, tier: 2 },
+    424: { factory: (x, y) => new BallItems.RedHerring(x, y), purchasable: false, tier: 2 },
+    425: { factory: (x, y) => new BallItems.IcyBlast(x, y), purchasable: false, tier: 2 },
+    426: { factory: (x, y) => new BallItems.Latte(x, y), purchasable: false, tier: 3 },
+    427: { factory: (x, y) => new BallItems.PhoenixFeather(x, y), purchasable: true, tier: 1 },
 }
 
 const TYPE_TO_EQUIPMENT_TYPE_DEF: { [type: number]: EquipmentTypeDef } = {
@@ -261,6 +278,15 @@ const TYPE_TO_EQUIPMENT_TYPE_DEF: { [type: number]: EquipmentTypeDef } = {
     40: { factory: () => new Equipments.Curry(), purchasable: true, tier: 3 },
     41: { factory: () => new Equipments.TheBug(), purchasable: true, tier: 2 },
     42: { factory: () => new Equipments.Mocha(), purchasable: true, tier: 3 },
+
+    //Ballsettia Mod
+    420: { factory: () => new Equipments.DFour(), purchasable: true, tier: 2 },
+    421: { factory: () => new Equipments.GnomeDustPouch(), purchasable: true, tier: 3 },
+    422: { factory: () => new Equipments.ShootingStar(), purchasable: false, tier: 2 },
+    423: { factory: () => new Equipments.RedHerring(), purchasable: false, tier: 2 },
+    424: { factory: () => new Equipments.IcyBlast(), purchasable: false, tier: 2 },
+    425: { factory: () => new Equipments.Latte(), purchasable: false, tier: 3 },
+    426: { factory: () => new Equipments.PhoenixFeather(), purchasable: true, tier: 1 },
 }
 
 const TIER_LEVELS_AVAILABLE: { [round: number]: [number, number, number, number] } = {
