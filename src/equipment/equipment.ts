@@ -42,6 +42,7 @@ class Equipment extends Sprite {
     spreadDamageOverTime = 0;
     chanceToActivateAbilitiesTwice = 0;
     startEarlyTime = 0;
+    fireImmunity = false;
     // Do not forget to add isNullified check and hasBattleEffect for future equipment effects!
 
     addAbility<T extends AbilityType>(type: T, abilityFunction: (equipment: this, ...rest: Parameters<AbilityFunction<Ball, T>>) => void, config?: { nullifyable?: boolean }) {
@@ -101,6 +102,7 @@ class Equipment extends Sprite {
         if (this.noCollisionDamage) return true;
         if (this.spreadDamageOverTime !== 0) return true;
         if (this.startEarlyTime > 0) return true;
+        if (this.fireImmunity) return true;
 
         return false;
     }
