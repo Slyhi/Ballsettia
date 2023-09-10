@@ -4,6 +4,7 @@ class BallItem extends Sprite {
     getDesc() { return 'unknown'; }
     getShopCost() { return 3; }
     getCredits(): string[] { return []; }
+    getModName(): string[] { return []; }
 
     type: number;
     tier: number;

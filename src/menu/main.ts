@@ -25,8 +25,8 @@ class MainMenu extends Menu {
         if (IS_MODDED) {
             this.addWorldObject(new SpriteText({
                 x: 2,
-                text: `BALLSETTIA`,
-                style: { color: 0xC42C36 },
+                text: `MODDED`,
+                style: { color: 0xFF0000 },
             }));
         } else if (Debug.DEBUG) {
             this.addWorldObject(new SpriteText({

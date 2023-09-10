@@ -3,7 +3,7 @@
 namespace Equipments {
     export class PhoenixFeather extends OrbitEquipment {
         getName() { return 'Phoenix Feather'; }
-        getDesc() { return `Immune to fire\n\nOn death, light the killer on fire for [lb]${this.burnTime}s[/lb]\n\nBurning balls take [r]1<sword>/s[/r]`; }
+        getDesc() { return `Immune to fire\n\nOn death, light the killer on fire for [lb]${this.burnTime}s[/lb]`; }
 
         get burnTime() { return Math.floor(4*Math.log(this.getParentLevel()+1) - 1); }
         

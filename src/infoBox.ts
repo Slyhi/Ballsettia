@@ -11,6 +11,7 @@ class InfoBox extends Sprite {
     disableWhenGameIsRunning: boolean;
     isTriggering: boolean;
     showCredits: boolean;
+    showModName: boolean;
 
     constructor(onlyOperateInBounds?: Rect) {
         super({
@@ -45,6 +46,7 @@ class InfoBox extends Sprite {
         this.onlyOperateInBounds = onlyOperateInBounds;
         this.isTriggering = false;
         this.showCredits = false;
+        this.showModName = false;
     }
 
     update() {
@@ -87,6 +89,11 @@ class InfoBox extends Sprite {
         if (this.showCredits && !_.isEmpty(lookAt.getCredits())) {
             let formattedCredits = lookAt.getCredits().map(c => `[gold]${c}[/gold]`);
             desc += `\n-----------------\nConcept by: ${formattedCredits.join(', ')}`;
+        }
+
+        if (this.showModName && !_.isEmpty(lookAt.getModName())) {
+            let formattedModName = lookAt.getModName().map(m => `[r]${m}[/r]`);
+            desc += `\n-----------------\nFrom mod: ${formattedModName.join(', ')}`;
         }
 
         let tierDisplay = (tier === 4 ? 'III+' : 'I'.repeat(tier));

@@ -189,6 +189,7 @@ class AlmanacMenu extends Menu {
         let infoBox = new InfoBox({ x: AlmanacMenu.MASK_X, y: AlmanacMenu.MASK_Y, width: AlmanacMenu.MASK_W, height: AlmanacMenu.MASK_H });
         infoBox.layer = World.DEFAULT_LAYER;
         infoBox.showCredits = true;
+        infoBox.showModName = true;
         this.addWorldObject(infoBox);
 
         this.update();

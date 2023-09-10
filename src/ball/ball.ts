@@ -102,6 +102,7 @@ class Ball extends Sprite {
         return M.clamp(1 + getModifierSellDiff() + this.properties.metadata.extraSellValue, 0, Ball.maxSellValue);
     }
     getCredits(): string[] { return []; }
+    getModName(): string[] { return []; }
 
     team: Ball.Team;
     properties: SquadBallProperties;
@@ -752,7 +753,7 @@ class Ball extends Sprite {
     }
 
     addBurning(source: Ball, time: number) {
-        if (source.equipment.fireImmunity) return;
+        if (this.equipment && this.equipment.fireImmunity && !this.isNullified()) return;
 
         let currentBurning = <Ball.BurningStatusEffect>this.statusEffects.find(effect => effect.type === 'burning' && effect.source === source);
 
