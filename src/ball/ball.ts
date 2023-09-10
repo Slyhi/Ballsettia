@@ -753,7 +753,7 @@ class Ball extends Sprite {
     }
 
     addBurning(source: Ball, time: number) {
-        if (this.equipment && this.equipment.fireImmunity && !this.isNullified()) return;
+        if (source.equipment && source.equipment.fireImmunity && !source.isNullified()) return;
 
         let currentBurning = <Ball.BurningStatusEffect>this.statusEffects.find(effect => effect.type === 'burning' && effect.source === source);
 
