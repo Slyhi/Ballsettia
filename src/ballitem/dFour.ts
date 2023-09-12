@@ -3,7 +3,7 @@ namespace BallItems {
         getName() { return 'd4'; }
         getDesc() {
             let PLAY = `${GAME_MODE === 'vs' || GAME_MODE === 'spectate' ? 'LOCK IN' : 'PLAY'}`;
-            return `On ${PLAY}, permanently gain/reduce status from ${buffText(-2, -2)} to ${buffText(2, 2)} randomly`;
+            return `On ${PLAY}, take [gold]<coin>3 unspent[/gold] to permanently permanently gain status from [r]1<sword>[/r], [g]1<heart>[/g], [gold]<coin>1[/gold], or [gold]1<star>[/gold] randomly`;
         }
         getModName() { return [ModNames.BALLSETTIA]; }
 

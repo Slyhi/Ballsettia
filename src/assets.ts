@@ -62,9 +62,7 @@ namespace Assets {
         'ghost': { anchor: Vector2.CENTER },
         'crosshair': { anchor: Vector2.CENTER },
         'speedflame': { anchor: Vector2.CENTER },
-        //Ballsettia Modded FX
-        'slyhi/americanfootball': { anchor: Vector2.CENTER },
-        'slyhi/icyblastaura': { anchor: Vector2.CENTER },
+        // Ballsettia Modded FX
         'slyhi/icyspike': { anchor: Vector2.CENTER },
         'slyhi/latteart': { anchor: Vector2.CENTER },
         'slyhi/tornado': { anchor: Vector2.CENTER },
@@ -181,11 +179,11 @@ namespace Assets {
                 'balls/cannonball': { rect: rect(160, 192, 16, 32) },
             }
         },
-        //Ballsettia Modded Balls
+        // Ballsettia Modded Balls
         'slyhi/balls': {
             anchor: vec2(0.5, 0.25),
             frames: {
-                'balls/americanfootball': { rect: rect(0, 0, 16, 32) },
+                'balls/footballcurve': { rect: rect(0, 0, 16, 32) },
                 'balls/webshooter': { rect: rect(16, 0, 16, 32) },
                 'balls/winder': { rect: rect(32, 0, 16, 32) },
                 'balls/moai': { rect: rect(48, 0, 16, 32) },
@@ -234,6 +232,14 @@ namespace Assets {
                 'mimictextures/turret': { rect: rect(16, 0, 16, 32) },
                 'mimictextures/boomer': { rect: rect(32, 0, 16, 32) },
                 'mimictextures/cannon': { rect: rect(48, 0, 22, 44) },
+            }
+        },
+        // Ballsettia Modded Ball External Texture
+        'slyhi/americanfootball': { 
+            anchor: Vector2.CENTER,
+            frames: {
+                'slyhi/footballcurve': { rect: rect(0, 0, 24, 16) },
+                'slyhi/footballstripe': { rect: rect(0, 16, 24, 16) },
             }
         },
 
@@ -312,6 +318,8 @@ namespace Assets {
                 'items/icyblast': { rect: rect(104, 0, 24, 24) },
                 'items/latte': { rect: rect(0, 16, 16, 16) },
                 'items/phoenixfeather': { rect: rect(16, 16, 16, 16) },
+                'items/spore': { rect: rect(32, 16, 16, 16) },
+                'items/infection': { rect: rect(128, 0, 24, 24) },
             }
         },
 
@@ -375,21 +383,22 @@ namespace Assets {
         },
         'equipments/star_catcher': { anchor: vec2(14/20, 7/14) },
 
-        //Ballsettia Modded Equipments
+        // Ballsettia Modded Equipments
         'slyhi/orbiting': {
             anchor: Vector2.CENTER,
             frames: {
-                'equipments/dfour/1': { rect: rect(0, 0, 12, 12) },
-                'equipments/dfour/2': { rect: rect(12, 0, 12, 12) },
-                'equipments/dfour/3': { rect: rect(24, 0, 12, 12) },
-                'equipments/dfour/4': { rect: rect(36, 0, 12, 12) },
-                'equipments/gnomedustpouch': { rect: rect(48, 0, 12, 12) },
-                'equipments/shootingstar': { rect: rect(60, 0, 12, 12) },
-                'equipments/redherring': { rect: rect(72, 0, 12, 12) },
-                'equipments/icyblast': { rect: rect(0, 12, 12, 12) },
-                'equipments/latte': { rect: rect(12, 12, 12, 12) },
-                'equipments/phoenixfeather': { rect: rect(24, 12, 12, 12) },
+                'equipments/gnomedustpouch': { rect: rect(0, 0, 12, 12) },
+                'equipments/shootingstar': { rect: rect(12, 0, 12, 12) },
+                'equipments/redherring': { rect: rect(24, 0, 12, 12) },
+                'equipments/icyblast': { rect: rect(36, 12, 12, 12) },
+                'equipments/latte': { rect: rect(48, 0, 12, 12) },
+                'equipments/phoenixfeather': { rect: rect(60, 0, 12, 12) },
             }
+        },
+        'equipments/dfour': {
+            anchor: Vector2.CENTER,
+            spritesheet: { frameWidth: 12, frameHeight: 12 },
+            url: 'slyhi/dfour.png'
         },
 
         // UI
@@ -498,6 +507,24 @@ namespace Assets {
             }
         },
         'infoicon': { anchor: Vector2.CENTER },
+        // Ballsettia Modded UI
+        'slyhi/packicons': {
+            anchor: Vector2.CENTER,
+            frames: {
+                'packicons/pack/classic/incomplete': { rect: rect(0, 0, 32, 16) },
+                'packicons/pack/classic/complete': { rect: rect(32, 0, 32, 16) },
+                'packicons/pack/community/incomplete': { rect: rect(0, 16, 32, 16) },
+                'packicons/pack/community/complete': { rect: rect(32, 16, 32, 16) },
+                'packicons/pack/blank/incomplete': { rect: rect(0, 32, 32, 16) },
+                'packicons/pack/blank/complete': { rect: rect(32, 32, 32, 16) },
+                'packicons/pack/weekly/incomplete': { rect: rect(0, 48, 32, 16) },
+                'packicons/pack/weekly/complete': { rect: rect(32, 48, 32, 16) },
+                'packicons/pack/modded/incomplete': { rect: rect(0, 64, 32, 16) },
+                'packicons/pack/modded/complete': { rect: rect(32, 64, 32, 16) },
+                'packicons/pack/items/incomplete': { rect: rect(0, 80, 32, 16) },
+                'packicons/pack/items/complete': { rect: rect(32, 80, 32, 16) },
+            }
+        },
 
         // Achievements
         'achievements/playfivegames': {

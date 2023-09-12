@@ -17,6 +17,12 @@ const ALMANAC_EXCLUDED_BALLS = [
     41,  // Glitched Ball ARG
     77,  // Pinata
     142, // Greater Mimic
+    // Temporary Exclude
+    420, // American Football
+    421, // Web Shooter
+    422, // Winder
+    423, // Moai
+    424, // Reverser
 ];
 
 const ALMANAC_EXCLUDED_ITEMS = [
@@ -25,6 +31,14 @@ const ALMANAC_EXCLUDED_ITEMS = [
     32,  // Scribbled Map
     38,  // Birthday Cake
     39,  // Gift
+    418, // Infection
+    419, // Spore
+    // Temporary Exclude
+    420, // Tweezer
+    423, // Shooting Star
+    424, // Red Herring
+    425, // Icy Blast
+    426, // Latte
 ];
 
 function getAlmanacDisplayedBallTypes(pack: Pack, weekly: { week: number }) {

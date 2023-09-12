@@ -224,6 +224,8 @@ const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
     55: { factory: (x, y) => new BallItems.Mocha(x, y), purchasable: true, tier: 3, isUnlocked: () => hasCompletedAchievement('KillBeforeBattle') },
 
     //Ballsettia Mod
+    418: { factory: (x, y) => new BallItems.Infection(x, y), purchasable: false, tier: 3 },
+    419: { factory: (x, y) => new BallItems.Spore(x, y), purchasable: false, tier: 3 },
     420: { factory: (x, y) => new BallItems.Tweezers(x, y), purchasable: false, tier: 1 },
     421: { factory: (x, y) => new BallItems.DFour(x, y), purchasable: true, tier: 2 },
     422: { factory: (x, y) => new BallItems.GnomeDustPouch(x, y), purchasable: true, tier: 3 },
@@ -280,7 +282,7 @@ const TYPE_TO_EQUIPMENT_TYPE_DEF: { [type: number]: EquipmentTypeDef } = {
     42: { factory: () => new Equipments.Mocha(), purchasable: true, tier: 3 },
 
     //Ballsettia Mod
-    420: { factory: () => new Equipments.DFour(), purchasable: true, tier: 2 },
+    420: { factory: () => new Equipments.DFour(), purchasable: true, tier: 3 },
     421: { factory: () => new Equipments.GnomeDustPouch(), purchasable: true, tier: 3 },
     422: { factory: () => new Equipments.ShootingStar(), purchasable: false, tier: 2 },
     423: { factory: () => new Equipments.RedHerring(), purchasable: false, tier: 2 },
