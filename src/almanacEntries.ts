@@ -35,7 +35,6 @@ const ALMANAC_EXCLUDED_ITEMS = [
     419, // Spore
     // Temporary Exclude
     420, // Tweezer
-    423, // Shooting Star
     424, // Red Herring
     425, // Icy Blast
     426, // Latte

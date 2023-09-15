@@ -10,7 +10,7 @@ namespace Balls {
         private footballCurve: Sprite;
 
         constructor(config: Ball.Config) {
-            super('balls/footballcurve', 8, config);
+            super('balls/americanfootball', 8, config);
             
             this.footballCurve = this.addChild(new Sprite({
                 texture: 'slyhi/footballcurve',

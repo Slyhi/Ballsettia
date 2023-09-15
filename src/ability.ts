@@ -37,7 +37,7 @@ type AbilityFunction<BS extends Ball, T extends AbilityType> = (source: BS, worl
 type AbilityOrderCmp = { sourceClass1: 'ball' | 'equipment', sourceType1: number, condition: '<' | '>', teamRelation: 'ally' | 'enemy', sourceClass2: 'ball' | 'equipment', sourceType2: number };
 type AbilityParams<T extends AbilityType> = Parameters<typeof ABILITIES[T]['params']>;
 
-const ABILITY_ORDERING: AbilityOrderCmp[] = [
+const ABILITY_ORDERING: AbilityOrderCmp[] = [                                                                                                 // > is before, < is after
     { sourceClass1: 'equipment', sourceType1: 27, condition: '>', teamRelation: 'ally', sourceClass2: 'ball', sourceType2: undefined },       // mitosis > friendly balls
     { sourceClass1: 'ball', sourceType1: 116, condition: '>', teamRelation: 'ally', sourceClass2: 'ball', sourceType2: 32 },                  // mimic > friendly poke ball
     { sourceClass1: 'ball', sourceType1: 142, condition: '>', teamRelation: 'ally', sourceClass2: 'ball', sourceType2: 32 },                  // greater mimic > friendly poke ball
@@ -62,11 +62,16 @@ const ABILITY_ORDERING: AbilityOrderCmp[] = [
     { sourceClass1: 'ball', sourceType1: 140, condition: '<', teamRelation: 'ally', sourceClass2: 'equipment', sourceType2: 39 },             // alchemist < friendly hunter's mark
     { sourceClass1: 'ball', sourceType1: 140, condition: '>', teamRelation: 'enemy', sourceClass2: 'equipment', sourceType2: 39 },            // alchemist > enemy hunter's mark
     { sourceClass1: 'equipment', sourceType1: 37, condition: '<', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined }, // joker < all balls/eq
+    // Ballsettia Modded Ability Order
+    { sourceClass1: 'equipment', sourceType1: 421, condition: '<', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined },// gnome dust pouch < all balls/eq
+    { sourceClass1: 'equipment', sourceType1: 422, condition: '<', teamRelation: 'ally', sourceClass2: undefined, sourceType2: undefined },   // shooting star < friendly balls/eq
 
     { sourceClass1: 'equipment', sourceType1: 8, condition: '>', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined },  // hyper driver > all balls/eq (on PLAY)
     { sourceClass1: 'ball', sourceType1: 101, condition: '>', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined },     // bank > all balls/eq (on PLAY)
     { sourceClass1: 'ball', sourceType1: 25, condition: '>', teamRelation: 'ally', sourceClass2: 'equipment', sourceType2: 20 },              // classic crown > best friend (on death)
     { sourceClass1: 'ball', sourceType1: 136, condition: '>', teamRelation: 'ally', sourceClass2: 'equipment', sourceType2: 20 },             // community crown > best friend (on death)
+    // Ballsettia Modded Ability Order
+    { sourceClass1: 'equipment', sourceType1: 420, condition: '>', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined },// d4 > all balls/eq (on PLAY)
 ];
 
 const MANUAL_ABILITIES_SAME_TIME_BALLS = [

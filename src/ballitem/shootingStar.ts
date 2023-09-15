@@ -1,7 +1,7 @@
 namespace BallItems {
-    export class ShootingStar extends EquipmentItem {
+    export class StarShooter extends EquipmentItem {
         getName() { return 'Shooting Star'; }
-        getDesc() { return `At the start of battle, remove all stars from the equipped ball and fire star projectiles that deals 2 splash damage per star\n\nActivates after equipped ball abilities`; }
+        getDesc() { return `On enter battle, sacrifice [gold]all of its <star>[/gold] to shoot at random enemies for [r]2<sword>[/r] splash damage per [gold]1<star>[/gold]`; }
         getModName() { return [ModNames.BALLSETTIA]; }
 
         constructor(x: number, y: number) {

@@ -6,7 +6,7 @@ namespace Equipments {
         getDesc() { return `[r]Every instance of damage received is increased by ${this.flatDamageChange}<sword>[/r]`; }
 
         constructor() {
-            super('equipments/spore', 'equipments/spore');
+            super('equipments/spore', 'items/spore');
         }
     
         flatDamageChange = 1;

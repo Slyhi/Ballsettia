@@ -183,7 +183,7 @@ namespace Assets {
         'slyhi/balls': {
             anchor: vec2(0.5, 0.25),
             frames: {
-                'balls/footballcurve': { rect: rect(0, 0, 16, 32) },
+                'balls/americanfootball': { rect: rect(0, 0, 16, 32) },
                 'balls/webshooter': { rect: rect(16, 0, 16, 32) },
                 'balls/winder': { rect: rect(32, 0, 16, 32) },
                 'balls/moai': { rect: rect(48, 0, 16, 32) },

@@ -4,7 +4,7 @@ namespace Equipments {
         getDesc() { return `Summons a ${buffText(1, 2)} Skeleton on death`; }
 
         constructor() {
-            super('equipments/infection', 'equipments/infection');
+            super('equipments/infection', 'items/infection');
 
             this.addAbility('onDeath', Infection.onDeath);
         }

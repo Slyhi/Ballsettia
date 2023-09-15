@@ -1,4 +1,3 @@
-/*editing*/
 /// <reference path="./orbitEquipment.ts" />
 
 namespace Equipments {
@@ -14,14 +13,23 @@ namespace Equipments {
             this.preBattleAbilityInitialWaitTime = 0.5;
 
             this.addAbility('onPreBattle', GnomeDustPouch.onPreBattle);
+            this.addAbility('onEnterBattle', GnomeDustPouch.onEnterBattle);
         }
 
         onAdd(): void {
             super.onAdd();
-            this.addChild(new AbilityRadius(this.getParent(), () => this.shrinkRadius, 0xE4F5A6, 0xFFE294, 10));
+            this.addChild(new AbilityRadius(this.getParent(), () => this.shrinkRadius, 0x29ADFF, 0x2C99CC, 10));
         }
 
         private static onPreBattle(equipment: GnomeDustPouch, source: Ball, world: World) {
+            GnomeDustPouch.shrinkBallsInRadius(equipment, source, world);
+        }
+
+        private static onEnterBattle(equipment: GnomeDustPouch, source: Ball, world: World) {
+            GnomeDustPouch.shrinkBallsInRadius(equipment, source, world);
+        }
+
+        private static shrinkBallsInRadius(equipment: GnomeDustPouch, source: Ball, world: World) {
             let validBalls = getAllies(world, source).filter(ally => G.distance(source, ally) < equipment.shrinkRadius + ally.physicalRadius);
             if (validBalls.length === 0) return;
 
