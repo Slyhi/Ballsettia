@@ -64,6 +64,7 @@ const ABILITY_ORDERING: AbilityOrderCmp[] = [                                   
     { sourceClass1: 'equipment', sourceType1: 37, condition: '<', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined }, // joker < all balls/eq
     // Ballsettia Modded Ability Order
     { sourceClass1: 'equipment', sourceType1: 421, condition: '<', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined },// gnome dust pouch < all balls/eq
+    { sourceClass1: 'equipment', sourceType1: 422, condition: '<', teamRelation: 'ally', sourceClass2: 'equipment', sourceType2: 37 },        // shooting star > friendly joker
     { sourceClass1: 'equipment', sourceType1: 422, condition: '<', teamRelation: 'ally', sourceClass2: undefined, sourceType2: undefined },   // shooting star < friendly balls/eq
 
     { sourceClass1: 'equipment', sourceType1: 8, condition: '>', teamRelation: undefined, sourceClass2: undefined, sourceType2: undefined },  // hyper driver > all balls/eq (on PLAY)

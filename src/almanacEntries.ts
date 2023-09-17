@@ -37,7 +37,6 @@ const ALMANAC_EXCLUDED_ITEMS = [
     420, // Tweezer
     424, // Red Herring
     425, // Icy Blast
-    426, // Latte
 ];
 
 function getAlmanacDisplayedBallTypes(pack: Pack, weekly: { week: number }) {

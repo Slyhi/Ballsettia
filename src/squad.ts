@@ -232,7 +232,7 @@ const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
     423: { factory: (x, y) => new BallItems.StarShooter(x, y), purchasable: true, tier: 2 },
     424: { factory: (x, y) => new BallItems.RedHerring(x, y), purchasable: false, tier: 2 },
     425: { factory: (x, y) => new BallItems.IcyBlast(x, y), purchasable: false, tier: 2 },
-    426: { factory: (x, y) => new BallItems.Latte(x, y), purchasable: false, tier: 3 },
+    426: { factory: (x, y) => new BallItems.Latte(x, y), purchasable: true, tier: 3 },
     427: { factory: (x, y) => new BallItems.PhoenixFeather(x, y), purchasable: true, tier: 1 },
 }
 
@@ -287,7 +287,7 @@ const TYPE_TO_EQUIPMENT_TYPE_DEF: { [type: number]: EquipmentTypeDef } = {
     422: { factory: () => new Equipments.StarShooter(), purchasable: true, tier: 2 },
     423: { factory: () => new Equipments.RedHerring(), purchasable: false, tier: 2 },
     424: { factory: () => new Equipments.IcyBlast(), purchasable: false, tier: 2 },
-    425: { factory: () => new Equipments.Latte(), purchasable: false, tier: 3 },
+    425: { factory: () => new Equipments.Latte(), purchasable: true, tier: 3 },
     426: { factory: () => new Equipments.PhoenixFeather(), purchasable: true, tier: 1 },
 }
 

@@ -5,7 +5,7 @@ namespace BallItems {
         getModName() { return [ModNames.BALLSETTIA]; }
 
         constructor(x: number, y: number) {
-            super(x, y, 'items/shootingstar', 422);
+            super(x, y, 'items/starshooter', 422);
         }
     }
 }

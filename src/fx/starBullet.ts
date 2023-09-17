@@ -19,21 +19,24 @@ class StarBullet extends Projectile {
         this.damage = damage;
         this.radius = radius;
 
+        let team = Ball.getTeamForColorAprilFools(this.source.team);
+        let tint1 = team === 'enemy' ? 0xFFAA00 : 0x249FDE;
+
         this.speedFlame = this.addChild(new Sprite({
             texture: 'speedflame',
-            tint: 0xFFAA00,
+            tint: tint1,
             blendMode: Texture.BlendModes.ADD,
             copyFromParent: ['layer'],
             scaleX: 0.8,
         }));
 
-        this.addChild(new StatViewer({ type: 'damage', getDamage: () => this.damage }, 4, 3));
+        this.addChild(new StatViewer({ type: 'damage', getDamage: () => this.damage }, 5, 5));
     }
 
     postUpdate() {
         super.postUpdate();
 
-        World.Actions.orderWorldObjectAfter(this.speedFlame, this);
+        World.Actions.orderWorldObjectAfter(this, this.speedFlame);
         this.speedFlame.angle = this.angle;
         this.speedFlame.scaleY = M.lerp(1, 1.1, Tween.Easing.OscillateSine(8)(this.life.time));
     }

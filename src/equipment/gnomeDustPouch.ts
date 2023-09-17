@@ -18,7 +18,7 @@ namespace Equipments {
 
         onAdd(): void {
             super.onAdd();
-            this.addChild(new AbilityRadius(this.getParent(), () => this.shrinkRadius, 0x29ADFF, 0x2C99CC, 10));
+            this.addChild(new AbilityRadius(this.getParent(), () => this.shrinkRadius, 0x29ADFF, 0x2C99CC, 0.8));
         }
 
         private static onPreBattle(equipment: GnomeDustPouch, source: Ball, world: World) {

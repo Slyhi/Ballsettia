@@ -313,7 +313,7 @@ namespace Assets {
                 'items/tweezers': { rect: rect(0, 0, 16, 16) },
                 'items/dfour': { rect: rect(16, 0, 16, 16) },
                 'items/gnomedustpouch': { rect: rect(32, 0, 16, 16) },
-                'items/shootingstar': { rect: rect(56, 0, 24, 24) },
+                'items/starshooter': { rect: rect(56, 0, 24, 24) },
                 'items/redherring': { rect: rect(80, 0, 24, 24) },
                 'items/icyblast': { rect: rect(104, 0, 24, 24) },
                 'items/latte': { rect: rect(0, 16, 16, 16) },
@@ -388,7 +388,7 @@ namespace Assets {
             anchor: Vector2.CENTER,
             frames: {
                 'equipments/gnomedustpouch': { rect: rect(0, 0, 12, 12) },
-                'equipments/shootingstar': { rect: rect(12, 0, 12, 12) },
+                'equipments/starshooter': { rect: rect(12, 0, 12, 12) },
                 'equipments/redherring': { rect: rect(24, 0, 12, 12) },
                 'equipments/icyblast': { rect: rect(36, 12, 12, 12) },
                 'equipments/latte': { rect: rect(48, 0, 12, 12) },
