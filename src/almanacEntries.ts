@@ -34,7 +34,6 @@ const ALMANAC_EXCLUDED_ITEMS = [
     418, // Infection
     419, // Spore
     // Temporary Exclude
-    420, // Tweezer
     424, // Red Herring
     425, // Icy Blast
 ];

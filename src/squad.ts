@@ -226,7 +226,7 @@ const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
     //Ballsettia Mod
     418: { factory: (x, y) => new BallItems.Infection(x, y), purchasable: false, tier: 3 },
     419: { factory: (x, y) => new BallItems.Spore(x, y), purchasable: false, tier: 3 },
-    420: { factory: (x, y) => new BallItems.Tweezers(x, y), purchasable: false, tier: 1 },
+    420: { factory: (x, y) => new BallItems.Tweezers(x, y), purchasable: true, tier: 1 },
     421: { factory: (x, y) => new BallItems.DFour(x, y), purchasable: true, tier: 3 },
     422: { factory: (x, y) => new BallItems.GnomeDustPouch(x, y), purchasable: true, tier: 3 },
     423: { factory: (x, y) => new BallItems.StarShooter(x, y), purchasable: true, tier: 2 },

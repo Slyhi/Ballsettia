@@ -44,6 +44,8 @@ namespace Balls {
                 () => GlitchedBall.boostAllies(source, world),
                 () => GlitchedBall.leaveAcidPool(source, world),
                 () => GlitchedBall.stopEnemy(source, world, collideWith),
+                () => GlitchedBall.burnEnemy(source, world, collideWith),
+                () => GlitchedBall.leaveLattePool(source, world),
             ];
 
             let attemptsLeft = 10;
@@ -199,6 +201,7 @@ namespace Balls {
 
         private static leaveAcidPool(source: GlitchedBall, world: World) {
             world.addWorldObject(new AcidPool(source.x, source.y, source, source.physicalRadius + 30, 0.5*source.power));
+            world.playSound('slosh');
             return true;
         }
 
@@ -206,6 +209,18 @@ namespace Balls {
             if (enemy.hp <= 0) return false;
             enemy.stop(1);
             world.playSound('stopboom', { limit: 4 });
+            return true;
+        }
+
+        private static burnEnemy(source: GlitchedBall, world: World, enemy: Ball) {
+            enemy.addBurning(source, source.power);
+            return true;
+        }
+
+        private static leaveLattePool(source: GlitchedBall, world: World) {
+            if (source.v.magnitude === 0) return false;
+            world.addWorldObject(new LattePool(source.x, source.y, source, source.v.clone(), source.power, source.power + 10, source.physicalRadius + 30));
+            world.playSound('slosh');
             return true;
         }
 

@@ -24,7 +24,7 @@ class LattePool extends WorldObject {
         }
 
         this.latteArt = this.addChild(new Sprite({
-            texture: 'slyhi/latteart',
+            texture: `slyhi/latteart/${Ball.Random.int(0, 3)}`,
             blendMode: Texture.BlendModes.NORMAL,
             copyFromParent: ['layer'],
             angle: this.convayV.angle - 90,

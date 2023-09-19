@@ -178,6 +178,46 @@ namespace Shop {
         stockPickles(world);
     }
 
+    export function addOneThing(world: World, stockThing: StockThing, shopSpot: number, addPuffs?: boolean) {
+        if (isModifierActive('noitems') && stockThing.type === 'item') return;
+        
+        let sidePanel = world.select.name('sidepanel');
+
+        let spotPosition = SHOP_SPOT_POSITIONS[shopSpot];
+
+        let thing = stockThing.type === 'ball'
+                            ? getNewBallForShop(spotPosition.x, spotPosition.y, stockThing.squadBall, stockThing.frozen || stockThing.useExistingStats)
+                            : getNewItemForShop(spotPosition.x, spotPosition.y, stockThing.itemType);
+
+        thing.shopSpot = shopSpot;
+
+        if (stockThing.frozen || stockThing['useExistingStats']) {
+            thing.freeze(true);
+        }
+
+        sidePanel.addChild(thing);
+
+        let costText = `${thing.getShopCost()}`;
+        if (thing.isGlitched()) costText = '?';
+        if (!thing.isPurchasable()) costText = '-';
+
+        let costColor = thing.getShopCost() <= 0 ? 'g' : 'gold';
+        sidePanel.addChild(new SpriteText({
+            x: spotPosition.x - 19, y: spotPosition.y - 19,
+            text: `[${costColor}]<coin>${costText}[/]`,
+            font: 'smallnumbers',
+            layer: Battle.Layers.ui,
+            update: function() {
+                if (!thing.world) this.kill();
+                if (thing instanceof Ball && !thing.isInShop) this.kill();
+            }
+        }));
+
+        if (addPuffs ?? true) {
+            world.addWorldObject(newPuff(thing.x, thing.y, Battle.Layers.ui, 'medium'));
+        }
+    }
+
     export function stockRestock(world: World, initial: boolean) {
         let { shopBalls, shopItems } = getShopBallItemCounts(world);
 

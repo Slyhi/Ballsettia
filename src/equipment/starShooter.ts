@@ -3,9 +3,9 @@
 namespace Equipments {
     export class StarShooter extends OrbitEquipment {
         getName() { return 'Shooting Star'; }
-        getDesc() { return `On enter battle, sacrifice [gold]all of its <star>[/gold] to shoot at random enemies for [r]${this.starDamage}<sword>[/r] splash damage per [gold]1<star>[/gold]`; }
+        getDesc() { return `On enter battle, sacrifice [gold]all of its <star>[/gold] to shoot them at random enemies for [r]${this.starDamage}<sword>[/r] splash damage for each [gold]<star>[/gold] sacrifice`; }
 
-        get starDamage() { return 1.5; }
+        get starDamage() { return 2; }
         get starRadius() { return 25; }
 
         private shootTime: number;

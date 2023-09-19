@@ -64,8 +64,14 @@ namespace Assets {
         'speedflame': { anchor: Vector2.CENTER },
         // Ballsettia Modded FX
         'slyhi/icyspike': { anchor: Vector2.CENTER },
-        'slyhi/latteart': { anchor: Vector2.CENTER },
-        'slyhi/tornado': { anchor: Vector2.CENTER },
+        'slyhi/latteart': { 
+            anchor: vec2(0.5, 28/57),
+            spritesheet: { frameWidth: 52, frameHeight: 57 },
+        },
+        'slyhi/tornado': { 
+            anchor: Vector2.CENTER ,
+            spritesheet: { frameWidth: 12, frameHeight: 24 },
+        },
 
         // Balls
         'balls': {
@@ -310,17 +316,23 @@ namespace Assets {
         'slyhi/items': {
             anchor: Vector2.CENTER,
             frames: {
-                'items/tweezers': { rect: rect(0, 0, 16, 16) },
-                'items/dfour': { rect: rect(16, 0, 16, 16) },
-                'items/gnomedustpouch': { rect: rect(32, 0, 16, 16) },
-                'items/starshooter': { rect: rect(56, 0, 24, 24) },
-                'items/redherring': { rect: rect(80, 0, 24, 24) },
-                'items/icyblast': { rect: rect(104, 0, 24, 24) },
-                'items/latte': { rect: rect(0, 16, 16, 16) },
-                'items/phoenixfeather': { rect: rect(16, 16, 16, 16) },
-                'items/spore': { rect: rect(32, 16, 16, 16) },
-                'items/infection': { rect: rect(128, 0, 24, 24) },
+                // 16x16 sprite
+                'items/spore': { rect: rect(0, 0, 16, 16) },
+                'items/tweezers': { rect: rect(16, 0, 16, 16) },
+                'items/latte': { rect: rect(32, 0, 16, 16) },
+                'items/phoenixfeather': { rect: rect(0, 16, 16, 16) },
+                // 24x24 sprite
+                'items/infection': { rect: rect(56, 0, 24, 24) },
+                'items/gnomedustpouch': { rect: rect(80, 0, 24, 24) },
+                'items/starshooter': { rect: rect(104, 0, 24, 24) },
+                'items/redherring': { rect: rect(128, 0, 24, 24) },
+                'items/icyblast': { rect: rect(56, 24, 24, 24) },
             }
+        },
+        'items/dfour': {
+            anchor: Vector2.CENTER,
+            spritesheet: { frameWidth: 16, frameHeight: 16 },
+            url: 'slyhi/dfouritem.png',
         },
 
         // Equipments
@@ -398,7 +410,7 @@ namespace Assets {
         'equipments/dfour': {
             anchor: Vector2.CENTER,
             spritesheet: { frameWidth: 12, frameHeight: 12 },
-            url: 'slyhi/dfour.png'
+            url: 'slyhi/dfourorbiting.png',
         },
 
         // UI
