@@ -29,7 +29,7 @@ type BallTypeDef = {
     factory: (config: Ball.Config) => Ball;
     purchasable: boolean;
     tier: number;
-    pack: 'classic' | 'community';
+    pack: 'classic' | 'community' | 'modded';
     soldInTiers?: number[];
     shopChance?: number;
     guaranteedShopChance?: number;
@@ -157,12 +157,33 @@ const TYPE_TO_BALL_TYPE_DEF: { [type: number]: BallTypeDef } = {
     143: { factory: config => new Balls.BowlingBall(config), purchasable: true, tier: 1, pack: 'community', isUnlocked: () => hasCompletedAchievement('KillEnemiesInRound') },
     144: { factory: config => new Balls.Stopper(config), purchasable: true, tier: 3, pack: 'community' },
 
-    //Ballsettia Mod
-    420: { factory: config => new Balls.AmericanFootball(config), purchasable: false, tier: 1, pack: 'classic' },
-    421: { factory: config => new Balls.WebShooter(config), purchasable: false, tier: 2, pack: 'classic' },
-    422: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'classic' },
-    423: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'classic' },
-    424: { factory: config => new Balls.Reverser(config), purchasable: false, tier: 2, pack: 'classic' },
+    // Modded Pack
+    400: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    401: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    402: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    403: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    404: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    405: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    406: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    407: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    408: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    409: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    410: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    411: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    412: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    413: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    414: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    415: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    416: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    417: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    418: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    419: { factory: config => new Balls.Normal(config), purchasable: false, tier: 1, pack: 'modded' },
+    //Ballsettia Modded Balls
+    420: { factory: config => new Balls.AmericanFootball(config), purchasable: false, tier: 1, pack: 'modded' },
+    421: { factory: config => new Balls.WebShooter(config), purchasable: false, tier: 1, pack: 'modded' },
+    422: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'modded' },
+    423: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'modded' },
+    424: { factory: config => new Balls.Reverser(config), purchasable: false, tier: 2, pack: 'modded' },
 }
 
 const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
@@ -228,12 +249,13 @@ const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {
     419: { factory: (x, y) => new BallItems.Spore(x, y), purchasable: false, tier: 3 },
     420: { factory: (x, y) => new BallItems.Tweezers(x, y), purchasable: true, tier: 1 },
     421: { factory: (x, y) => new BallItems.DFour(x, y), purchasable: true, tier: 3 },
-    422: { factory: (x, y) => new BallItems.GnomeDustPouch(x, y), purchasable: true, tier: 3 },
+    422: { factory: (x, y) => new BallItems.GnomeDust(x, y), purchasable: true, tier: 3 },
     423: { factory: (x, y) => new BallItems.StarShooter(x, y), purchasable: true, tier: 2 },
     424: { factory: (x, y) => new BallItems.RedHerring(x, y), purchasable: false, tier: 2 },
     425: { factory: (x, y) => new BallItems.IcyBlast(x, y), purchasable: false, tier: 2 },
     426: { factory: (x, y) => new BallItems.Latte(x, y), purchasable: true, tier: 3 },
     427: { factory: (x, y) => new BallItems.PhoenixFeather(x, y), purchasable: true, tier: 1 },
+    428: { factory: (x, y) => new BallItems.Gnome(x, y), purchasable: false, tier: 3 },
 }
 
 const TYPE_TO_EQUIPMENT_TYPE_DEF: { [type: number]: EquipmentTypeDef } = {
@@ -283,12 +305,13 @@ const TYPE_TO_EQUIPMENT_TYPE_DEF: { [type: number]: EquipmentTypeDef } = {
 
     //Ballsettia Mod
     420: { factory: () => new Equipments.DFour(), purchasable: true, tier: 3 },
-    421: { factory: () => new Equipments.GnomeDustPouch(), purchasable: true, tier: 3 },
+    421: { factory: () => new Equipments.GnomeDust(), purchasable: true, tier: 3 },
     422: { factory: () => new Equipments.StarShooter(), purchasable: true, tier: 2 },
     423: { factory: () => new Equipments.RedHerring(), purchasable: false, tier: 2 },
     424: { factory: () => new Equipments.IcyBlast(), purchasable: false, tier: 2 },
     425: { factory: () => new Equipments.Latte(), purchasable: true, tier: 3 },
     426: { factory: () => new Equipments.PhoenixFeather(), purchasable: true, tier: 1 },
+    427: { factory: () => new Equipments.Gnome(), purchasable: false, tier: 3 },
 }
 
 const TIER_LEVELS_AVAILABLE: { [round: number]: [number, number, number, number] } = {

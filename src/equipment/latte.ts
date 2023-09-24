@@ -29,6 +29,7 @@ namespace Equipments {
             if (source.v.magnitude === 0 || source.state !== Ball.States.BATTLE || source.isNullified() || equipment.isUsable === false || !source.isBeingMoved()) return;
             Latte.createPool(equipment, source, source.x, source.y, source.v.clone(), world);
             equipment.isUsable = false;
+            equipment.setTexture('equipments/latte/empty')
         }
 
         private static createPool(equipment: Latte, source: Ball, x: number, y: number, v: Vector2, world: World) {

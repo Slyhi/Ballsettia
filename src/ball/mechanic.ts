@@ -80,6 +80,8 @@ namespace Balls {
             37, // Joker
             41, // The Bug
             42, // Mocha
+            420, // d4
+            427, // Gnome
         ];
     }
 }

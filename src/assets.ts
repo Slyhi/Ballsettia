@@ -64,14 +64,26 @@ namespace Assets {
         'speedflame': { anchor: Vector2.CENTER },
         // Ballsettia Modded FX
         'slyhi/icyspike': { anchor: Vector2.CENTER },
+        'slyhi/snowflake': {
+            anchor: Vector2.CENTER,
+            frames: {
+                'slyhi/snowflake/0': { rect: rect(0, 0, 3, 3) },
+                'slyhi/snowflake/1': { rect: rect(1, 0, 3, 3) },
+                'slyhi/snowflake/2': { rect: rect(3, 0, 3, 3) },
+                'slyhi/snowflake/4': { rect: rect(2, 1, 3, 3) },
+                'slyhi/snowflake/5': { rect: rect(3, 3, 3, 3) },
+                'slyhi/snowflake/6': { rect: rect(0, 4, 2, 2) },
+                'slyhi/snowflake/7': { rect: rect(0, 0, 2, 2) },
+                'slyhi/snowflake/8': { rect: rect(0, 1, 2, 2) },
+            },
+        },
         'slyhi/latteart': { 
-            anchor: vec2(0.5, 28/57),
-            spritesheet: { frameWidth: 52, frameHeight: 57 },
+            anchor: Vector2.CENTER,
+            spritesheet: { frameWidth: 52, frameHeight: 58 },
         },
-        'slyhi/tornado': { 
-            anchor: Vector2.CENTER ,
-            spritesheet: { frameWidth: 12, frameHeight: 24 },
-        },
+        'slyhi/tornado': { anchor: Vector2.CENTER },
+        'slyhi/webbullet': { anchor: Vector2.CENTER },
+        'slyhi/webtrap': { anchor: Vector2.CENTER },
 
         // Balls
         'balls': {
@@ -189,11 +201,11 @@ namespace Assets {
         'slyhi/balls': {
             anchor: vec2(0.5, 0.25),
             frames: {
-                'balls/americanfootball': { rect: rect(0, 0, 16, 32) },
-                'balls/webshooter': { rect: rect(16, 0, 16, 32) },
-                'balls/winder': { rect: rect(32, 0, 16, 32) },
-                'balls/moai': { rect: rect(48, 0, 16, 32) },
-                'balls/reverser': { rect: rect(64, 0, 16, 32) },
+                'balls/americanfootball': { rect: rect(0, 0, 32, 32) },
+                'balls/webshooter': { rect: rect(32, 0, 16, 32) },
+                'balls/winder': { rect: rect(48, 0, 16, 32) },
+                'balls/moai': { rect: rect(64, 0, 16, 32) },
+                'balls/reverser': { rect: rect(80, 0, 16, 32) },
             }
         },
 
@@ -321,9 +333,10 @@ namespace Assets {
                 'items/tweezers': { rect: rect(16, 0, 16, 16) },
                 'items/latte': { rect: rect(32, 0, 16, 16) },
                 'items/phoenixfeather': { rect: rect(0, 16, 16, 16) },
+                'items/gnome': { rect: rect(16, 16, 16, 16) },
                 // 24x24 sprite
                 'items/infection': { rect: rect(56, 0, 24, 24) },
-                'items/gnomedustpouch': { rect: rect(80, 0, 24, 24) },
+                'items/gnomedust': { rect: rect(80, 0, 24, 24) },
                 'items/starshooter': { rect: rect(104, 0, 24, 24) },
                 'items/redherring': { rect: rect(128, 0, 24, 24) },
                 'items/icyblast': { rect: rect(56, 24, 24, 24) },
@@ -399,12 +412,14 @@ namespace Assets {
         'slyhi/orbiting': {
             anchor: Vector2.CENTER,
             frames: {
-                'equipments/gnomedustpouch': { rect: rect(0, 0, 12, 12) },
+                'equipments/gnomedust': { rect: rect(0, 0, 12, 12) },
                 'equipments/starshooter': { rect: rect(12, 0, 12, 12) },
                 'equipments/redherring': { rect: rect(24, 0, 12, 12) },
                 'equipments/icyblast': { rect: rect(36, 12, 12, 12) },
                 'equipments/latte': { rect: rect(48, 0, 12, 12) },
-                'equipments/phoenixfeather': { rect: rect(60, 0, 12, 12) },
+                'equipments/latte/empty': { rect: rect(60, 0, 12, 12) },
+                'equipments/phoenixfeather': { rect: rect(72, 0, 12, 12) },
+                'equipments/gnome': { rect: rect(0, 12, 12, 12) },
             }
         },
         'equipments/dfour': {

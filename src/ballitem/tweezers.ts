@@ -11,7 +11,7 @@ namespace BallItems {
 
         canApplyToBall(ball: Ball): boolean {
             if (!ball.equipment) return false;
-            return getItemTypeForEquipmentType(ball.equipment.equipmentType) === -1 ? false : true;
+            return getItemTypeForEquipmentType(ball.equipment.equipmentType) !== -1;
         }
 
         onApplyToBall(ball: Ball): void {
@@ -19,11 +19,13 @@ namespace BallItems {
             let itemThing: Shop.StockThing = {
                 type: 'item',
                 itemType: itemID,
-                frozen: false,
+                frozen: true,
             }
             Shop.addOneThing(ball.world, itemThing, this.shopSpot, true);
             ball.world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
-            ball.breakEquipment();
+            if (ball.equipment.equipmentType === 22) ball.equip(21);
+            else if (ball.equipment.equipmentType === 23) ball.equip(22);
+            else ball.breakEquipment();
         }
     }
 }

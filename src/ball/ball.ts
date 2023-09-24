@@ -13,7 +13,9 @@ namespace Ball {
     export type StatusEffect = SlowStatusEffect | StunStatusEffect | ProtectedStatusEffect
                             | HealFeedbackStatusEffect | LeechedStatusEffect | BoostMaxSpeedEffect
                             | BurningStatusEffect | NullifiedStatusEffect | SpreadDamageStatusEffect
-                            | MarkedStatusEffect | ScaleAccelerationEffect;
+                            | MarkedStatusEffect | ScaleAccelerationEffect 
+                            // Ballsettia Modded Status Effect
+                            | FreezingStatusEffect | ChillingStatusEffect;
 
     export type SlowStatusEffect = {
         type: 'slow';
@@ -84,6 +86,19 @@ namespace Ball {
     export type MarkedStatusEffect = {
         type: 'marked';
         timeLeft: number;
+    }
+
+    export type FreezingStatusEffect = {
+        type: 'freezing';
+        timeLeft: number;
+        chilltime: number;
+        source: Ball;
+    }
+
+    export type ChillingStatusEffect = {
+        type: 'chilling';
+        timeLeft: number;
+        source: Ball;
     }
 }
 
@@ -753,6 +768,9 @@ class Ball extends Sprite {
     }
 
     addBurning(source: Ball, time: number) {
+        source.removeStatusEffectsOfType('freezing');
+        source.removeStatusEffectsOfType('chilling');
+
         if (source.equipment && source.equipment.fireImmunity && !source.isNullified()) return;
 
         let currentBurning = <Ball.BurningStatusEffect>this.statusEffects.find(effect => effect.type === 'burning' && effect.source === source);
@@ -886,6 +904,42 @@ class Ball extends Sprite {
                 type: 'leeched',
                 timeLeft: time,
             });
+        }
+    }
+
+    addFreezing(source: Ball, freezeTime: number, chillTime: number) {
+        source.removeStatusEffectsOfType('burning');
+
+        let currentFreezing = <Ball.FreezingStatusEffect>this.statusEffects.find(effect => effect.type === 'freezing' && effect.source === source);
+
+        if (currentFreezing) {
+            currentFreezing.timeLeft = Math.max(currentFreezing.timeLeft, freezeTime);
+            currentFreezing.chilltime = Math.max(currentFreezing.chilltime, freezeTime);
+        } else {
+            this.statusEffects.push({
+                type: 'freezing',
+                timeLeft: freezeTime,
+                chilltime: chillTime,
+                source,
+            });
+            this.world.playSound('freeze');
+        }
+    }
+
+    addChilling(source: Ball, time: number) {
+        source.removeStatusEffectsOfType('burning');
+
+        let currentChilling = <Ball.ChillingStatusEffect>this.statusEffects.find(effect => effect.type === 'chilling' && effect.source === source);
+
+        if (currentChilling) {
+            currentChilling.timeLeft = Math.max(currentChilling.timeLeft, time);
+        } else {
+            this.statusEffects.push({
+                type: 'chilling',
+                timeLeft: time,
+                source,
+            });
+            this.world.playSound('freeze');
         }
     }
 
@@ -1290,6 +1344,14 @@ class Ball extends Sprite {
 
     isNullified() {
         return !!this.statusEffects.find(effect => effect.type === 'nullified');
+    }
+
+    isFreezing() {
+        return !!this.statusEffects.find(effect => effect.type === 'freezing');
+    }
+
+    isChilling() {
+        return !!this.statusEffects.find(effect => effect.type === 'chilling');
     }
 
     isPurchasable() {
