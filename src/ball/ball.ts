@@ -91,7 +91,7 @@ namespace Ball {
     export type FreezingStatusEffect = {
         type: 'freezing';
         timeLeft: number;
-        chilltime: number;
+        chillTime: number;
         source: Ball;
     }
 
@@ -155,7 +155,7 @@ class Ball extends Sprite {
         if (slowMultiplier === 0) {
             return 0;
         }
-        if (this.getStun()) return 50;
+        if (this.getStun() || this.isFreezing()) return 50;
 
         let arenaGravityMultiplier = this.world.data.arenaName === Arenas.ARENA_GRAVITY ? 1.3 : 1;
         let arenaIceMultiplier = this.getArenaIceSpeedMultiplier();
@@ -423,6 +423,9 @@ class Ball extends Sprite {
             } else if (this.getSlowEffectSpeedMultiplier() < 1 && this.statusEffects.find(e => e.type === 'slow' && e.source === 'yarn')) {
                 flashingStatusEffectFilter.color = 0xFFFFFF;
                 flashingStatusEffectFilter.amount = 1;
+            } else if (this.isChilling()) {
+                flashingStatusEffectFilter.color = 0x00FFFF;
+                flashingStatusEffectFilter.amount = 0.6;
             } else {
                 flashingStatusEffectFilter.amount = 0;
             }
@@ -459,6 +462,10 @@ class Ball extends Sprite {
         this.v.clampMagnitude(this.maxSpeed + 0.001);
 
         if (this.getStun() && this.stunImmune.done) {
+            this.v.setMagnitude(0.001);
+        }
+
+        if (this.isFreezing()) {
             this.v.setMagnitude(0.001);
         }
 
@@ -565,6 +572,11 @@ class Ball extends Sprite {
                 }
             }
 
+            if (statusEffect.type === 'chilling') {
+                let damageToTake = 0.5 * this.delta;
+                this.leechFor(damageToTake, statusEffect.source);
+            }
+
             if (statusEffect.type === 'spreaddamage') {
                 let damageToTake = M.mapClamp(this.delta, 0, statusEffect.timeLeft, 0, statusEffect.damageLeft);
                 this.leechFor(damageToTake, statusEffect.source);
@@ -650,7 +662,7 @@ class Ball extends Sprite {
         World.Actions.orderWorldObjectAfter(this.dmgbox, this);
         World.Actions.orderWorldObjectAfter(this.hpbox, this);
 
-        if (this.freezeSprite) {
+        if (this.isFreezing()) {
             World.Actions.orderWorldObjectAfter(this.freezeSprite, this);
         }
 
@@ -768,8 +780,7 @@ class Ball extends Sprite {
     }
 
     addBurning(source: Ball, time: number) {
-        source.removeStatusEffectsOfType('freezing');
-        source.removeStatusEffectsOfType('chilling');
+        if (source.isChilling()) { source.removeStatusEffectsOfType('chilling'); }
 
         if (source.equipment && source.equipment.fireImmunity && !source.isNullified()) return;
 
@@ -908,26 +919,31 @@ class Ball extends Sprite {
     }
 
     addFreezing(source: Ball, freezeTime: number, chillTime: number) {
-        source.removeStatusEffectsOfType('burning');
+        if (source.isBurning()) { source.removeStatusEffectsOfType('burning'); }
 
-        let currentFreezing = <Ball.FreezingStatusEffect>this.statusEffects.find(effect => effect.type === 'freezing' && effect.source === source);
-
+        let currentFreezing = <Ball.FreezingStatusEffect>this.statusEffects.find(effect => effect.type === 'freezing');
         if (currentFreezing) {
-            currentFreezing.timeLeft = Math.max(currentFreezing.timeLeft, freezeTime);
-            currentFreezing.chilltime = Math.max(currentFreezing.chilltime, freezeTime);
-        } else {
+            // currentFreezing.timeLeft = Math.max(currentFreezing.timeLeft, freezeTime);
+            // Nope
+        }
+        else {
+            this.freezeSprite = this.addChild(new FreezeIce(this.physicalRadius, false));
             this.statusEffects.push({
                 type: 'freezing',
                 timeLeft: freezeTime,
-                chilltime: chillTime,
+                chillTime,
                 source,
             });
-            this.world.playSound('freeze');
+            this.runScript(S.chain(
+                S.call(() => this.becomeFreezing()),
+                S.wait(freezeTime),
+                S.call(() => this.becomeMelting(chillTime)),
+            ));
         }
     }
 
     addChilling(source: Ball, time: number) {
-        source.removeStatusEffectsOfType('burning');
+        if (source.isBurning()) { source.removeStatusEffectsOfType('burning'); }
 
         let currentChilling = <Ball.ChillingStatusEffect>this.statusEffects.find(effect => effect.type === 'chilling' && effect.source === source);
 
@@ -939,7 +955,7 @@ class Ball extends Sprite {
                 timeLeft: time,
                 source,
             });
-            this.world.playSound('freeze');
+            this.world.playSound('freeze', { limit: 2 });
         }
     }
 
@@ -980,6 +996,36 @@ class Ball extends Sprite {
 
         this.physicsGroup = Battle.PhysicsGroups.balls;
         this.alpha = 1;
+    }
+
+    becomeFreezing() {
+        if (!this.world) return;
+        this.world.playSound('freeze', { humanized: false, limit: 2 });
+
+        for (let i = 0; i < 4; i++) {
+            let pos = Random.inCircle(this.physicalRadius).add(this.x, this.y);
+            let smoke = this.world.addWorldObject(new Sprite({
+                x: pos.x, y: pos.y,
+                texture: lazy('ballSmoke', () => new AnchoredTexture(Texture.filledCircle(12, 0xFFFFFF, 0.7), 0.5, 0.5)),
+                layer: Battle.Layers.fx,
+                scale: 0,
+            }));
+            this.world.runScript(function*() {
+                yield S.wait(Random.float(0, 0.1));
+                yield S.tween(0.2, smoke, 'scale', 0, Random.float(0.66, 1), Tween.Easing.OutCubic);
+                yield S.tween(0.8, smoke, 'alpha', 1, 0, Tween.Easing.InQuad);
+                smoke.kill();
+            });
+        }
+    }
+
+    becomeMelting(chillTime: number) {
+        this.world?.addWorldObject(new CircleImpact(this.x, this.y, Math.max(this.physicalRadius+12, 20), { ally: 0, enemy: 2*this.dmg }, this));
+        this.world?.playSound('unfreeze', { humanized: false, limit: 2 });
+        this.freezeSprite?.kill();
+
+        if (this.isFreezing()) { A.filterInPlace(this.statusEffects, e => e.type !== 'freezing'); }
+        this.addChilling(this, chillTime);
     }
 
     breakEquipment() {
@@ -1206,6 +1252,9 @@ class Ball extends Sprite {
             if (effect.type === 'stun' && effect.source === 'psychic') {
                 result *= 0.5;
             }
+            if (effect.type === 'freezing') {
+                result *= 0.4;
+            }
         }
         return result;
     }
@@ -1219,6 +1268,9 @@ class Ball extends Sprite {
         for (let effect of this.statusEffects) {
             if (effect.type === 'slow') {
                 amount *= 1-effect.slowFactor;
+            }
+            if (effect.type === 'chilling') {
+                amount *= 0.50;
             }
         }
         return amount;
@@ -1460,6 +1512,24 @@ class Ball extends Sprite {
             this.addChild(new WorldObject({
                 tags: [Tags.DELAY_RESOLVE(Ball.getInverseTeam(this.team))],
                 life: Math.min(spreadDamageTime+0.1, 5),
+            }));
+        }
+
+        let freezeEffect = this.statusEffects.find(effect => effect.type === 'freezing') as Ball.FreezingStatusEffect;
+        if (freezeEffect) {
+            let freezeTime = freezeEffect.timeLeft + freezeEffect.chillTime;
+            this.addChild(new WorldObject({
+                tags: [Tags.DELAY_RESOLVE(Ball.getInverseTeam(this.team))],
+                life: Math.min(freezeTime+0.1, 5),
+            }));
+        }
+
+        let chillEffect = this.statusEffects.find(effect => effect.type === 'chilling') as Ball.ChillingStatusEffect;
+        if (chillEffect) {
+            let chillTime = chillEffect.timeLeft;
+            this.addChild(new WorldObject({
+                tags: [Tags.DELAY_RESOLVE(Ball.getInverseTeam(this.team))],
+                life: Math.min(chillTime+0.1, 5),
             }));
         }
     }
@@ -1749,10 +1819,10 @@ class Ball extends Sprite {
 
             let ball1baseDmg = ball1.isNullified() ? ball1.dmg : ball1.getAbilityOverrideCollisionDamage();
             let ball1dmg = ball1baseDmg * Math.min(M.magnitude(collision.self.pre_vx, collision.self.pre_vy) / Ball.oneDamageSpeed, ball1.clampDamageRatio);
-            if (ball1.getStun()) ball1dmg = 0;
+            if (ball1.getStun() || ball1.isFreezing()) ball1dmg = 0;
             let ball2baseDmg = ball2.isNullified() ? ball2.dmg : ball2.getAbilityOverrideCollisionDamage();
             let ball2dmg = ball2baseDmg * Math.min(M.magnitude(collision.other.pre_vx, collision.other.pre_vy) / Ball.oneDamageSpeed, ball2.clampDamageRatio);
-            if (ball2.getStun()) ball2dmg = 0;
+            if (ball2.getStun() || ball2.isFreezing()) ball2dmg = 0;
 
             let damageDealt2 = ball2.dealsCollisionDamage()
                                 ? ball1.takeDamage(ball2dmg, ball2, 'collision')

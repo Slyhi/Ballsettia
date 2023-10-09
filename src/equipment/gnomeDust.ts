@@ -3,7 +3,7 @@
 namespace Equipments {
     export class GnomeDust extends OrbitEquipment {
         getName() { return 'Gnome Dust'; }
-        getDesc() { return `At the start of battle, shrink the equipped ball and nearby allies to half of their size`; }
+        getDesc() { return `At the start of battle, give [rb]Gnome equipment[/rb] and shrink allies to half of their size`; }
 
         get shrinkRadius() { return 20 + (this.getParent()?.physicalRadius ?? 8)-8; }
 
@@ -31,8 +31,6 @@ namespace Equipments {
 
         private static shrinkBallsInRadius(equipment: GnomeDust, source: Ball, world: World) {
             let validBalls = getAlliesNotSelf(world, source).filter(ally => G.distance(source, ally) < equipment.shrinkRadius + ally.physicalRadius);
-            if (validBalls.length === 0) return;
-            if (validBalls.length === 0) return;
 
             for (let ball of validBalls) {
                 ball.setBallScale(0.5);
@@ -44,6 +42,38 @@ namespace Equipments {
             world.addWorldObject(newPuff(source.x, source.y, Battle.Layers.fx, 'small'));
             world.playSound('debug', { limit: 2 });
             source.equip(427);
+        }
+    }
+
+    export class Gnome extends OrbitEquipment {
+        getName() { return 'Gnome'; }
+        getDesc() { return `Grows two times as it rolls for ${this.totalTimeToGain} seconds`; }
+
+        get totalTimeToGain() { return 40; }
+        private initialScale: number;
+        private finalScale: number;
+
+        constructor() {
+            super('equipments/gnome', 'items/gnome');
+            
+            this.initialScale = this.getParentScale();
+            this.finalScale = this.initialScale * 2;
+
+            this.addAbility('update', Gnome.update);
+        }
+
+        private static update(equipment: Gnome, source: Ball, world: World) {
+            if (source.state !== Ball.States.BATTLE) return;
+            
+            let growthRate = (equipment.finalScale - equipment.initialScale) / equipment.totalTimeToGain;
+
+            let newBallScale = Math.min(source.ballScale + growthRate*source.delta, equipment.finalScale);
+
+            source.setBallScale(newBallScale);
+        }
+
+        private getParentScale(): number {
+            return (this.getParent()?.ballScale ?? 0.5) * (this.getParent()?.moveScale ?? 1);
         }
     }
 }

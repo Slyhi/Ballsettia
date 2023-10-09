@@ -179,6 +179,16 @@ namespace Shop {
     }
 
     export function addOneThing(world: World, stockThing: StockThing, shopSpot: number, addPuffs?: boolean) {
+        // let shopBalls = world.select.typeAll(Ball).filter(ball => ball.isInShop);
+        // let shopItems = world.select.typeAll(BallItem);
+        // let shopThings = [...shopBalls, ...shopItems];
+        // if (!!shopThings[shopSpot]) {
+        //     world.addWorldObject(new Explosion(shopThings[shopSpot].x, shopThings[shopSpot].y, 10, { ally: 0, enemy: 0 })).layer = World.DEFAULT_LAYER;
+        //     world.removeWorldObject(shopThings[shopSpot]);
+        //     shopThings.splice(shopSpot, 0, undefined)
+        //     world.playSound('sellball', {'limit': 2});
+        //     world.playSound('balldie', {'limit': 2});
+        // }
         let stockThings: StockThing[] = [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined];
         stockThings[shopSpot] = stockThing;
         addStockThings(world, stockThings, !!addPuffs);

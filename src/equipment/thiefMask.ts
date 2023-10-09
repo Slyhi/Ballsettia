@@ -16,7 +16,7 @@ namespace Equipments {
 
     function onPreBattle(equipment: ThiefMask, source: Ball, world: World) {
         let thiefMasks = world.select.typeAll(ThiefMask);
-        let validEnemies = getEnemies(world, source).filter(ball => ball.equipment && !(ball.equipment instanceof ThiefMask) && !thiefMasks.some(tm => tm.target === ball));
+        let validEnemies = getEnemies(world, source).filter(ball => ball.equipment && !(ball.equipment instanceof ThiefMask) && !thiefMasks.some(tm => tm.target === ball) && ball.equipment.removable);
         if (validEnemies.length === 0) return;
 
         let randomEnemy = Ball.Random.element(validEnemies);

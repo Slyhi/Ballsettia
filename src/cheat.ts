@@ -26,6 +26,12 @@ const Cheat = {
         GAME_DATA.round = r;
         GAME_DATA.gold = 100;
     },
+    stockball: function(ballType: number) {
+        Shop.addOneThing(global.world, {type: 'ball', squadBall: {x: 0, y: 0, properties: {type: ballType, level: 1, damage: 6, health: 6, equipment: -1, metadata: {}}}, frozen: false, useExistingStats: true,}, 0, true)
+    },
+    stockitem: function(itemType: number) {
+        Shop.addOneThing(global.world, {type: 'item', itemType: itemType, frozen: false}, 7, true)
+    },
 }
 
 Object.defineProperty(window, 'GOLD', {

@@ -2,43 +2,74 @@
 /// <reference path="./orbitEquipment.ts" />
 
 namespace Equipments {
-    export class IcyBlast extends OrbitEquipment {
+    export class IcyBlast extends Equipment {
         getName() { return 'Icy Blast'; }
-        getDesc() {
-            return `At the start of battle, shrink thHe equipped ball and nearby allies to half of their size`;
+        getDesc() { return `At the start of battle, [lb]freeze[/lb] and [lb]chill[/lb] nearby enemies for ${this.freezeTime} seconds`; }
+
+        get freezeTime() { return 5; }
+        get chillTime() { return 5; }
+        get freezeRadius() { 
+            let parent = this.getParent();
+            return (!parent || parent.isInShop || parent.isInYourSquadScene) ? parent.physicalRadius-8 + 16 : 45;
         }
 
         constructor() {
-            super('equipments/icyblast', 'items/icyblast');
-
-            this.addAbility('onEquip', IcyBlast.onEquip);
-            this.addAbility('onDeath', IcyBlast.onDeath);
-        }
-
-        //let visibleFreezeRadius = 28
-        //let vertices = G.generateStarVertices(x, y, this.visibleFreezeRadius, this.visibleFreezeRadius*1.32, 12); // oR=37, iR=28
-        //Draw.polygonOutline(texture, vertices);
-        //Draw.polygonSolid(texture, vertices);
-
-        private static onEquip(equipment: IcyBlast, source: Ball, world: World) {
-            if (source.state !== Ball.States.PRE_BATTLE && source.state !== Ball.States.BATTLE) return;
-            source.buff(0, 1);
-            //source.v.normalize
-            //source.v.normalized
-        }
-
-        private static onDeath(equipment: IcyBlast, source: Ball, world: World, killedBy: Ball): void {
-            if (source.team !== 'friend') return;
-            if (!youArePlaying(world)) return;
-            if (source.squadIndexReference < 0) return;
-            if (hasStartShopEffect('buff', source.squadIndexReference)) return;
-
-            addStartShopEffect({
-                type: 'buff',
-                sourceSquadIndex: source.squadIndexReference,
-                health: 1,
-                damage: 0,
+            super({
+                texture: new AnchoredTexture(Texture.filledStar(44*0.84, 44*1.16, 6, 0x00C1C1, 0.52, 0), 0.5, 0.5),
+                copyFromParent: ['layer'],
+                breakIcon: 'items/icyblast',
+                effects: { outline: { color: 0x00FFFF } },
             });
+
+            this.addAbility('onPreBattle', IcyBlast.onPreBattle);
+        }
+
+        postUpdate(): void {
+            super.postUpdate();
+            this.scale = (this.freezeRadius - 1) / 44;
+            if (this.parent) World.Actions.orderWorldObjectAfter(this, this.parent);
+        }
+
+        getEquipmentTexture() {
+            return AssetCache.getTexture('items/icyblast');
+        }
+
+        private static onPreBattle(equipment: IcyBlast, source: Ball, world: World) {
+            IcyBlast.καιΞεχνώ(equipment, source, world);
+
+            source.runScript(function*() {
+                equipment.effects.addSilhouette.color = 0xFFFFFF;
+                equipment.effects.silhouette.amount = 1;
+                yield [
+                    S.tween(0.2, equipment.effects.silhouette, 'amount', 1, 0),
+                    S.tween(0.2, equipment, 'alpha', 1, 0, Tween.Easing.InQuad),
+                    S.tween(0.2, equipment.effects.outline, 'alpha', 1, 0, Tween.Easing.InQuad),
+                ];
+                equipment.effects.silhouette.amount = 1;
+                equipment.effects.silhouette.enabled = false;
+
+                source.unequip();
+            });
+        }
+
+        private static καιΞεχνώ(equipment: IcyBlast, source: Ball, world: World) {
+            let enemyBalls = getEnemies(world, source).filter(enemy => G.distance(source, enemy) < equipment.freezeRadius + enemy.physicalRadius);
+            if (enemyBalls.length === 0) return;
+
+            for (let ball of enemyBalls) {
+                ball.addFreezing(source, equipment.freezeTime, equipment.chillTime);
+                world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
+            }
+
+            let allyBalls = getAlliesNotSelf(world, source).filter(ally => G.distance(source, ally) < equipment.freezeRadius + ally.physicalRadius);
+            if (allyBalls.length === 0) return;
+
+            for (let ball of allyBalls) {
+                if (ball.isBurning()) {
+                    A.filterInPlace(ball.statusEffects, e => e.type !== 'burning');
+                    world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
+                }
+            }
         }
     }
 }

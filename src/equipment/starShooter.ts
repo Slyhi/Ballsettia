@@ -22,11 +22,11 @@ namespace Equipments {
 
         private static onPreBattle(equipment: StarShooter, source: Ball, world: World) {
             if (source.state !== Ball.States.PRE_BATTLE || source.level <= 1) return;
-            let enemies = getEnemies(world, source);
+            let enemyBalls = getEnemies(world, source);
             let speed = 200;
 
             while (source.level > 1) {
-                let target = Ball.Random.element(enemies);
+                let target = M.argmax(enemyBalls, ball => enemyBalls.filter(neighbor => G.distance(neighbor, ball) < equipment.starRadius).length);
                 StarShooter.shootStar(equipment, source, target, world, speed);
             }
         }
@@ -34,6 +34,7 @@ namespace Equipments {
         private static update(equipment: StarShooter, source: Ball, world: World) {
             if (source.state !== Ball.States.BATTLE || source.level <= 1) return;
             let enemyBalls = getEnemies(world, source);
+            if (enemyBalls.length === 0) return;
             let target = M.argmin(enemyBalls, ball => G.distance(source, ball));
             let speed = 500;
 

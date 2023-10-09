@@ -42,6 +42,7 @@ class Equipment extends Sprite {
     spreadDamageOverTime = 0;
     chanceToActivateAbilitiesTwice = 0;
     startEarlyTime = 0;
+    removable = true;
     fireImmunity = false;
     // Do not forget to add isNullified check and hasBattleEffect for future equipment effects!
 
@@ -102,6 +103,7 @@ class Equipment extends Sprite {
         if (this.noCollisionDamage) return true;
         if (this.spreadDamageOverTime !== 0) return true;
         if (this.startEarlyTime > 0) return true;
+        if (this.removable) return false;
         if (this.fireImmunity) return true;
 
         return false;

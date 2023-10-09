@@ -18,11 +18,8 @@ const ALMANAC_EXCLUDED_BALLS = [
     77,  // Pinata
     142, // Greater Mimic
     // Temporary Exclude
-    420, // American Football
-    421, // Web Shooter
-    422, // Winder
-    423, // Moai
-    424, // Reverser
+    422, 522, // Winder
+    423, 523, // Moai
 ];
 
 const ALMANAC_EXCLUDED_ITEMS = [
@@ -33,9 +30,9 @@ const ALMANAC_EXCLUDED_ITEMS = [
     39,  // Gift
     418, // Infection
     419, // Spore
+    428, // Gnome
     // Temporary Exclude
     424, // Red Herring
-    425, // Icy Blast
 ];
 
 function getAlmanacDisplayedBallTypes(pack: Pack, weekly: { week: number }) {

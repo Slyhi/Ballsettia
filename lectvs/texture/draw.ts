@@ -78,20 +78,106 @@ class Draw {
         texture.renderPIXIDisplayObject(this.graphics);
     }
 
-    static ellipseOutline(texture: Texture, x: number, y: number, radiusX: number, radiusY: number, alignment: number = this.ALIGNMENT_INNER, brush: Draw.Brush = Draw.brush) {
+    static ellipseOutline(texture: Texture, x: number, y: number, radiusX: number, radiusY: number, angle: number = 0, alignment: number = this.ALIGNMENT_INNER, brush: Draw.Brush = Draw.brush) {
         this.graphics.lineStyle(brush.thickness, brush.color, brush.alpha, alignment);
         this.graphics.clear();
         this.graphics.beginFill(0, 0);
         this.graphics.drawEllipse(x, y, radiusX, radiusY);
         this.graphics.endFill();
-        texture.renderPIXIDisplayObject(this.graphics);
+        let container = new PIXI.Container();
+        container.addChild(this.graphics);
+        container.position.set(x, y);
+        container.pivot.x = container.width / 2;
+        container.pivot.y = container.height / 2;
+        container.angle = angle;
+        texture.renderPIXIDisplayObject(container);
     }
 
-    static ellipseSolid(texture: Texture, x: number, y: number, radiusX: number, radiusY: number, brush: Draw.Brush = Draw.brush) {
+    static ellipseSolid(texture: Texture, x: number, y: number, radiusX: number, radiusY: number, angle: number = 0, brush: Draw.Brush = Draw.brush) {
         this.graphics.lineStyle(0, 0, 0);
         this.graphics.clear();
         this.graphics.beginFill(brush.color, brush.alpha);
         this.graphics.drawEllipse(x, y, radiusX, radiusY);
+        this.graphics.endFill();
+        let container = new PIXI.Container();
+        container.addChild(this.graphics);
+        container.position.set(x, y);
+        container.pivot.x = container.width / 2;
+        container.pivot.y = container.height / 2;
+        container.angle = angle;
+        texture.renderPIXIDisplayObject(container);
+    }
+
+    static footballOutline(texture: Texture, x: number, y: number, radiusX: number, radiusY: number, alignment: number = this.ALIGNMENT_INNER, angle: number = 0, brush: Draw.Brush = Draw.brush) {
+        this.graphics.lineStyle(brush.thickness, brush.color, brush.alpha, alignment);
+        this.graphics.clear();
+        this.graphics.beginFill(0, 0);
+        this.graphics.moveTo(x + radiusX, y);
+        this.graphics.quadraticCurveTo(x, y + radiusY*2, x - radiusX, y);
+        this.graphics.quadraticCurveTo(x, y - radiusY*2, x + radiusX, y);
+        this.graphics.endFill();
+        let container = new PIXI.Container();
+        container.addChild(this.graphics);
+        container.position.set(x, y);
+        container.pivot.x = container.width / 2;
+        container.pivot.y = container.height / 2;
+        container.angle = angle;
+        texture.renderPIXIDisplayObject(container);
+    }
+
+    static footballSolid(texture: Texture, x: number, y: number, radiusX: number, radiusY: number, angle: number = 0, brush: Draw.Brush = Draw.brush) {
+        this.graphics.lineStyle(0, 0, 0);
+        this.graphics.clear();
+        this.graphics.beginFill(brush.color, brush.alpha);
+        this.graphics.moveTo(x + radiusX, y);
+        this.graphics.quadraticCurveTo(x, y + radiusY*2, x - radiusX, y);
+        this.graphics.quadraticCurveTo(x, y - radiusY*2, x + radiusX, y);
+        this.graphics.endFill();
+        let container = new PIXI.Container();
+        container.addChild(this.graphics);
+        container.position.set(x, y);
+        container.pivot.x = container.width / 2;
+        container.pivot.y = container.height / 2;
+        container.angle = angle;
+        texture.renderPIXIDisplayObject(container);
+    }
+
+    static ngonOutline(texture: Texture, x: number, y: number, radius: number, side: number, angle: number = 0, alignment: number = this.ALIGNMENT_INNER, brush: Draw.Brush = Draw.brush) {
+        this.graphics.lineStyle(brush.thickness, brush.color, brush.alpha, alignment);
+        this.graphics.clear();
+        this.graphics.beginFill(0, 0);
+        let vertices = G.generatePolygonVertices(x, y, radius, side, angle);
+        this.graphics.drawPolygon(vertices.map(point => new PIXI.Point(point.x, point.y)));
+        this.graphics.endFill();
+        texture.renderPIXIDisplayObject(this.graphics);
+    }
+
+    static ngonSolid(texture: Texture, x: number, y: number, radius: number, side: number, angle: number = 0, brush: Draw.Brush = Draw.brush) {
+        this.graphics.lineStyle(0, 0, 0);
+        this.graphics.clear();
+        this.graphics.beginFill(brush.color, brush.alpha);
+        let vertices = G.generatePolygonVertices(x, y, radius, side, angle);
+        this.graphics.drawPolygon(vertices.map(point => new PIXI.Point(point.x, point.y)));
+        this.graphics.endFill();
+        texture.renderPIXIDisplayObject(this.graphics);
+    }
+
+    static starOutline(texture: Texture, x: number, y: number, innerRadius: number, outerRadius: number, point: number, angle: number = 0, alignment: number = this.ALIGNMENT_INNER, brush: Draw.Brush = Draw.brush) {
+        this.graphics.lineStyle(brush.thickness, brush.color, brush.alpha, alignment);
+        this.graphics.clear();
+        this.graphics.beginFill(0, 0);
+        let vertices = G.generateStarVertices(x, y, innerRadius, outerRadius, point, angle);
+        this.graphics.drawPolygon(vertices.map(point => new PIXI.Point(point.x, point.y)));
+        this.graphics.endFill();
+        texture.renderPIXIDisplayObject(this.graphics);
+    }
+
+    static starSolid(texture: Texture, x: number, y: number, innerRadius: number, outerRadius: number, point: number, angle: number = 0, brush: Draw.Brush = Draw.brush) {
+        this.graphics.lineStyle(0, 0, 0);
+        this.graphics.clear();
+        this.graphics.beginFill(brush.color, brush.alpha);
+        let vertices = G.generateStarVertices(x, y, innerRadius, outerRadius, point, angle);
+        this.graphics.drawPolygon(vertices.map(point => new PIXI.Point(point.x, point.y)));
         this.graphics.endFill();
         texture.renderPIXIDisplayObject(this.graphics);
     }

@@ -44,9 +44,7 @@ class LattePool extends WorldObject {
     update(): void {
         super.update();
 
-        let validAllies = getAllies(this.world, this.source).filter(ally => G.distance(ally, this) <= ally.physicalRadius + this.radius);
-        let validEnemies = getEnemies(this.world, this.source).filter(enemy => G.distance(enemy, this) <= enemy.physicalRadius + this.radius);
-        let validBalls = validAllies.concat(validEnemies)
+        let validBalls = !this.world ? [] : this.world.select.typeAll(Ball).filter(ball => G.distance(ball, this) <= ball.physicalRadius + this.radius && ball.alive && !ball.dead);
 
         for (let enemy of validBalls) {
             enemy.v.add(this.convayV.x, this.convayV.y);
@@ -55,8 +53,8 @@ class LattePool extends WorldObject {
 
     render(texture: Texture, x: number, y: number): void {
         let team = Ball.getTeamForColorAprilFools(this.source.team);
-        let tint1 = team === 'enemy' ? 0xC6A992 : 0xBF6F4A;
-        let tint2 = team === 'enemy' ? 0x7A624E : 0x8A4836;
+        let tint1 = team === 'friend' ? 0xBF6F4A : 0xC6A992;
+        let tint2 = team === 'friend' ? 0x8A4836 : 0x7A624E;
 
         Draw.brush.color = Color.lerpColorByLch(tint1, tint2, Tween.Easing.OscillateSine(0.20)(this.life.time));
         Draw.brush.alpha = 1;

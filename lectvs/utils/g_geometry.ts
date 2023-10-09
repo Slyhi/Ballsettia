@@ -67,8 +67,9 @@ namespace G {
         return A.range(n).map(i => vec2(cx + r*M.cos(angle + 360/n*(i+0.5)), cy + r*M.sin(angle + 360/n*(i+0.5))));
     }
 
-    export function generateStarVertices(cx: number, cy: number, outerR: number, innerR: number, n: number, angle: number = 0) {
-        return A.range(n).map(i => vec2(cx + (i%2===0 ? outerR : innerR)*M.cos(angle + i*360/n), cy + (i%2===0 ? outerR : innerR)*M.sin(angle + i*360/n)));
+    export function generateStarVertices(cx: number, cy: number, innerRadius: number, outerRadius: number, point: number, angle: number = 0) {
+        point *= 2;
+        return A.range(point).map(i => vec2(cx + (i%2===0 ? innerRadius : outerRadius)*M.cos(angle + i*360/point), cy + (i%2===0 ? innerRadius : outerRadius)*M.sin(angle + i*360/point)));
     }
 
     export function lerpPt(pt1: Pt, pt2: Pt, t: number) {

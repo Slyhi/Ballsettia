@@ -205,7 +205,9 @@ namespace Assets {
                 'balls/webshooter': { rect: rect(32, 0, 16, 32) },
                 'balls/winder': { rect: rect(48, 0, 16, 32) },
                 'balls/moai': { rect: rect(64, 0, 16, 32) },
-                'balls/reverser': { rect: rect(80, 0, 16, 32) },
+                'balls/cottonball': { rect: rect(80, 0, 16, 32) },
+                'balls/baseball': { rect: rect(96, 0, 16, 32) },
+                'balls/baseballspent': { rect: rect(112, 0, 16, 32) },
             }
         },
 
@@ -250,14 +252,6 @@ namespace Assets {
                 'mimictextures/turret': { rect: rect(16, 0, 16, 32) },
                 'mimictextures/boomer': { rect: rect(32, 0, 16, 32) },
                 'mimictextures/cannon': { rect: rect(48, 0, 22, 44) },
-            }
-        },
-        // Ballsettia Modded Ball External Texture
-        'slyhi/americanfootball': { 
-            anchor: Vector2.CENTER,
-            frames: {
-                'slyhi/footballcurve': { rect: rect(0, 0, 24, 16) },
-                'slyhi/footballstripe': { rect: rect(0, 16, 24, 16) },
             }
         },
 
@@ -415,11 +409,10 @@ namespace Assets {
                 'equipments/gnomedust': { rect: rect(0, 0, 12, 12) },
                 'equipments/starshooter': { rect: rect(12, 0, 12, 12) },
                 'equipments/redherring': { rect: rect(24, 0, 12, 12) },
-                'equipments/icyblast': { rect: rect(36, 12, 12, 12) },
-                'equipments/latte': { rect: rect(48, 0, 12, 12) },
-                'equipments/latte/empty': { rect: rect(60, 0, 12, 12) },
-                'equipments/phoenixfeather': { rect: rect(72, 0, 12, 12) },
-                'equipments/gnome': { rect: rect(0, 12, 12, 12) },
+                'equipments/latte': { rect: rect(36, 12, 12, 12) },
+                'equipments/lattespent': { rect: rect(48, 0, 12, 12) },
+                'equipments/phoenixfeather': { rect: rect(60, 0, 12, 12) },
+                'equipments/gnome': { rect: rect(72, 0, 12, 12) },
             }
         },
         'equipments/dfour': {
@@ -538,18 +531,42 @@ namespace Assets {
         'slyhi/packicons': {
             anchor: Vector2.CENTER,
             frames: {
-                'packicons/pack/classic/incomplete': { rect: rect(0, 0, 32, 16) },
-                'packicons/pack/classic/complete': { rect: rect(32, 0, 32, 16) },
-                'packicons/pack/community/incomplete': { rect: rect(0, 16, 32, 16) },
-                'packicons/pack/community/complete': { rect: rect(32, 16, 32, 16) },
-                'packicons/pack/blank/incomplete': { rect: rect(0, 32, 32, 16) },
-                'packicons/pack/blank/complete': { rect: rect(32, 32, 32, 16) },
-                'packicons/pack/weekly/incomplete': { rect: rect(0, 48, 32, 16) },
-                'packicons/pack/weekly/complete': { rect: rect(32, 48, 32, 16) },
-                'packicons/pack/modded/incomplete': { rect: rect(0, 64, 32, 16) },
-                'packicons/pack/modded/complete': { rect: rect(32, 64, 32, 16) },
-                'packicons/pack/items/incomplete': { rect: rect(0, 80, 32, 16) },
-                'packicons/pack/items/complete': { rect: rect(32, 80, 32, 16) },
+                'slyhi/packicons/pack/classic/incomplete': { rect: rect(0, 0, 32, 16) },
+                'slyhi/packicons/pack/classic/complete': { rect: rect(32, 0, 32, 16) },
+
+                'slyhi/packicons/pack/community/incomplete': { rect: rect(0, 16, 32, 16) },
+                'slyhi/packicons/pack/community/complete': { rect: rect(32, 16, 32, 16) },
+
+                'slyhi/packicons/pack/blank/incomplete': { rect: rect(0, 32, 32, 16) },
+                'slyhi/packicons/pack/blank/complete': { rect: rect(32, 32, 32, 16) },
+
+                'slyhi/packicons/pack/weekly/incomplete': { rect: rect(0, 48, 32, 16) },
+                'slyhi/packicons/pack/weekly/complete': { rect: rect(32, 48, 32, 16) },
+
+                'slyhi/packicons/pack/modded/incomplete': { rect: rect(0, 64, 32, 16) },
+                'slyhi/packicons/pack/modded/complete': { rect: rect(32, 64, 32, 16) },
+
+                'slyhi/packicons/pack/items/incomplete': { rect: rect(0, 80, 32, 16) },
+                'slyhi/packicons/pack/items/complete': { rect: rect(32, 80, 32, 16) },
+            }
+        },
+        'slyhi/statuseffect': {
+            anchor: Vector2.CENTER,
+            frames: {
+                'slyhi/statuseffect/slow': { rect: rect(0, 0, 10, 10) },
+                'slyhi/statuseffect/stun': { rect: rect(10, 0, 10, 10) },
+                'slyhi/statuseffect/protected': { rect: rect(20, 0, 10, 10) },
+                'slyhi/statuseffect/healfeedback': { rect: rect(30, 0, 10, 10) },
+                'slyhi/statuseffect/statuseffectseffect/leeched': { rect: rect(40, 0, 10, 10) },
+                'slyhi/statuseffect/boostmaxspeed': { rect: rect(0, 10, 10, 10) },
+                'slyhi/statuseffect/burning': { rect: rect(10, 10, 10, 10) },
+                'slyhi/statuseffect/nullified': { rect: rect(20, 10, 10, 10) },
+                'slyhi/statuseffect/spreaddamage': { rect: rect(30, 10, 10, 10) },
+                'slyhi/statuseffect/marked': { rect: rect(40, 10, 10, 10) },
+                'slyhi/statuseffect/scaleacceleration': { rect: rect(0, 20, 10, 10) },
+                //Modded Effects
+                'slyhi/statuseffect/freezing': { rect: rect(10, 20, 10, 10) },
+                'slyhi/statuseffect/chilling': { rect: rect(20, 20, 10, 10) },
             }
         },
 

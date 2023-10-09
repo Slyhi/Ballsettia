@@ -10,11 +10,14 @@ namespace BallItems {
         }
 
         canApplyToBall(ball: Ball): boolean {
-            if (!ball.equipment) return false;
-            return getItemTypeForEquipmentType(ball.equipment.equipmentType) !== -1;
+            return !!ball.equipment && ball.equipment.removable;
         }
 
         onApplyToBall(ball: Ball): void {
+            if (getItemTypeForEquipmentType(ball.equipment.equipmentType) === -1) {
+                ball.breakEquipment();
+                return;
+            }
             let itemID = getItemTypeForEquipmentType(ball.equipment.equipmentType);
             let itemThing: Shop.StockThing = {
                 type: 'item',

@@ -99,6 +99,31 @@ namespace Texture {
         return cache_filledRect[key];
     }
 
+    const cache_filledPolygon: Dict<BasicTexture> = {};
+    export function filledPolygon(radius: number, side: number, fillColor: number, fillAlpha: number = 1, angle: number = 0) {
+        angle = Math.round(M.mod(angle, 360));
+        let key = `${radius},${side},${fillColor},${fillAlpha},${angle}`;
+        if (!cache_filledPolygon[key]) {
+            let result = new BasicTexture(radius*2, radius*2, 'Texture.filledPolygon');
+            Draw.ngonSolid(result, radius, radius, radius, side, angle, { color: fillColor, alpha: fillAlpha, thickness: 0 });
+            result.immutable = true;
+            cache_filledPolygon[key] = result;
+        }
+        return cache_filledPolygon[key];
+    }
+
+    const cache_filledStar: Dict<BasicTexture> = {};
+    export function filledStar(innerRadius: number, outerRadius: number, point: number, fillColor: number, fillAlpha: number = 1, angle: number = 0) {
+        angle = Math.round(M.mod(angle, 360));
+        let key = `${innerRadius},${outerRadius},${point},${fillColor},${fillAlpha},${angle}`;
+        if (!cache_filledStar[key]) {
+            let result = new BasicTexture(outerRadius*2, outerRadius*2, 'Texture.filledStar');
+            Draw.starSolid(result, outerRadius, outerRadius, innerRadius, outerRadius, point, angle, { color: fillColor, alpha: fillAlpha, thickness: 0 });
+            cache_filledStar[key] = result;
+        }
+        return cache_filledStar[key];
+    }
+
     export function fromPixiTexture(pixiTexture: PIXI.Texture) {
         let sprite = new PIXI.Sprite(pixiTexture);
         let texture = new AnchoredTexture(new BasicTexture(pixiTexture.width, pixiTexture.height, 'Texture.fromPixiTexture'));
@@ -186,6 +211,40 @@ namespace Texture {
         }
         
         return cache_outlineCircle[key];
+    }
+    
+    const cache_outlinePolygon: Dict<BasicTexture> = {};
+    export function outlinePolygon(radius: number, point: number, outlineColor: number, outlineAlpha: number = 1, outlineThickness: number = 1, angle: number = 0) {
+        angle = Math.round(M.mod(angle, 360));
+        let key = `${radius},${point},${outlineColor},${outlineAlpha},${outlineThickness},${angle}`;
+        if (!cache_outlinePolygon[key]) {
+            let result = new BasicTexture(radius*2, radius*2, 'Texture.filledPolygon');
+            Draw.brush.color = outlineColor;
+            Draw.brush.alpha = outlineAlpha;
+            Draw.brush.thickness = outlineThickness;
+            let vertices = G.generatePolygonVertices(radius, radius, radius, point, angle);
+            Draw.polygonOutline(result, vertices);
+            result.immutable = true;
+            cache_outlinePolygon[key] = result;
+        }
+        return cache_outlinePolygon[key];
+    }
+
+    const cache_outlineStar: Dict<BasicTexture> = {};
+    export function outlineStar(innerRadius: number, outerRadius: number, point: number, outlineColor: number, outlineAlpha: number = 1, outlineThickness: number = 1, angle: number = 0) {
+        angle = Math.round(M.mod(angle, 360));
+        let key = `${innerRadius},${outerRadius},${point},${outlineColor},${outlineAlpha},${outlineThickness},${angle}`;
+        if (!cache_outlineStar[key]) {
+            let result = new BasicTexture(outerRadius*2, outerRadius*2, 'Texture.outlineStar');
+            Draw.brush.color = outlineColor;
+            Draw.brush.alpha = outlineAlpha;
+            Draw.brush.thickness = outlineThickness;
+            let vertices = G.generateStarVertices(result.width/2, result.height/2, innerRadius, outerRadius, point, angle);
+            Draw.polygonOutline(result, vertices);
+            result.immutable = true;
+            cache_outlineStar[key] = result;
+        }
+        return cache_outlineStar[key];
     }
 
     export function setFilterProperties(filter: TextureFilter, posx: number, posy: number, dimx: number, dimy: number) {
