@@ -35,7 +35,7 @@ namespace Equipments {
             if (source.state !== Ball.States.BATTLE || source.level <= 1) return;
             let enemyBalls = getEnemies(world, source);
             if (enemyBalls.length === 0) return;
-            let target = M.argmin(enemyBalls, ball => G.distance(source, ball));
+            let target = Ball.Random.element(enemyBalls);
             let speed = 500;
 
             equipment.shootTime += equipment.delta;

@@ -160,7 +160,7 @@ const TYPE_TO_BALL_TYPE_DEF: { [type: number]: BallTypeDef } = {
     // Modded Pack
     //Ballsettia Modded Balls
     420: { factory: config => new Balls.AmericanFootball(config), purchasable: true, tier: 1, pack: 'classic' },
-    421: { factory: config => new Balls.WebShooter(config), purchasable: true, tier: 2, pack: 'classic' },
+    421: { factory: config => new Balls.WebShooter(config), purchasable: true, tier: 1, pack: 'classic' },
     422: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'classic' },
     423: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'classic' },
     424: { factory: config => new Balls.BallOfCotton(config), purchasable: true, tier: 2, pack: 'classic' },

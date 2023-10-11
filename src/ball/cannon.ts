@@ -88,6 +88,7 @@ namespace Balls {
                 }
             }, undefined, -1, source.team));
 
+            cannonball.setBallScale(source.ballScale*source.moveScale);
             cannonball.v.set(d.withMagnitude(source.cannonballSpeed));
             cannonball.addBoostMaxSpeed(source, 'other', 3, 1, 1);
 

@@ -409,10 +409,9 @@ namespace Assets {
                 'equipments/gnomedust': { rect: rect(0, 0, 12, 12) },
                 'equipments/starshooter': { rect: rect(12, 0, 12, 12) },
                 'equipments/redherring': { rect: rect(24, 0, 12, 12) },
-                'equipments/latte': { rect: rect(36, 12, 12, 12) },
-                'equipments/lattespent': { rect: rect(48, 0, 12, 12) },
-                'equipments/phoenixfeather': { rect: rect(60, 0, 12, 12) },
-                'equipments/gnome': { rect: rect(72, 0, 12, 12) },
+                'equipments/latte': { rect: rect(36, 0, 12, 12) },
+                'equipments/phoenixfeather': { rect: rect(48, 0, 12, 12) },
+                'equipments/gnome': { rect: rect(60, 0, 12, 12) },
             }
         },
         'equipments/dfour': {

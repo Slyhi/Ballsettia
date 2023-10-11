@@ -12,9 +12,9 @@ class WebTrap extends Sprite {
             effects: { outline: { color: 0x000000 } },
             layer: Battle.Layers.onground,
             v: v,
-            angle: Ball.Random.int(0, 359),
+            angle: Ball.Random.element([0, 45, 90, 135, 180, 225, 270, 315]),
             physicsGroup: Battle.PhysicsGroups.droppables,
-            bounds: new CircleBounds(0, 0, 10),
+            bounds: new CircleBounds(0, 0, 6),
         });
 
         this.source = source;
@@ -25,17 +25,28 @@ class WebTrap extends Sprite {
 
     onAdd(): void {
         super.onAdd();
-        this.world.playSound('medkitout', { limit: 3 });
+        this.world.playSound('medkitout', { limit: 2 });
+    }
+
+    postUpdate(): void {
+        super.postUpdate();
+
+        if (this.life.time > this.webLife/2) {
+            // Graph for this curve -> https://www.desmos.com/calculator/ax3yka4jum
+            let alpha = M.lerp(0.33, 1.0, (Math.sin(Math.exp((5.2976*this.life.time)/this.webLife)) + 1)/2);
+            this.alpha = alpha;
+            this.effects.outline.alpha = alpha;
+        }
     }
 
     update(): void {
         super.update();
-        this.webLife -= this.delta;
-        if (this.webLife <= 0) { this.kill(); }
         
         PhysicsUtils.applyFriction(this.v, 100, 100, this.delta);
         this.setSpeed(M.clamp(this.getSpeed(), 0, 100));
         this.updateCollisions();
+        
+        if (this.life.time > this.webLife) { this.kill(); }
     }
 
     private updateCollisions(): void {

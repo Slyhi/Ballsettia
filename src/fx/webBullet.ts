@@ -14,7 +14,7 @@ class WebBullet extends Projectile {
             layer: Battle.Layers.fx,
             v: v,
             angle: v.angle + 90,
-            bounds: new CircleBounds(0, 0, 7),
+            bounds: new CircleBounds(0, 0, 5),
             tags: [Tags.DELAY_RESOLVE(source.team)],
         });
 

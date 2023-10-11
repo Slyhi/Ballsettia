@@ -46,8 +46,8 @@ class LattePool extends WorldObject {
 
         let validBalls = !this.world ? [] : this.world.select.typeAll(Ball).filter(ball => G.distance(ball, this) <= ball.physicalRadius + this.radius && ball.alive && !ball.dead);
 
-        for (let enemy of validBalls) {
-            enemy.v.add(this.convayV.x, this.convayV.y);
+        for (let ball of validBalls) {
+            ball.v.add(this.convayV.x * this.delta, this.convayV.y * this.delta);
         }
     }
 

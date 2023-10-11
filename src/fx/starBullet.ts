@@ -55,5 +55,7 @@ class StarBullet extends Projectile {
         } else if (wallHit) {
             this.world.playSound('hitwall');
         }
+
+        if (this.life.time > 8) { this.kill(); }
     }
 }

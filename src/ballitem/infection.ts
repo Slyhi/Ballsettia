@@ -5,7 +5,7 @@ namespace BallItems {
         getShopCost() { return 0; }
 
         constructor(x: number, y: number) {
-            super(x, y, 'items/infection', 32);
+            super(x, y, 'items/infection', 31);
         }
     }
 }
