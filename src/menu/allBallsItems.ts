@@ -79,6 +79,7 @@ class AllBallsItemsMenu extends Menu {
                 World.Actions.addWorldObjectToWorld(ball.dmgbox, ball.world);
                 World.Actions.addWorldObjectToWorld(ball.hpbox, ball.world);
                 World.Actions.addWorldObjectToWorld(ball.stars, ball.world);
+                World.Actions.addWorldObjectToWorld(ball.effectIcons, ball.world);
             }
 
             i++;

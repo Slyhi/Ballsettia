@@ -40,6 +40,7 @@ namespace Equipments {
             this.localy = -parent.visibleRadius/Math.SQRT2 - 1;
 
             World.Actions.orderWorldObjectAfter(this, parent.stars);
+            World.Actions.orderWorldObjectAfter(this, parent.effectIcons);
         }
 
         render(texture: Texture, x: number, y: number) {

@@ -527,45 +527,28 @@ namespace Assets {
         },
         'infoicon': { anchor: Vector2.CENTER },
         // Ballsettia Modded UI
-        'slyhi/packicons': {
+        'slyhi/effecticon': {
             anchor: Vector2.CENTER,
             frames: {
-                'slyhi/packicons/pack/classic/incomplete': { rect: rect(0, 0, 32, 16) },
-                'slyhi/packicons/pack/classic/complete': { rect: rect(32, 0, 32, 16) },
-
-                'slyhi/packicons/pack/community/incomplete': { rect: rect(0, 16, 32, 16) },
-                'slyhi/packicons/pack/community/complete': { rect: rect(32, 16, 32, 16) },
-
-                'slyhi/packicons/pack/blank/incomplete': { rect: rect(0, 32, 32, 16) },
-                'slyhi/packicons/pack/blank/complete': { rect: rect(32, 32, 32, 16) },
-
-                'slyhi/packicons/pack/weekly/incomplete': { rect: rect(0, 48, 32, 16) },
-                'slyhi/packicons/pack/weekly/complete': { rect: rect(32, 48, 32, 16) },
-
-                'slyhi/packicons/pack/modded/incomplete': { rect: rect(0, 64, 32, 16) },
-                'slyhi/packicons/pack/modded/complete': { rect: rect(32, 64, 32, 16) },
-
-                'slyhi/packicons/pack/items/incomplete': { rect: rect(0, 80, 32, 16) },
-                'slyhi/packicons/pack/items/complete': { rect: rect(32, 80, 32, 16) },
+                'effecticon/slow': { rect: rect(0, 0, 8, 8) },
+                'effecticon/stun': { rect: rect(8, 0, 8, 8) },
+                'effecticon/protected': { rect: rect(16, 0, 8, 8) },
+                'effecticon/healfeedback': { rect: rect(24, 0, 8, 8) },
+                'effecticon/leeched': { rect: rect(32, 0, 8, 8) },
+                'effecticon/boostmaxspeed': { rect: rect(40, 8, 8, 8) },
+                'effecticon/burning': { rect: rect(0, 8, 8, 8) },
+                'effecticon/nullified': { rect: rect(8, 8, 8, 8) },
+                'effecticon/spreaddamage': { rect: rect(16, 8, 8, 8) },
+                'effecticon/marked': { rect: rect(24, 8, 8, 8) },
+                'effecticon/scaleacceleration': { rect: rect(32, 8, 8, 8) },
+                'effecticon/etcetera': { rect: rect(40, 8, 8, 8) },
             }
         },
-        'slyhi/statuseffect': {
+        'slyhi/effecticonmodded': {
             anchor: Vector2.CENTER,
             frames: {
-                'slyhi/statuseffect/slow': { rect: rect(0, 0, 10, 10) },
-                'slyhi/statuseffect/stun': { rect: rect(10, 0, 10, 10) },
-                'slyhi/statuseffect/protected': { rect: rect(20, 0, 10, 10) },
-                'slyhi/statuseffect/healfeedback': { rect: rect(30, 0, 10, 10) },
-                'slyhi/statuseffect/statuseffectseffect/leeched': { rect: rect(40, 0, 10, 10) },
-                'slyhi/statuseffect/boostmaxspeed': { rect: rect(0, 10, 10, 10) },
-                'slyhi/statuseffect/burning': { rect: rect(10, 10, 10, 10) },
-                'slyhi/statuseffect/nullified': { rect: rect(20, 10, 10, 10) },
-                'slyhi/statuseffect/spreaddamage': { rect: rect(30, 10, 10, 10) },
-                'slyhi/statuseffect/marked': { rect: rect(40, 10, 10, 10) },
-                'slyhi/statuseffect/scaleacceleration': { rect: rect(0, 20, 10, 10) },
-                //Modded Effects
-                'slyhi/statuseffect/freezing': { rect: rect(10, 20, 10, 10) },
-                'slyhi/statuseffect/chilling': { rect: rect(20, 20, 10, 10) },
+                'effecticon/freezing': { rect: rect(0, 0, 8, 8) },
+                'effecticon/chilling': { rect: rect(8, 0, 8, 8) },
             }
         },
 

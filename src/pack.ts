@@ -1,2 +1,2 @@
-type Pack = 'classic' | 'community' | 'weekly';
-const OFFICIAL_PACKS: Pack[] = ['classic', 'community'];
+type Pack = 'classic' | 'community' | 'weekly' | 'modded';
+const OFFICIAL_PACKS: Pack[] = ['classic', 'community', 'modded'];

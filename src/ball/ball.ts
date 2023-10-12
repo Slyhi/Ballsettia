@@ -228,12 +228,14 @@ class Ball extends Sprite {
     dmgbox: StatBox;
     hpbox: StatBox;
     stars: Stars;
+    effectIcons: EffectIcons;
     private showingAllStats: boolean;
     private massScale: number = 1;
 
     private showHpStatScript: Script;
     private showDmgStatScript: Script;
     private showLvlStatScript: Script;
+    private showEffectStatScript: Script;
 
     defaultOutline: number = 0xFFFFFF;
     defaultOutlineAlpha: number = 1;
@@ -371,6 +373,8 @@ class Ball extends Sprite {
         this.hpbox.setVisible(false);
         this.stars = this.addChild(new Stars(this.properties.metadata.obtainedWithCrown ? 'crowns' : 'stars'));
         this.stars.setVisible(false);
+        this.effectIcons = this.addChild(new EffectIcons());
+        this.effectIcons.setVisible(false);
 
         this.showingAllStats = false;
     }
@@ -638,6 +642,10 @@ class Ball extends Sprite {
 
         let uiPositionScale = M.map(Math.max(this.visibleRadius/8, 1), 1, 4, 1, 3.5);
 
+        this.effectIcons.setIcons(this.statusEffects);
+        this.effectIcons.localx = 0;
+        this.effectIcons.localy = (this.level === 1 ? -9 : -18) * uiPositionScale;
+        
         this.stars.setStars(this.level-1);
         this.stars.localx = 0;
         this.stars.localy = -10 * uiPositionScale;
@@ -658,6 +666,7 @@ class Ball extends Sprite {
             World.Actions.orderWorldObjectBefore(this.effectAura, this);
         }
 
+        World.Actions.orderWorldObjectAfter(this.effectIcons, this);
         World.Actions.orderWorldObjectAfter(this.stars, this);
         World.Actions.orderWorldObjectAfter(this.dmgbox, this);
         World.Actions.orderWorldObjectAfter(this.hpbox, this);
@@ -667,6 +676,7 @@ class Ball extends Sprite {
         }
 
         if (this.isNullified()) {
+            World.Actions.orderWorldObjectAfter(this.nullifiedSprite, this.effectIcons);
             World.Actions.orderWorldObjectAfter(this.nullifiedSprite, this.stars);
         }
     }
@@ -1372,6 +1382,7 @@ class Ball extends Sprite {
         this.dmgbox.setVisible(false);
         this.hpbox.setVisible(false);
         this.stars.setVisible(false);
+        this.effectIcons.setVisible(false);
         this.showingAllStats = false;
     }
 
@@ -1639,6 +1650,7 @@ class Ball extends Sprite {
         this.showDmgStat(0, Infinity);
         this.showHpStat(0, Infinity);
         this.showLvlStat(Infinity);
+        this.showEffectStat(Infinity);
         this.showingAllStats = true;
     }
 
@@ -1679,6 +1691,17 @@ class Ball extends Sprite {
             this.showLvlStatScript = this.runScript(S.chain(
                 S.wait(time),
                 S.call(() => this.stars.setVisible(false)),
+            ));
+        }
+    }
+
+    showEffectStat(time: number) {
+        this.effectIcons.setVisible(true);
+        if (_.isFinite(time)) {
+            this.showEffectStatScript?.stop();
+            this.showEffectStatScript = this.runScript(S.chain(
+                S.wait(time),
+                S.call(() => this.effectIcons.setVisible(false)),
             ));
         }
     }

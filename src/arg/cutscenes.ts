@@ -601,13 +601,13 @@ namespace ARG.Cutscenes {
 
             yield S.wait(1);
 
-            codeText.setText('0');
+            codeText.setText('B');
             yield S.wait(1);
-            codeText.setText('06');
+            codeText.setText('BR');
             yield S.wait(1);
-            codeText.setText('062');
+            codeText.setText('BRU');
             yield S.wait(1);
-            codeText.setText('0621');
+            codeText.setText('BRUH');
 
             yield S.wait(1.5);
 

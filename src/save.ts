@@ -10,6 +10,7 @@ type AutoBallsData = {
     seenAlmanacComplete?: boolean;
     classicWins?: number;
     communityWins?: number;
+    moddedWins?: number;
     weeklyWins?: number;
     lastDailyCompleted?: number;
 
@@ -283,12 +284,12 @@ function loadSeenAlmanacComplete() {
 // PACK WINS
 
 function saveWins(pack: Pack, wins: number) {
-    let key: 'classicWins' | 'communityWins' | 'weeklyWins' = pack === 'community' ? 'communityWins' : (pack === 'weekly' ? 'weeklyWins' : 'classicWins');
+    let key: 'classicWins' | 'communityWins' | 'moddedWins' | 'weeklyWins' = pack === 'community' ? 'communityWins' : (pack === 'weekly' ? 'weeklyWins' : (pack === 'modded' ? 'moddedWins' : 'classicWins'));
     saveData(key, wins);
 }
 
 function loadWins(pack: Pack) {
-    let key: 'classicWins' | 'communityWins' | 'weeklyWins' = pack === 'community' ? 'communityWins' : (pack === 'weekly' ? 'weeklyWins' : 'classicWins');
+    let key: 'classicWins' | 'communityWins' | 'moddedWins' | 'weeklyWins' = pack === 'community' ? 'communityWins' : (pack === 'weekly' ? 'weeklyWins' : (pack === 'modded' ? 'moddedWins' : 'classicWins'));
     let wins = loadDataNumber(key, undefined);
     if (wins === undefined) {
         if (pack === 'classic') {

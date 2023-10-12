@@ -27,6 +27,7 @@ namespace BallItems {
                     tags: [Tags.DELAY_PLAY],
                     update: function() {
                         World.Actions.orderWorldObjectAfter(this, ball.stars);
+                        World.Actions.orderWorldObjectAfter(this, ball.effectIcons);
                     },
                 }));
 

@@ -159,6 +159,7 @@ function juiceButton(power: number) {
 
 const PACK_CLASSIC_NAME = 'Classic';
 const PACK_COMMUNITY_NAME = 'Community';
+const PACK_MODDED_NAME = 'Modded';
 const PACK_WEEKLY_NAME = 'Shuffle';
 
 const PACK_ALL_NAME = 'All';
@@ -167,6 +168,7 @@ const PACK_ALL_ID = 'all';
 function packIdToName(id: string) {
     if (id === 'classic') return PACK_CLASSIC_NAME;
     if (id === 'community') return PACK_COMMUNITY_NAME;
+    if (id === 'modded') return PACK_MODDED_NAME;
     if (id === 'weekly') return PACK_WEEKLY_NAME;
     return 'Unknown';
 }
@@ -174,6 +176,7 @@ function packIdToName(id: string) {
 function packNameToId(name: string) {
     if (name === PACK_CLASSIC_NAME) return 'classic';
     if (name === PACK_COMMUNITY_NAME) return 'community';
+    if (name === PACK_MODDED_NAME) return 'modded';
     if (name === PACK_WEEKLY_NAME) return 'weekly';
     return 'classic';
 }

@@ -199,13 +199,14 @@ function getAlmanacItemCompletionPercent() {
 function getAlmanacTotalCompletionPercent() {
     let classicBallTypes = getAlmanacDisplayedBallTypes('classic', undefined);
     let communityBallTypes = getAlmanacDisplayedBallTypes('community', undefined);
+    let moddedBallTypes = getAlmanacDisplayedBallTypes('modded', undefined);
     let itemTypes = getAlmanacDisplayedItemTypes();
 
     let seen = 0;
     let won = 0;
     let total = 0;
 
-    for (let type of [...classicBallTypes, ...communityBallTypes]) {
+    for (let type of [...classicBallTypes, ...communityBallTypes, ...moddedBallTypes]) {
         if (hasSeenAlmanacBall(type)) seen++;
         if (getAlmanacBallWinCount(type) > 0) won++;
         total++;

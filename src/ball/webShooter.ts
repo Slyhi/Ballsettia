@@ -4,13 +4,13 @@ namespace Balls {
         getName() { return 'Web Shooter'; }
         getDesc() { return `Shoots 3 spider webs every ${this.currentShootTime}s that will slows enemies by [lb]${this.slowFactorPercent}%[/lb] for [lb]${this.slowTime}s[/lb], leaves a web lasting [lb]${this.webLife}s[/lb] when the web hit the wall`; }
         getShopDmg() { return 1; }
-        getShopHp() { return 3; }
+        getShopHp() { return 6; }
         getModName() { return [ModNames.BALLSETTIA]; }
 
         get slowFactorPercent() { return 50; }
         get slowFactor() { return this.slowFactorPercent/100; }
         get webLife() { return 13 + this.level*2; }
-        get slowTime() { return 0.5 + this.level/2; }
+        get slowTime() { return this.level/2; }
         get webSpeed() { return 200; }
 
         private shootTime: number;

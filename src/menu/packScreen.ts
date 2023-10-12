@@ -78,6 +78,41 @@ namespace PackScreen {
 
         World.Actions.moveWorldObjectToFront(community);
 
+        /*
+        // The custom modded pack
+        let modded = world.select.name<Sprite>('modded');
+        modded.addModule(new Button({
+            hoverTint: 0xFFFF00,
+            clickTint: 0xBBBB00,
+            onClick: () => {
+                global.game.playSound('click');
+                startNewGame(Arenas.ARENA_FIRST, ['modded'], undefined, [], isChallengeMode, undefined);
+            },
+        }));
+        modded.data.infoBoxDescription = "A modded pack";
+
+        modded.addChild(new Sprite({
+            x: 0, y: 8,
+            texture: 'buffbeams',
+            scale: 116/128,
+            vangle: 40,
+        }));
+
+        modded.addChild(newBallWorld(-120/2, -144/2, 'modded'));
+
+        let moddedWins = loadWins('modded');
+        if (moddedWins > 0) {
+            modded.addChild(new SpriteText({
+                x: 56, y: 71,
+                text: `[offsetx -2]<crown>[/]${moddedWins}`,
+                style: { color: 0xFFD800 },
+                anchor: Vector2.BOTTOM_RIGHT,
+            }));
+        }
+
+        World.Actions.moveWorldObjectToFront(modded);
+        */
+
         let shuffle = world.select.name<Sprite>('shuffle');
         shuffle.bounds = new CircleBounds(0, 0, 33, shuffle);
         World.Actions.moveWorldObjectToFront(shuffle);
@@ -268,6 +303,9 @@ namespace PackScreen {
             101, 102, 105, 106, 107, 109, 110, 111, 112, 117,
             119, 120, 122, 123, 124, 137, 139, 140, 141, 143,
             144,
+        ],
+        'modded': [
+            420, 421, 422, 423, 424, 425,
         ],
         'weekly': [
             0,

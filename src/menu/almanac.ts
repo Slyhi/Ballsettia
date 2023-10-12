@@ -69,9 +69,9 @@ class AlmanacMenu extends Menu {
 
         this.setupGift(this);
 
-        for (let p of ['classic', 'community', 'weekly', 'items']) {
+        for (let p of ['classic', 'community', 'modded', 'weekly', 'items']) {
             let baseTint: number;
-            if (p === 'classic' || p === 'community' || p === 'weekly') {
+            if (p === 'classic' || p === 'community' || p === 'modded' || p === 'weekly') {
                 baseTint = getAlmanacBallCompletionPercent(p, { week: Weekly.LIVE_WEEK }) >= 1 ? 0xFFDB00 : 0xFFFFFF;
             } else {
                 baseTint = getAlmanacItemCompletionPercent() >= 1 ? 0xFFDB00 : 0xFFFFFF;
@@ -101,7 +101,7 @@ class AlmanacMenu extends Menu {
                 packButton.enabled = false;
                 let packButtonHide = this.addWorldObject(new Sprite({
                     p: this.select.name(p),
-                    texture: new AnchoredTexture(Texture.filledRect(56, 12, 0x000000), 0.5, 0.5),
+                    texture: new AnchoredTexture(Texture.filledRect(48, 14, 0x000000), 0.5, 0.5),
                 }));
         
                 packButtonHide.addChild(new Spinner(0, 0, 1.5, 3));
@@ -164,7 +164,7 @@ class AlmanacMenu extends Menu {
         let entriesBase = this.addWorldObject(new WorldObject({ x: this.width/2, y: AlmanacMenu.MASK_Y + 25 }));
 
         let textures: { bg: Texture, fg: Texture };
-        if (page === 'classic' || page === 'community' || page === 'weekly') {
+        if (page === 'classic' || page === 'community' || page === 'modded' || page === 'weekly') {
             textures = this.loadBallEntries(page, entriesBase);
         } else {
             textures = this.loadItemEntries(entriesBase);
@@ -307,37 +307,23 @@ class AlmanacMenu extends Menu {
     private setupGift(world: World) {
         let gift = world.select.name<Sprite>('gift');
 
-        if (IS_MOBILE || this.destroyedGift) {
-            gift.setVisible(false);
-            return;
-        }
-
-        let revealGift = getAlmanacTotalCompletionPercent().won >= 0.25;
-
-        if (revealGift) {
-            gift.effects.post.filters.push(new TextureFilter({
-                code: `
-                    if (x >= 0.0 && x < width && y >= 0.0 && y < height && (inp.r > 0.0 && inp.r < 1.0)) {
-                        float v = map(pnoise(x, y, 10.6 + 100.0*t), -1.0, 1.0, 0.0, 1.0);
-                        float av = (1.0 - cos(PI*v)) / 2.0;
-                        float aav = (1.0 - cos(PI*av)) / 2.0;
-                        outp.rgb = vec3(1.0, 1.0, 1.0) * aav;
-                    }
-                `
-            }));
-        }
+        gift.effects.post.filters.push(new TextureFilter({
+            code: `
+                if (x >= 0.0 && x < width && y >= 0.0 && y < height && (inp.r > 0.0 && inp.r < 1.0)) {
+                    float v = map(pnoise(x, y, 10.6 + 100.0*t), -1.0, 1.0, 0.0, 1.0);
+                    float av = (1.0 - cos(PI*v)) / 2.0;
+                    float aav = (1.0 - cos(PI*av)) / 2.0;
+                    outp.rgb = vec3(1.0, 1.0, 1.0) * aav;
+                }
+            `
+        }));
 
         gift.addModule(new Button({
             hoverTint: 0xFFFF00,
             clickTint: 0xBBBB00,
             onClick: () => {
-                if (revealGift) {
-                    global.game.startGame(() => ARG.Stages.CODE());
-                } else {
-                    global.game.playSound('arg/glitch_short_low').volume = 1.5;
-                    gift.kill();
-                    this.destroyedGift = true;
-                }
+                global.game.playSound('click');
+                global.game.menuSystem.loadMenu(() => new CreditsMenu(this.takeSnapshot()));
             },
             onJustHovered: () => {
                 world.effects.glitch.enable(1, 0.5, 16);

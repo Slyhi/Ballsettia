@@ -33,13 +33,13 @@ namespace Equipments {
 
         private static update(equipment: StarShooter, source: Ball, world: World) {
             if (source.state !== Ball.States.BATTLE || source.level <= 1) return;
-            let enemyBalls = getEnemies(world, source);
-            if (enemyBalls.length === 0) return;
-            let target = Ball.Random.element(enemyBalls);
             let speed = 500;
 
             equipment.shootTime += equipment.delta;
             while (source.level > 1 && equipment.shootTime >= 1) {
+                let enemyBalls = getEnemies(world, source);
+                if (enemyBalls.length === 0) continue;
+                let target = Ball.Random.element(enemyBalls);
                 StarShooter.shootStar(equipment, source, target, world, speed);
                 equipment.shootTime -= 1;
             }

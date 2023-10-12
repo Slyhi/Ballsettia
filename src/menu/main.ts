@@ -73,8 +73,8 @@ class MainMenu extends Menu {
             this.angle = Math.sin(4*this.life.time + 12) * 3;
         };
         this.select.name('play').addModule(new Button({
-            hoverTint: 0xFFFF00,
-            clickTint: 0xBBBB00,
+            hoverTint: 0xBFBFBF,
+            clickTint: 0x808080,
             onJustHovered: juiceButton(1),
             onClick: () => {
                 global.game.playSound('click');
@@ -87,31 +87,12 @@ class MainMenu extends Menu {
             },
         }));
 
-        this.select.name<Sprite>('howtoplay').updateCallback = function() {
-            this.angle = Math.sin(4*this.life.time + 1) * 3;
-        };
-        this.select.name('howtoplay').addModule(new Button({
-            hoverTint: 0xFFFF00,
-            clickTint: 0xBBBB00,
-            onJustHovered: juiceButton(1),
-            onClick: () => {
-                global.game.playSound('click');
-                setSheenSeen('howToPlay', true);
-                this.select.name<Sprite>('howtoplay').effects.post.filters = [];
-                global.game.menuSystem.loadMenu(() => new TutorialMenu());
-            },
-        }));
-
-        if (shouldSheen('howToPlay')) {
-            this.select.name<Sprite>('howtoplay').effects.post.filters.push(new ShineFilter(0xFFFFBB));
-        }
-
         this.select.name<Sprite>('unlockables').updateCallback = function() {
             this.angle = Math.sin(4*this.life.time + 2) * 2.5;
         };
         this.select.name('unlockables').addModule(new Button({
-            hoverTint: 0xFFFF00,
-            clickTint: 0xBBBB00,
+            hoverTint: 0xBFBFBF,
+            clickTint: 0x808080,
             onJustHovered: juiceButton(1),
             onClick: () => {
                 global.game.playSound('click');
@@ -129,8 +110,8 @@ class MainMenu extends Menu {
             this.angle = Math.sin(4*this.life.time + 3) * 2.5;
         };
         this.select.name('almanac').addModule(new Button({
-            hoverTint: 0xFFFF00,
-            clickTint: 0xBBBB00,
+            hoverTint: 0xBFBFBF,
+            clickTint: 0x808080,
             onJustHovered: juiceButton(1),
             onClick: () => {
                 global.game.playSound('click');
@@ -156,23 +137,6 @@ class MainMenu extends Menu {
                 global.game.menuSystem.loadMenu(() => new CreditsMenu(this.takeSnapshot()));
             },
         }));
-
-        if (IS_MOBILE) {
-            this.select.name<Sprite>('googleplay').setVisible(false);
-        } else {
-            this.select.name<Sprite>('googleplay').updateCallback = function() {
-                this.angle = Math.sin(4*this.life.time + 5) * 2.5;
-            };
-            this.select.name('googleplay').addModule(new Button({
-                hoverTint: 0xFFFF00,
-                clickTint: 0xBBBB00,
-                onJustHovered: juiceButton(1),
-                onClick: () => {
-                    global.game.playSound('click');
-                    window.open('https://play.google.com/store/apps/details?id=net.lectvs.autoballs', '_blank');
-                },
-            }));
-        }
 
         let gear = this.addWorldObject(new Sprite({
             x: 14, y: this.height-14,

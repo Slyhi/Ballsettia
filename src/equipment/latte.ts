@@ -5,7 +5,7 @@ namespace Equipments {
         getName() { return 'Latte'; }
         getDesc() { return `On Enter Battle, leave a pool of latte which increase balls speed in latte art direction`; }
 
-        get latteSpeed() { return 8; }
+        get latteSpeed() { return 400; }
         get latteRadius() { return 35; }
         get latteTime() { return 35; }
 

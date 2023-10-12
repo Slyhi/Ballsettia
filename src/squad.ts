@@ -159,19 +159,12 @@ const TYPE_TO_BALL_TYPE_DEF: { [type: number]: BallTypeDef } = {
 
     // Modded Pack
     //Ballsettia Modded Balls
-    420: { factory: config => new Balls.AmericanFootball(config), purchasable: true, tier: 1, pack: 'classic' },
-    421: { factory: config => new Balls.WebShooter(config), purchasable: true, tier: 1, pack: 'classic' },
-    422: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'classic' },
-    423: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'classic' },
-    424: { factory: config => new Balls.BallOfCotton(config), purchasable: true, tier: 2, pack: 'classic' },
-    425: { factory: config => new Balls.Baseball(config), purchasable: true, tier: 1, pack: 'classic' },
-
-    520: { factory: config => new Balls.AmericanFootball(config), purchasable: true, tier: 1, pack: 'community' },
-    521: { factory: config => new Balls.WebShooter(config), purchasable: true, tier: 1, pack: 'community' },
-    522: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'community' },
-    523: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'community' },
-    524: { factory: config => new Balls.BallOfCotton(config), purchasable: true, tier: 2, pack: 'community' },
-    525: { factory: config => new Balls.Baseball(config), purchasable: true, tier: 1, pack: 'community' },
+    420: { factory: config => new Balls.AmericanFootball(config), purchasable: true, tier: 1, pack: 'modded' },
+    421: { factory: config => new Balls.WebShooter(config), purchasable: true, tier: 2, pack: 'modded' },
+    422: { factory: config => new Balls.Winder(config), purchasable: false, tier: 3, pack: 'modded' },
+    423: { factory: config => new Balls.Moai(config), purchasable: false, tier: 1, pack: 'modded' },
+    424: { factory: config => new Balls.BallOfCotton(config), purchasable: true, tier: 2, pack: 'modded' },
+    425: { factory: config => new Balls.Baseball(config), purchasable: true, tier: 1, pack: 'modded' },
 }
 
 const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {

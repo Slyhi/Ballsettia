@@ -35,8 +35,8 @@ class LattePool extends WorldObject {
         
         pool.runScript(function*() {
             yield S.tween(0.5, pool, 'radius', 0, radius);
-            yield S.tween(time, pool, 'radius', radius, 5);
-            yield S.tween(0.5, pool, 'radius', 5, 0);
+            yield S.tween(time, pool, 'radius', radius, 10);
+            yield S.tween(0.5, pool, 'radius', 10, 0);
             pool.kill();
         });
     }

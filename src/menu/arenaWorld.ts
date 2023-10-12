@@ -16,7 +16,7 @@ function createArenaWorld() {
     arenaWorld.addWorldObject(new AbilitySystem());
 
     arenaWorld.data.battleState = Ball.States.BATTLE;
-    arenaWorld.data.packs = [Random.element(['classic', 'community'])];
+    arenaWorld.data.packs = [Random.element(['classic', 'community', 'modded'])];
     arenaWorld.data.summon = () => {
         for (let i = 0; i < 5; i++) {
             for (let team of <Ball.Team[]>['enemy', 'friend']) {
