@@ -81,7 +81,7 @@ namespace Assets {
             anchor: Vector2.CENTER,
             spritesheet: { frameWidth: 52, frameHeight: 58 },
         },
-        'slyhi/tornado': { anchor: Vector2.CENTER },
+        'slyhi/cyclone': { anchor: Vector2.CENTER },
         'slyhi/webbullet': { anchor: Vector2.CENTER },
         'slyhi/webtrap': { anchor: Vector2.CENTER },
 
@@ -541,7 +541,7 @@ namespace Assets {
                 'effecticon/spreaddamage': { rect: rect(16, 8, 8, 8) },
                 'effecticon/marked': { rect: rect(24, 8, 8, 8) },
                 'effecticon/scaleacceleration': { rect: rect(32, 8, 8, 8) },
-                'effecticon/etcetera': { rect: rect(40, 8, 8, 8) },
+                'effecticon/': { rect: rect(40, 8, 8, 8) },
             }
         },
         'slyhi/effecticonmodded': {
@@ -1012,6 +1012,9 @@ namespace Assets {
         'arg/sabshop': { volume: 0.6 },
         'arg/sabbattle': { volume: 0.6 },
         'arg/ff': { url: 'arg/ff.wav', volume: 0.6 },
+
+        // Ballsettia
+        'slyhi/wind': { url: 'slyhi/wind.wav', volume: 1 },
     }
 
     export const tilesets: Dict<Preload.Tileset> = {

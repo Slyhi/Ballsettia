@@ -18,8 +18,7 @@ const ALMANAC_EXCLUDED_BALLS = [
     77,  // Pinata
     142, // Greater Mimic
     // Temporary Exclude
-    422, 522, // Winder
-    423, 523, // Moai
+    423,// Moai
 ];
 
 const ALMANAC_EXCLUDED_ITEMS = [

@@ -9,7 +9,7 @@ class WebBullet extends Projectile {
         super(source, {
             x, y,
             texture: 'slyhi/webbullet',
-            tint: Ball.getTeamForColorAprilFools(source.team) === 'friend' ? 0xFFFFFF : 0x808080,
+            tint: Ball.getTeamForColorAprilFools(source.team) === 'friend' ? 0xFFFFFF : 0xABABAB,
             effects: { outline: { color: 0x000000 } },
             layer: Battle.Layers.fx,
             v: v,
@@ -35,14 +35,9 @@ class WebBullet extends Projectile {
             ball.addSlow('yarn', this.slowFactor, this.slowTime);
             this.kill();
         } else if (wall) {
-            this.world.playSound('hitwall');
+            this.world.playSound('hitwall', { limit: 5 });
             this.world.addWorldObject(new WebTrap(this.x, this.y, vec2(0, 0), this.source, this.slowFactor, this.slowTime, this.webLife));
             this.kill();
         }
-    }
-
-    kill() {
-        this.world.addWorldObject(newPuff(this.x, this.y, Battle.Layers.fx, 'small'));
-        super.kill();
     }
 }

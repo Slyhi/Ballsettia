@@ -53,7 +53,7 @@ class StarBullet extends Projectile {
             this.world.addWorldObject(new StarExplosion(this.x, this.y, { damage: this.radius, inner: this.radius*0.5527864, outer: this.radius*1.4472136 }, { ally: 0, enemy: this.damage }, this.source));
             this.kill();
         } else if (wallHit) {
-            this.world.playSound('hitwall');
+            // nothing
         }
 
         if (this.life.time > 8) { this.kill(); }

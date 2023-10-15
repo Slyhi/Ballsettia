@@ -1,4 +1,3 @@
-/*unfinished*/
 namespace Balls {
     export class BallOfCotton extends Ball {
         getName() { return 'Ball of Cotton'; }
@@ -28,10 +27,10 @@ namespace Balls {
         
         onCollide(collision: Physics.Collision): void {
             super.onCollide(collision);
-            if (this.state === Ball.States.BATTLE && collision.other.obj.physicsGroup === Battle.PhysicsGroups.walls) {
-                this.world?.playSound('hitwall', { limit: 2 });
-                if (this.cooldown.consumeUse() && !this.isNullified()) {
-                    this.hitToken++; 
+            if (this.state === Ball.States.BATTLE && collision.other.obj.physicsGroup === Battle.PhysicsGroups.walls && this.cooldown.consumeUse() && !this.isNullified()) {
+                this.hitToken++;
+                if (this.shouldActivateAbilityTwice()) {
+                    this.doAfterTime(0.1, () => this.hitToken++);
                 }
             }
         }

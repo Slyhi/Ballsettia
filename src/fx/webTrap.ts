@@ -8,7 +8,7 @@ class WebTrap extends Sprite {
         super({
             x, y,
             texture: 'slyhi/webtrap',
-            tint: Ball.getTeamForColorAprilFools(source.team) === 'friend' ? 0xFFFFFF : 0x808080,
+            tint: Ball.getTeamForColorAprilFools(source.team) === 'friend' ? 0xFFFFFF : 0xABABAB,
             effects: { outline: { color: 0x000000 } },
             layer: Battle.Layers.onground,
             v: v,
@@ -23,17 +23,12 @@ class WebTrap extends Sprite {
         this.webLife = webLife;
     }
 
-    onAdd(): void {
-        super.onAdd();
-        this.world.playSound('medkitout', { limit: 2 });
-    }
-
     postUpdate(): void {
         super.postUpdate();
 
         if (this.life.time > this.webLife/2) {
-            // Graph for this curve -> https://www.desmos.com/calculator/ax3yka4jum
-            let alpha = M.lerp(0.33, 1.0, (Math.sin(Math.exp((5.2976*this.life.time)/this.webLife)) + 1)/2);
+            // Graph for this curve -> https://www.desmos.com/calculator/axabc1qndo
+            let alpha = M.lerp(0.33, 1.0, Math.round((Math.sin(Math.exp((5.2976*this.life.time)/this.webLife)) + 1)*5)/10);
             this.alpha = alpha;
             this.effects.outline.alpha = alpha;
         }
@@ -58,11 +53,5 @@ class WebTrap extends Sprite {
 
         enemy.addSlow('yarn', this.slowFactor, this.slowTime);
         this.kill();
-    }
-
-    kill(): void {
-        this.world.playSound('medkitgrab');
-        this.world.addWorldObject(newPuff(this.x, this.y, Battle.Layers.fx, 'small'));
-        super.kill();
     }
 }

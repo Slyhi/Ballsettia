@@ -1,4 +1,3 @@
-/*unfinished, editing*/
 /// <reference path="./orbitEquipment.ts" />
 
 namespace Equipments {
@@ -22,6 +21,7 @@ namespace Equipments {
             });
 
             this.addAbility('onPreBattle', IcyBlast.onPreBattle);
+            this.addAbility('onEnterBattle', IcyBlast.onEnterBattle);
         }
 
         postUpdate(): void {
@@ -36,20 +36,10 @@ namespace Equipments {
 
         private static onPreBattle(equipment: IcyBlast, source: Ball, world: World) {
             IcyBlast.καιΞεχνώ(equipment, source, world);
+        }
 
-            source.runScript(function*() {
-                equipment.effects.addSilhouette.color = 0xFFFFFF;
-                equipment.effects.silhouette.amount = 1;
-                yield [
-                    S.tween(0.2, equipment.effects.silhouette, 'amount', 1, 0),
-                    S.tween(0.2, equipment, 'alpha', 1, 0, Tween.Easing.InQuad),
-                    S.tween(0.2, equipment.effects.outline, 'alpha', 1, 0, Tween.Easing.InQuad),
-                ];
-                equipment.effects.silhouette.amount = 1;
-                equipment.effects.silhouette.enabled = false;
-
-                source.unequip();
-            });
+        private static onEnterBattle(equipment: IcyBlast, source: Ball, world: World) {
+            IcyBlast.καιΞεχνώ(equipment, source, world);
         }
 
         private static καιΞεχνώ(equipment: IcyBlast, source: Ball, world: World) {
@@ -70,6 +60,20 @@ namespace Equipments {
                     world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
                 }
             }
+
+            source.runScript(function*() {
+                equipment.effects.addSilhouette.color = 0xFFFFFF;
+                equipment.effects.silhouette.amount = 1;
+                yield [
+                    S.tween(0.2, equipment.effects.silhouette, 'amount', 1, 0),
+                    S.tween(0.2, equipment, 'alpha', 1, 0, Tween.Easing.InQuad),
+                    S.tween(0.2, equipment.effects.outline, 'alpha', 1, 0, Tween.Easing.InQuad),
+                ];
+                equipment.effects.silhouette.amount = 1;
+                equipment.effects.silhouette.enabled = false;
+
+                source.unequip();
+            });
         }
     }
 }

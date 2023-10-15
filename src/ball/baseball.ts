@@ -34,21 +34,27 @@ namespace Balls {
                 if (source.sumAngle >= 360) source.sumAngle -= 360;
                 else if (source.sumAngle <= -360) source.sumAngle += 360;
 
-                addStartShopEffect({
-                    type: 'gold',
-                    gold: 1,
-                    sourceSquadIndex: source.squadIndexReference,
-                });
-
-                source.currentGold++;
-                source.flash(0xFFFFFF, 1, 0.2);
-                world.playSound('mariocoin', { humanized: false });
-
+                if (source.shouldActivateAbilityTwice()) {
+                    source.doAfterTime(0.5, () => Baseball.gainGold(source, world));
+                }
             }
 
             if (source.currentGold >= source.maxGold) {
                     source.changeBaseTextureAndRadius('balls/baseballspent', source.radius);
             }
+        }
+
+        private static gainGold(source: Baseball, world: World) {
+            if (source.currentGold >= source.maxGold) return;
+            addStartShopEffect({
+                type: 'gold',
+                gold: 1,
+                sourceSquadIndex: source.squadIndexReference,
+            });
+
+            source.currentGold++;
+            source.flash(0xFFFFFF, 1, 0.2);
+            world.playSound('mariocoin', { humanized: false });
         }
     }
 }

@@ -42,6 +42,9 @@ namespace Equipments {
                 let target = Ball.Random.element(enemyBalls);
                 StarShooter.shootStar(equipment, source, target, world, speed);
                 equipment.shootTime -= 1;
+                world.runScript(function*() {
+                    yield S.wait(0.5);
+                });
             }
         }
 

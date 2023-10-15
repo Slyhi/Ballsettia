@@ -603,12 +603,14 @@ class Ball extends Sprite {
             this.properties.equipment = this.equipment ? this.equipment.equipmentType : -1;
         }
 
+        let effects = this.statusEffects.map(effect => effect.type);
+        
         let targetAlpha = 1;
-        if (this.statusEffects.find(effect => effect.type === 'protected')) {
+        if (effects.find(effect => effect === 'protected')) {
             this.effectAura.tint = 0xFFFF00;
-        } else if (this.statusEffects.find(effect => effect.type === 'leeched')) {
+        } else if (effects.find(effect => effect === 'leeched')) {
             this.effectAura.tint = 0xFF0000;
-        } else if (this.statusEffects.find(effect => effect.type === 'healfeedback')) {
+        } else if (effects.find(effect => effect === 'healfeedback')) {
             this.effectAura.tint = 0x00FF00;
         } else {
             targetAlpha = 0;
@@ -623,7 +625,7 @@ class Ball extends Sprite {
             this.effectAura.scale = this.effectAuraRadius/64;
         }
 
-        if (this.isNullified()) {
+        if (effects.find(effect => effect === 'nullified')) {
             this.nullifiedSprite.setVisible(true);
             this.nullifiedSprite.alpha = M.moveToClamp(this.nullifiedSprite.alpha, 1, 3, this.delta);
         } else {
@@ -633,7 +635,7 @@ class Ball extends Sprite {
             }
         }
 
-        if (this.isMarked()) {
+        if ((effects.find(effect => effect === 'marked'))) {
             this.markedSprite.setVisible(true);
             this.markedSprite.alpha = Tween.Easing.OscillateSine(1.5)(this.life.time);
         } else {
@@ -642,7 +644,7 @@ class Ball extends Sprite {
 
         let uiPositionScale = M.map(Math.max(this.visibleRadius/8, 1), 1, 4, 1, 3.5);
 
-        this.effectIcons.setIcons(this.statusEffects);
+        this.effectIcons.setIcons(effects.sort().toString());
         this.effectIcons.localx = 0;
         this.effectIcons.localy = (this.level === 1 ? -9 : -18) * uiPositionScale;
         
@@ -792,6 +794,7 @@ class Ball extends Sprite {
     addBurning(source: Ball, time: number) {
         if (source.isChilling()) { source.removeStatusEffectsOfType('chilling'); }
 
+        if (source.isFreezing()) return;
         if (source.equipment && source.equipment.fireImmunity && !source.isNullified()) return;
 
         let currentBurning = <Ball.BurningStatusEffect>this.statusEffects.find(effect => effect.type === 'burning' && effect.source === source);

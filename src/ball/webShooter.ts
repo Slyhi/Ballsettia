@@ -1,4 +1,3 @@
-/*unfinished*/
 namespace Balls {
     export class WebShooter extends Ball {
         getName() { return 'Web Shooter'; }
@@ -9,18 +8,17 @@ namespace Balls {
 
         get slowFactorPercent() { return 50; }
         get slowFactor() { return this.slowFactorPercent/100; }
-        get webLife() { return 13 + this.level*2; }
+        get webLife() { return 15 + 2*(this.level-1); }
         get slowTime() { return this.level/2; }
         get webSpeed() { return 200; }
+        get currentShootTime() { return 1; }
 
         private shootTime: number;
-        private currentShootTime: number;
 
         constructor(config: Ball.Config) {
             super('balls/webshooter', 8, config);
 
             this.shootTime = Ball.Random.float(0.5, 1);
-            this.currentShootTime = 0.75;
 
             this.addAbility('update', WebShooter.update);
         }
@@ -31,6 +29,9 @@ namespace Balls {
             source.shootTime += source.delta;
             while (source.shootTime >= source.currentShootTime) {
                 WebShooter.shootWeb(source, world);
+                if (source.shouldActivateAbilityTwice()) {
+                    source.doAfterTime(source.currentShootTime/2, () => WebShooter.shootWeb(source, world));
+                }
                 source.shootTime -= source.currentShootTime;
             }
         }

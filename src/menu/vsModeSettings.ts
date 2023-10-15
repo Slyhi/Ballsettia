@@ -138,7 +138,7 @@ namespace VSModeSettings {
     }
 
     function getPacks() {
-        return [PACK_CLASSIC_NAME, PACK_COMMUNITY_NAME, PACK_WEEKLY_NAME, PACK_ALL_NAME];
+        return [PACK_CLASSIC_NAME, PACK_COMMUNITY_NAME, PACK_MODDED_NAME, PACK_WEEKLY_NAME, PACK_ALL_NAME];
     }
 
     function packNameToIdWithAll(name: string) {

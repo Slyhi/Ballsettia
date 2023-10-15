@@ -53,16 +53,23 @@ namespace Balls {
             if ((team === 'friend' && source.x < world.width/2) || (team === 'neutral' && source.y < world.height/2) || (team === 'enemy' && source.x > world.width/2)) return;
             source.stayTime += source.delta;
             while (source.stayTime >= source.stayLength) {
-                addStartShopEffect({
-                    type: 'gold',
-                    gold: 1,
-                    sourceSquadIndex: source.squadIndexReference,
-                });
-
-                source.flash(0xFFFFFF, 1, 0.2);
-                world.playSound('mariocoin', { humanized: false });
+                AmericanFootball.gainGold(source, world);
+                if (source.shouldActivateAbilityTwice()) {
+                    source.doAfterTime(0.5, () => AmericanFootball.gainGold(source, world));
+                }
                 source.stayTime -= source.stayLength;
             }
+        }
+
+        private static gainGold(source: AmericanFootball, world: World) {
+            addStartShopEffect({
+                type: 'gold',
+                gold: 1,
+                sourceSquadIndex: source.squadIndexReference,
+            });
+
+            source.flash(0xFFFFFF, 1, 0.2);
+            world.playSound('mariocoin', { humanized: false });
         }
     }
 }
