@@ -56,6 +56,7 @@ namespace Balls {
             let battleEnemies = enemies.filter(ball => ball.hasBattleEffect());
             if (battleEnemies.length > 0) enemies = battleEnemies;
             if (enemies.length === 0) return;
+            enemies = getMutableSelect(world, source, enemies);
 
             source.target = Ball.Random.element(enemies);
         }

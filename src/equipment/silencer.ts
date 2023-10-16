@@ -28,6 +28,7 @@ namespace Equipments {
             
             let enemies = getEnemies(world, source);
             if (enemies.length === 0) return;
+            enemies = getMutableSelect(world, source, enemies);
 
             let numSpikes = Ball.Random.int(1, 3);
             for (let i = 0; i < numSpikes; i++) {

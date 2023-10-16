@@ -82,6 +82,7 @@ namespace Balls {
         private static disperseSingle(source: Leech, world: World, amount: number) {
             let allyBalls = getAlliesNotSelf(world, source);
             let needyBalls = allyBalls.filter(ball => ball.hp < ball.maxhp);
+            allyBalls = getMutableSelect(world, source, allyBalls);
             let targetBall = needyBalls.length > 0 ? Ball.Random.element(needyBalls) : Ball.Random.element(allyBalls);
             if (targetBall) {
                 world.addWorldObject(new RandomBuff(source.x, source.y, source, targetBall, { dmg: 0, hp: amount * source.healMult }, allies => {

@@ -46,6 +46,7 @@ namespace Balls {
             if (source.state !== Ball.States.BATTLE) return;
             
             let enemyBalls = getEnemies(world, source);
+            enemyBalls = getMutableSelect(world, source, enemyBalls);
             let target = M.argmin(enemyBalls, ball => G.distance(source, ball));
 
             if (target) {

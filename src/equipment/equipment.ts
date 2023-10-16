@@ -44,6 +44,7 @@ class Equipment extends Sprite {
     startEarlyTime = 0;
     removable = true;
     fireImmunity = false;
+    chanceToTauntOtherAbilities = 0;
     // Do not forget to add isNullified check and hasBattleEffect for future equipment effects!
 
     addAbility<T extends AbilityType>(type: T, abilityFunction: (equipment: this, ...rest: Parameters<AbilityFunction<Ball, T>>) => void, config?: { nullifyable?: boolean }) {

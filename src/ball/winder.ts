@@ -38,6 +38,7 @@ namespace Balls {
 
         private static shoot(source: Winder, world: World) {
             let enemyBalls = getEnemies(world, source);
+            enemyBalls = getMutableSelect(world, source, enemyBalls);
             if (enemyBalls.length === 0) return;
             let target = M.argmin(enemyBalls, ball => G.distance(source, ball));
 

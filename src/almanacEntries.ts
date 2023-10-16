@@ -17,8 +17,6 @@ const ALMANAC_EXCLUDED_BALLS = [
     41,  // Glitched Ball ARG
     77,  // Pinata
     142, // Greater Mimic
-    // Temporary Exclude
-    423,// Moai
 ];
 
 const ALMANAC_EXCLUDED_ITEMS = [
@@ -30,8 +28,6 @@ const ALMANAC_EXCLUDED_ITEMS = [
     418, // Infection
     419, // Spore
     428, // Gnome
-    // Temporary Exclude
-    424, // Red Herring
 ];
 
 function getAlmanacDisplayedBallTypes(pack: Pack, weekly: { week: number }) {

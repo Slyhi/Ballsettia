@@ -18,6 +18,7 @@ namespace Balls {
         static onBuy(source: Pinata, world: World): void {
             let validBalls = getAlliesNotSelf(world, source).filter(ball => !ball.isInShop);
             if (validBalls.length === 0) return;
+            validBalls = getMutableSelect(world, source, validBalls);
 
             let randomBall = Ball.Random.element(validBalls);
             let buff = Ball.Random.boolean() ? { dmg: 1, hp: 0 } : { dmg: 0, hp: 1 }

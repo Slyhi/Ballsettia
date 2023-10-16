@@ -28,6 +28,7 @@ namespace Balls {
         private static shootSpikes(source: Ninja, world: World) {
             let validBalls = getEnemies(world, source).filter(ball => !(ball instanceof Grenade));
             if (validBalls.length === 0) return;
+            validBalls = getMutableSelect(world, source, validBalls);
 
             let spikeCounts = M.batch(source.spikes, 20);
 

@@ -27,6 +27,7 @@ namespace Balls {
         private static selectTargetAndShootSpike(source: Hitman, world: World) {
             let validBalls = getEnemies(world, source);
             if (validBalls.length === 0) return;
+            validBalls = getMutableSelect(world, source, validBalls);
 
             let farthestBall = M.argmax(validBalls, ball => G.distance(ball, source));
             Hitman.shootSpike(source, world, farthestBall);

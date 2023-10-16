@@ -40,10 +40,11 @@ namespace Balls {
             while (source.hitToken >= 1) {
                 source.hitToken--;
 
-                let allies = getAlliesNotSelf(world, source);
-                if (allies.length === 0) return;
+                let validBalls = getAlliesNotSelf(world, source);
+                if (validBalls.length === 0) return;
+                validBalls = getMutableSelect(world, source, validBalls);
 
-                let randomBall = Ball.Random.element(allies);
+                let randomBall = Ball.Random.element(validBalls);
                 world.addWorldObject(new HomingHeal(source.x, source.y, source, randomBall, source.healAmount, balls => undefined));
             }
         }

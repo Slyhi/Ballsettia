@@ -44,20 +44,20 @@ namespace Equipments {
 
         private static καιΞεχνώ(equipment: IcyBlast, source: Ball, world: World) {
             let enemyBalls = getEnemies(world, source).filter(enemy => G.distance(source, enemy) < equipment.freezeRadius + enemy.physicalRadius);
-            if (enemyBalls.length === 0) return;
-
-            for (let ball of enemyBalls) {
-                ball.addFreezing(source, equipment.freezeTime, equipment.chillTime);
-                world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
+            if (enemyBalls.length !== 0) {
+                for (let ball of enemyBalls) {
+                    ball.addFreezing(source, equipment.freezeTime, equipment.chillTime);
+                    world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
+                }
             }
 
             let allyBalls = getAlliesNotSelf(world, source).filter(ally => G.distance(source, ally) < equipment.freezeRadius + ally.physicalRadius);
-            if (allyBalls.length === 0) return;
-
-            for (let ball of allyBalls) {
-                if (ball.isBurning()) {
-                    A.filterInPlace(ball.statusEffects, e => e.type !== 'burning');
-                    world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
+            if (allyBalls.length !== 0) {
+                for (let ball of allyBalls) {
+                    if (ball.isBurning()) {
+                        A.filterInPlace(ball.statusEffects, e => e.type !== 'burning');
+                        world.addWorldObject(newPuff(ball.x, ball.y, Battle.Layers.fx, 'small'));
+                    }
                 }
             }
 

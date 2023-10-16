@@ -21,7 +21,8 @@ namespace Equipments {
         }
 
         private static sendMark(equipment: HuntersMark, source: Ball, world: World) {
-            let validBalls = getEnemies(world, source)
+            let validBalls = getEnemies(world, source);
+            validBalls = getMutableSelect(world, source, validBalls);
             let getRandomEnemy = (enemies: Ball[]) => {
                 let marks = world.select.typeAll(HomingMark);
                 return Ball.Random.element(enemies.filter(enemy => !enemy.isMarked() && !marks.some(mark => mark.target === enemy)));

@@ -210,6 +210,7 @@ class Ball extends Sprite {
     isBeingDisintegrated: boolean = false;
     dead: boolean = false;
     storesMoney: boolean = false;
+    chanceToBeReverse: number = 0;
 
     timesCollidedWithEnemy: number;
     timesTakenDamage: number;
@@ -567,6 +568,10 @@ class Ball extends Sprite {
             let statusEffect = this.statusEffects[i];
 
             if (statusEffect.type === 'burning') {
+                if (this.equipment && this.equipment.fireImmunity && !this.isNullified()) {
+                    this.removeStatusEffectsOfType('burning');
+                    return
+                }
                 let damageToTake = 1 * this.delta;
                 this.leechFor(damageToTake, statusEffect.source);
                 if (this.world.timeScale > 0.01) statusEffect.sound.update(this.delta);
@@ -795,6 +800,7 @@ class Ball extends Sprite {
         if (source.isChilling()) { source.removeStatusEffectsOfType('chilling'); }
 
         if (source.isFreezing()) return;
+
         if (source.equipment && source.equipment.fireImmunity && !source.isNullified()) return;
 
         let currentBurning = <Ball.BurningStatusEffect>this.statusEffects.find(effect => effect.type === 'burning' && effect.source === source);
@@ -936,8 +942,7 @@ class Ball extends Sprite {
 
         let currentFreezing = <Ball.FreezingStatusEffect>this.statusEffects.find(effect => effect.type === 'freezing');
         if (currentFreezing) {
-            // currentFreezing.timeLeft = Math.max(currentFreezing.timeLeft, freezeTime);
-            // Nope
+            currentFreezing.chillTime = Math.max(currentFreezing.chillTime, chillTime);
         }
         else {
             this.freezeSprite = this.addChild(new FreezeIce(this.physicalRadius, false));
@@ -958,8 +963,12 @@ class Ball extends Sprite {
     addChilling(source: Ball, time: number) {
         if (source.isBurning()) { source.removeStatusEffectsOfType('burning'); }
 
-        let currentChilling = <Ball.ChillingStatusEffect>this.statusEffects.find(effect => effect.type === 'chilling' && effect.source === source);
+        let currentFreezing = <Ball.FreezingStatusEffect>this.statusEffects.find(effect => effect.type === 'freezing');
+        if (currentFreezing) {
+            currentFreezing.chillTime = Math.max(currentFreezing.chillTime, time);
+        }
 
+        let currentChilling = <Ball.ChillingStatusEffect>this.statusEffects.find(effect => effect.type === 'chilling' && effect.source === source);
         if (currentChilling) {
             currentChilling.timeLeft = Math.max(currentChilling.timeLeft, time);
         } else {
@@ -1291,7 +1300,7 @@ class Ball extends Sprite {
 
     getSquadSize(world: World = this.world) {
         if (this.squad) return this.squad.balls.length;
-        return getAllies(world, this).length;
+        return world.select.typeAll(Ball).filter(ball => ball.team === this.team && ball.alive && !ball.dead).length;
     }
 
     getStartEarlyTime() {
@@ -1640,6 +1649,14 @@ class Ball extends Sprite {
 
     shouldActivateAbilityTwice() {
         return this.equipment && this.equipment.chanceToActivateAbilitiesTwice > 0 && !this.isNullified() && Ball.Random.boolean(this.equipment.chanceToActivateAbilitiesTwice);
+    }
+
+    shouldGetReverse() {
+        return this.chanceToBeReverse > 0 && !this.isNullified() && Ball.Random.boolean(this.chanceToBeReverse);
+    }
+
+    shouldGetTaunt() {
+        return this.equipment && this.equipment.chanceToTauntOtherAbilities > 0 && !this.isNullified() && Ball.Random.boolean(this.equipment.chanceToTauntOtherAbilities);
     }
 
     shouldSellAtOneGold() {

@@ -55,7 +55,7 @@ class Cyclone extends Projectile {
     update() {
         super.update();
 
-        this.world.playSound('slyhi/wind'); // This line used make the game crash for some reason
+        this.world.playSound('slyhi/wind', {limit: 4}); // This line used make the game crash for some reason
 
         let collisions = this.world.select.overlap(this.bounds, [Battle.PhysicsGroups.balls, Battle.PhysicsGroups.walls]);
         let wall = collisions.find(c => c.physicsGroup === Battle.PhysicsGroups.walls);

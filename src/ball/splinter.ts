@@ -18,6 +18,7 @@ namespace Balls {
 
         private static onDeath(source: Splinter, world: World, killedBy: Ball) {
             let enemies = getEnemies(world, source);
+            enemies = getMutableSelect(world, source, enemies);
             if (enemies.length === 0) return;
 
             let spikeCounts = M.batch(source.spikes, 20);

@@ -26,6 +26,7 @@ namespace Equipments {
             let starCatchers = world.select.typeAll(StarCatcher);
             let validBalls = getEnemies(world, source).filter(enemy => starCatchers.filter(c => c.target === enemy).length < enemy.level-1);
             if (validBalls.length === 0) return;
+            validBalls = getMutableSelect(world, source, validBalls);
 
             let randomEnemy = Ball.Random.element(validBalls);
             equipment.target = randomEnemy;

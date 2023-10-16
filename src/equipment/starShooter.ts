@@ -22,11 +22,13 @@ namespace Equipments {
 
         private static onPreBattle(equipment: StarShooter, source: Ball, world: World) {
             if (source.state !== Ball.States.PRE_BATTLE || source.level <= 1) return;
-            let enemyBalls = getEnemies(world, source);
             let speed = 200;
 
             while (source.level > 1) {
-                let target = M.argmax(enemyBalls, ball => enemyBalls.filter(neighbor => G.distance(neighbor, ball) < equipment.starRadius).length);
+                let enemyBalls = getEnemies(world, source);
+                if (enemyBalls.length === 0) return;
+                enemyBalls = getMutableSelect(world, source, enemyBalls);
+                let target = Ball.Random.element(enemyBalls);
                 StarShooter.shootStar(equipment, source, target, world, speed);
             }
         }
@@ -38,13 +40,11 @@ namespace Equipments {
             equipment.shootTime += equipment.delta;
             while (source.level > 1 && equipment.shootTime >= 1) {
                 let enemyBalls = getEnemies(world, source);
+                enemyBalls = getMutableSelect(world, source, enemyBalls);
                 if (enemyBalls.length === 0) continue;
                 let target = Ball.Random.element(enemyBalls);
                 StarShooter.shootStar(equipment, source, target, world, speed);
-                equipment.shootTime -= 1;
-                world.runScript(function*() {
-                    yield S.wait(0.5);
-                });
+                equipment.shootTime -= 1; 
             }
         }
 

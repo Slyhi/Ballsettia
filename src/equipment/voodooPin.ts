@@ -72,6 +72,7 @@ namespace Equipments {
                 let target: Ball;
                 while (!target) {
                     let enemyBalls = getEnemies(world, source);
+                    enemyBalls = getMutableSelect(world, source, enemyBalls);
                     target = M.argmax(enemyBalls, ball => ball.dmg);
                     yield;
                 }
