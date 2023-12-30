@@ -22,7 +22,7 @@ namespace Equipments {
 
         private static plantSpore(equipment: ToxicFungus, source: Ball, world: World) {
             let validBalls = getEnemies(world, source);
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
             if (validBalls.length === 0) return;
 
             let strongestBall = M.argmax(validBalls, ball => ball.hp);

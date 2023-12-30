@@ -31,7 +31,7 @@ namespace Balls {
 
             let validEnemies = getEnemies(world, source).filter(ball => ball.equipment && !currentSaps.some(sap => sap.target === ball));
             if (validEnemies.length === 0) return;
-            validEnemies = getMutableSelect(world, source, validEnemies);
+            validEnemies = getMutableSelect(source, validEnemies);
 
             if (validEnemies.length > source.saps) {
                 Ball.Random.shuffle(validEnemies);

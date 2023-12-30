@@ -22,7 +22,7 @@ namespace Balls {
 
             let validBalls = getAlliesNotSelf(world, source).filter(ball => !ball.isInShop);
             if (validBalls.length === 0) return;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
 
             if (validBalls.length > Battery.getAlliesToBuff(source)) {
                 Ball.Random.shuffle(validBalls);

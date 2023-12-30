@@ -27,7 +27,7 @@ namespace Equipments {
             while (source.level > 1) {
                 let enemyBalls = getEnemies(world, source);
                 if (enemyBalls.length === 0) return;
-                enemyBalls = getMutableSelect(world, source, enemyBalls);
+                enemyBalls = getMutableSelect(source, enemyBalls);
                 let target = Ball.Random.element(enemyBalls);
                 StarShooter.shootStar(equipment, source, target, world, speed);
             }
@@ -40,7 +40,7 @@ namespace Equipments {
             equipment.shootTime += equipment.delta;
             while (source.level > 1 && equipment.shootTime >= 1) {
                 let enemyBalls = getEnemies(world, source);
-                enemyBalls = getMutableSelect(world, source, enemyBalls);
+                enemyBalls = getMutableSelect(source, enemyBalls);
                 if (enemyBalls.length === 0) continue;
                 let target = Ball.Random.element(enemyBalls);
                 StarShooter.shootStar(equipment, source, target, world, speed);

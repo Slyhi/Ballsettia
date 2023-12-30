@@ -1,7 +1,7 @@
 class Stars extends Sprite {
-    private type: 'stars' | 'crowns';
+    private type: 'stars' | 'crowns' | 'bows';
 
-    constructor(type: 'stars' | 'crowns') {
+    constructor(type: 'stars' | 'crowns' | 'bows') {
         super({
             copyFromParent: ['layer'],
         });
@@ -10,15 +10,16 @@ class Stars extends Sprite {
     }
 
     setStars(stars: number) {
-        let cache = this.type === 'stars' ? Stars.starsCache : Stars.crownsCache;
+        let cache = this.type === 'stars' ? Stars.starsCache : ( this.type === 'crowns' ? Stars.crownsCache : Stars.bowsCache);
         this.setTexture(cache.get(stars));
     }
 
     private static starsCache = new LazyDictNumber(stars => Stars.newTexture(stars, 'stars'));
     private static crownsCache = new LazyDictNumber(stars => Stars.newTexture(stars, 'crowns'));
+    private static bowsCache = new LazyDictNumber(stars => Stars.newTexture(stars, 'bows'));
 
-    private static newTexture(stars: number, type: 'stars' | 'crowns') {
-        let starTexture = AssetCache.getTexture(type === 'stars' ? 'star' : 'crown');
+    private static newTexture(stars: number, type: 'stars' | 'crowns' | 'bows') {
+        let starTexture = AssetCache.getTexture({ 'stars': 'star', 'crowns': 'crown', 'bows': 'slyhi/bow' }[type]);
 
         if (stars < 7) {
             let texture = new BasicTexture(10*stars, 9, `Stars.${type}Cache`, false);

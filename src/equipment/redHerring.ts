@@ -4,7 +4,7 @@ namespace Equipments {
     export class RedHerring extends OrbitEquipment {
         getName() { return 'Red Herring'; }
         getDesc() {
-            return `All effects have 50% chance to target equipped ball instead`;
+            return `Somes effects have 50% chance to target equipped ball instead`;
         }
 
         constructor() {

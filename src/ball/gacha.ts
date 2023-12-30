@@ -66,6 +66,8 @@ namespace Balls {
             139, // Gold Crystal Ball
             140, // Alchemist
             142, // Greater Mimic
+
+            429, // Present Ball
         ];
     }
 }

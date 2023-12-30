@@ -23,7 +23,7 @@ namespace Balls {
 
             let validBalls = getAlliesNotSelf(world, source).filter(ball => ball.isInShop && ball.frozen && !existingBuffs.some(buff => buff.target === ball));
             if (validBalls.length === 0) return;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
 
             let randomBall = Ball.Random.element(validBalls);
             let buff = world.addWorldObject(new Buff(source.x, source.y, randomBall, { dmg: BallOfIce.getBuffAmount(source), hp: BallOfIce.getBuffAmount(source) }));

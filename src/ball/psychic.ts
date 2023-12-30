@@ -119,7 +119,7 @@ namespace Balls {
                 S.call(() => {
                     let validEnemies = getEnemies(world, source);
                     if (validEnemies.length === 0) return;
-                    validEnemies = getMutableSelect(world, source, validEnemies);
+                    validEnemies = getMutableSelect(source, validEnemies);
         
                     source.target = M.argmax(validEnemies, ball => ball.dmg);
                     source.startTimesHit = source.target.timesTakenDamage;

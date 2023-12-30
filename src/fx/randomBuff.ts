@@ -32,6 +32,7 @@ class RandomBuff extends Sprite {
         this.runScript(S.chain(
             S.waitUntil(() => sendScript.done || (G.distance(this, this.target) < this.target.radius)),
             S.call(() => {
+                if (this.target.isRadioactivity()) this.buff.hp = 0;
                 this.target.buff(this.buff.dmg, this.buff.hp);
                 this.kill();
             }),

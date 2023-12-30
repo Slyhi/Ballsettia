@@ -8,7 +8,7 @@ namespace Balls {
 
         get slowFactorPercent() { return 50; }
         get slowFactor() { return this.slowFactorPercent/100; }
-        get webLife() { return 15 + 2*(this.level-1); }
+        get webLife() { return 10 + (this.level-1); }
         get slowTime() { return this.level/2; }
         get webSpeed() { return 200; }
         get currentShootTime() { return 1; }
@@ -38,7 +38,7 @@ namespace Balls {
 
         private static shootWeb(source: WebShooter, world: World) {
             let enemyBalls = getEnemies(world, source);
-            enemyBalls = getMutableSelect(world, source, enemyBalls);
+            enemyBalls = getMutableSelect(source, enemyBalls);
             if (enemyBalls.length === 0) return;
             let target = M.argmin(enemyBalls, ball => G.distance(source, ball));
 

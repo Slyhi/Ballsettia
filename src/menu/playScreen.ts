@@ -39,15 +39,6 @@ namespace PlayScreen {
             },
         }));
 
-        let daily = world.select.name<Sprite>('daily');
-        daily.updateCallback = function() {
-            this.angle = Math.sin(2*this.life.time-1) * 3;
-        };
-        if (API.BETA || IS_MODDED) {
-            daily.tint = 0x666666;
-            
-        }
-
         let mm = world.select.name<Sprite>('mm');
         mm.updateCallback = function() {
             this.angle = Math.sin(2*this.life.time) * 3;
@@ -118,6 +109,25 @@ namespace PlayScreen {
             },
         }));
         vs.data.infoBoxDescription = "Play 1-on-1 against a friend!";
+
+        world.select.name<Sprite>('howtoplay').updateCallback = function() {
+            this.angle = Math.sin(4*this.life.time + 1) * 3;
+        };
+        world.select.name('howtoplay').addModule(new Button({
+            hoverTint: 0xFFFF00,
+            clickTint: 0xBBBB00,
+            onJustHovered: juiceButton(1),
+            onClick: () => {
+                global.game.playSound('click');
+                setSheenSeen('howToPlay', true);
+                world.select.name<Sprite>('howtoplay').effects.post.filters = [];
+                global.game.menuSystem.loadMenu(() => new TutorialMenu());
+            },
+        }));
+
+        if (shouldSheen('howToPlay')) {
+            world.select.name<Sprite>('howtoplay').effects.post.filters.push(new ShineFilter(0xFFFFBB));
+        }
 
         world.select.name<Sprite>('back').updateCallback = function() {
             this.angle = Math.sin(2*this.life.time+2) * 3;

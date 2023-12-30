@@ -30,7 +30,7 @@ namespace Balls {
         private static removeStarsFromEnemies(source: Reducer, world: World) {
             let validBalls = getEnemies(world, source).filter(ball => ball.level > 1);
             if (validBalls.length === 0) return;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
 
             let deleveledBalls: Ball[] = [];
             let deboosts: RandomDeboost[] = [];

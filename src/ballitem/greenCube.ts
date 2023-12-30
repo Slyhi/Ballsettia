@@ -22,6 +22,8 @@ namespace BallItems {
             127,  // Dove
             136,  // Crown
             143,  // Bowling Ball
+
+            429, // Present Ball
         ];
     }
 }

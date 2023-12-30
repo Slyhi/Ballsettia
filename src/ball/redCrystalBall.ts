@@ -16,7 +16,7 @@ namespace Balls {
         static onSell(source: Ball, world: World) {
             let validBalls = getAlliesNotSelf(world, source).filter(ball => !ball.isInShop);
             if (validBalls.length === 0) return;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
 
             let randomBall = Ball.Random.element(validBalls);
             world.addWorldObject(new RandomBuff(source.x, source.y, source, randomBall, { dmg: RedCrystalBall.getBuffAmount(source), hp: 0 }, _ => Ball.Random.element(validBalls)));

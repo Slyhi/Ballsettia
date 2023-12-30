@@ -16,7 +16,7 @@ namespace Balls {
         private static onDeath(source: Martyr, world: World, killedBy: Ball) {
             let validBalls = getAlliesNotSelf(world, source);
             if (validBalls.length === 0) return;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
 
             let randomBall = Ball.Random.element(validBalls);
             world.addWorldObject(new RandomBuff(source.x, source.y, source, randomBall, { dmg: source.buffAmount, hp: source.buffAmount }, allies => Ball.Random.element(allies)));

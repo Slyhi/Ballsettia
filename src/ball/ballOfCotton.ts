@@ -42,7 +42,7 @@ namespace Balls {
 
                 let validBalls = getAlliesNotSelf(world, source);
                 if (validBalls.length === 0) return;
-                validBalls = getMutableSelect(world, source, validBalls);
+                validBalls = getMutableSelect(source, validBalls);
 
                 let randomBall = Ball.Random.element(validBalls);
                 world.addWorldObject(new HomingHeal(source.x, source.y, source, randomBall, source.healAmount, balls => undefined));

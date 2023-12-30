@@ -1,11 +1,11 @@
-class Medpack extends Sprite {
+class Candycane extends Sprite {
     private source: Ball;
     private health: number;
 
     constructor(x: number, y: number, v: Vector2, source: Ball, health: number) {
         super({
             x, y,
-            texture: 'medkit',
+            texture: 'slyhi/candycane',
             effects: { post: { filters: [new BallTeamColorFilter(Ball.getTeamColor(source.team))] }},
             layer: Battle.Layers.onground,
             v: v,
@@ -42,12 +42,17 @@ class Medpack extends Sprite {
 
     private updateCollisions() {
         let collisions = this.world.select.overlap(this.bounds, [Battle.PhysicsGroups.balls]);
-        let validBalls = <Ball[]>collisions.filter(ball => ball instanceof Ball && ball.team === this.source.team && ball.hp < ball.maxhp && !(ball instanceof Balls.Medic) && !(ball.isRadioactivity()));
+        let validBalls = <Ball[]>collisions.filter(ball => ball instanceof Ball && ball.team === this.source.team && ball.hp < ball.maxhp && !(ball instanceof Balls.Medic));
         if (validBalls.length === 0) return;
 
         let ball = validBalls[0];
 
-        ball.healFor(this.health, this.source);
+        addStartShopEffect({
+            type: 'buff',
+            sourceSquadIndex: ball.squadIndexReference,
+            health: this.health,
+            damage: 0,
+        });
         this.world.playSound('medkitgrab');
         this.world.playSound('medkitheal');
         this.kill();

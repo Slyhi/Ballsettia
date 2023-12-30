@@ -27,7 +27,7 @@ namespace Balls {
             if (spikesShot > 0) {
                 let enemies = getEnemies(world, source);
                 if (enemies.length === 0) return;
-                enemies = getMutableSelect(world, source, enemies);
+                enemies = getMutableSelect(source, enemies);
 
                 let spikeCounts = M.batch(spikesShot, 3);
     

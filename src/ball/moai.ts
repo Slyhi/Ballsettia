@@ -30,7 +30,7 @@ namespace Balls {
         }
 
         private static update(source: Moai, world: World) {
-            if (source.state !== Ball.States.BATTLE && source.state !== Ball.States.PRE_BATTLE) return;
+            if (source.state !== Ball.States.BATTLE && source.state !== Ball.States.PRE_BATTLE && source.dmgReduction === 0) return;
             source.addProtected(source, source.dmgReduction, 0.1);
         }
     }

@@ -1,13 +1,13 @@
 namespace Balls {
     export class Baseball extends Ball {
         getName(): string { return 'Baseball'; }
-        getDesc(): string { return `When this orbit around the arena, gain [gold]<coin>1[/gold] (max [lb]${this.maxGold}[/lb])`; }
+        getDesc(): string { return `When this ball circles half of the arena, gain [gold]<coin>1[/gold] (max [lb]${this.maxGold}[/lb])`; }
         getShopDmg(): number { return 1; }
         getShopHp(): number { return 3; }
         getCredits(): string[] { return [CreditsNames.EVERYONE]; }
         getModName(): string[] { return [ModNames.BALLSETTIA]; }
 
-        get maxGold(): number { return this.level; }
+        get maxGold(): number { return 1 + this.level; }
 
         private sumAngle: number = 0;
         private storeAngle: number;
@@ -29,10 +29,10 @@ namespace Balls {
             source.sumAngle += M.mod((newAngle - source.storeAngle + 180), 360) - 180;
             source.storeAngle = newAngle;
             
-            while (source.sumAngle >= 360 || source.sumAngle <= -360 ) {
+            while (source.sumAngle >= 180 || source.sumAngle <= -180 ) {
                 
-                if (source.sumAngle >= 360) source.sumAngle -= 360;
-                else if (source.sumAngle <= -360) source.sumAngle += 360;
+                if (source.sumAngle >= 180) source.sumAngle -= 180;
+                else if (source.sumAngle <= -180) source.sumAngle += 180;
 
                 if (source.shouldActivateAbilityTwice()) {
                     source.doAfterTime(0.5, () => Baseball.gainGold(source, world));
@@ -40,7 +40,8 @@ namespace Balls {
             }
 
             if (source.currentGold >= source.maxGold) {
-                    source.changeBaseTextureAndRadius('balls/baseballspent', source.radius);
+                world.addWorldObject(newPuff(source.x, source.y, Battle.Layers.fx, 'medium'));
+                source.changeBaseTextureAndRadius('balls/baseballspent', source.radius);
             }
         }
 
@@ -54,7 +55,7 @@ namespace Balls {
 
             source.currentGold++;
             source.flash(0xFFFFFF, 1, 0.2);
-            world.playSound('mariocoin', { humanized: false });
+            world.playSound('buyball', { humanized: false });
         }
     }
 }

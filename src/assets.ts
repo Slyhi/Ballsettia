@@ -84,6 +84,11 @@ namespace Assets {
         'slyhi/cyclone': { anchor: Vector2.CENTER },
         'slyhi/webbullet': { anchor: Vector2.CENTER },
         'slyhi/webtrap': { anchor: Vector2.CENTER },
+        'slyhi/uranium': {
+            anchor: Vector2.CENTER,
+            spritesheet: { frameWidth: 10, frameHeight: 10 },
+        },
+        'slyhi/candycane': { anchor: Vector2.CENTER },
 
         // Balls
         'balls': {
@@ -208,8 +213,13 @@ namespace Assets {
                 'balls/cottonball': { rect: rect(80, 0, 16, 32) },
                 'balls/baseball': { rect: rect(96, 0, 16, 32) },
                 'balls/baseballspent': { rect: rect(112, 0, 16, 32) },
+                'balls/radioactiveball': { rect: rect(0, 32, 16, 32) },
+                'balls/glitchedgunner': { rect: rect(16, 32, 16, 32) },
+                'balls/currenter': { rect: rect(32, 32, 16, 32) },
+                'balls/presentball': { rect: rect(48, 32, 16, 32) },
             }
         },
+        'slyhi/presentbow': {anchor: Vector2.CENTER},
 
         'grenadehandle': { anchor: Vector2.CENTER },
         'turretgunbase': { anchor: Vector2.CENTER },
@@ -527,6 +537,8 @@ namespace Assets {
         },
         'infoicon': { anchor: Vector2.CENTER },
         // Ballsettia Modded UI
+        'slyhi/bow': { anchor: Vector2.CENTER },
+
         'slyhi/effecticon': {
             anchor: Vector2.CENTER,
             frames: {
@@ -549,6 +561,7 @@ namespace Assets {
             frames: {
                 'effecticon/freezing': { rect: rect(0, 0, 8, 8) },
                 'effecticon/chilling': { rect: rect(8, 0, 8, 8) },
+                'effecticon/radioactivity': { rect: rect(16, 0, 8, 8) },
             }
         },
 

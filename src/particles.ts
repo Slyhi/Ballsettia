@@ -35,3 +35,20 @@ function newBdayPuff(x: number, y: number, layer: string, type: 'small' | 'mediu
         }),
     });
 }
+
+function newXmasPuff(x: number, y: number, layer: string, type: 'small' | 'medium') {
+    let radius = { 'small': 2, 'medium': 4 }[type];
+    let maxLife = { 'small': 0.6, 'medium': 1 }[type];
+    return new BurstPuffSystem({
+        x: x, y: y,
+        layer: layer,
+        puffCount: Math.floor(10 * getParticleLevel()),
+        puffConfigFactory: () => ({
+            maxLife: maxLife,
+            v: Random.inCircle(70),
+            color: Random.element([0xFFFFFF, 0xC42430, 0x52A374]),
+            radius: radius,
+            finalRadius: 0,
+        }),
+    });
+}

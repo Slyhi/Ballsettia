@@ -18,7 +18,7 @@ namespace Equipments {
         let thiefMasks = world.select.typeAll(ThiefMask);
         let validEnemies = getEnemies(world, source).filter(ball => ball.equipment && !(ball.equipment instanceof ThiefMask) && !thiefMasks.some(tm => tm.target === ball) && ball.equipment.removable);
         if (validEnemies.length === 0) return;
-        validEnemies = getMutableSelect(world, source, validEnemies)
+        validEnemies = getMutableSelect(source, validEnemies)
 
         let randomEnemy = Ball.Random.element(validEnemies);
         equipment.target = randomEnemy;

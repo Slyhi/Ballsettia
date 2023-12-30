@@ -28,7 +28,7 @@ namespace Balls {
             let enemies = getEnemies(world, source);
             if (enemies.length === 0) return;
             if (!source.cooldown.consumeUse()) return;
-            enemies = getMutableSelect(world, source, enemies);
+            enemies = getMutableSelect(source, enemies);
 
             let randomBall = Ball.Random.element(enemies);
             world.addWorldObject(new HomingSpike(source.x, source.y, source, randomBall, source.spikeDamage, 1, enemyBalls => Ball.Random.element(enemyBalls)));

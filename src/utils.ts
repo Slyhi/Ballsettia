@@ -110,11 +110,9 @@ function getEnemies(world: World, source: Ball) {
     return world.select.typeAll(Ball).filter(ball => ball.team !== source.team && ball.alive && !ball.dead);
 }
 
-function getMutableSelect(world: World, source: Ball, balls: Ball[]): Ball[] {
+function getMutableSelect(source: Ball, balls: Ball[]): Ball[] {
     let tauntBalls = balls.filter(ball => ball.shouldGetTaunt());
-    if (tauntBalls.length > 0) { balls = tauntBalls; }
-    
-    return balls.map(ball => ball.shouldGetReverse() ? source : ball);
+    return tauntBalls.length > 0 ? tauntBalls: balls;
 }
 
 function glitchSmall(world: World) {

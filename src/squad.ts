@@ -21,6 +21,7 @@ type SquadBallProperties = {
 type SquadBallMetadata = {
     extraSellValue?: number;
     obtainedWithCrown?: boolean;
+    obtainedWithPresentBall?: boolean;
     currentRoundPower?: number;
     mutated?: boolean;
 }
@@ -166,6 +167,11 @@ const TYPE_TO_BALL_TYPE_DEF: { [type: number]: BallTypeDef } = {
     423: { factory: config => new Balls.Moai(config), purchasable: true, tier: 3, pack: 'modded' },
     424: { factory: config => new Balls.BallOfCotton(config), purchasable: true, tier: 2, pack: 'modded' },
     425: { factory: config => new Balls.Baseball(config), purchasable: true, tier: 1, pack: 'modded' },
+    426: { factory: config => new Balls.RadioactiveBall(config), purchasable: true, tier: 1, pack: 'modded' },
+    // 427: 
+    // 428: 
+    429: { factory: config => new Balls.PresentBall(config), purchasable: true, tier: 3, pack: 'modded' },
+    // 430: 
 }
 
 const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {

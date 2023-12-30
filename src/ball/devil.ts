@@ -36,9 +36,17 @@ namespace Balls {
             let enemies = getEnemies(world, source);
             if (enemies.length === 0) return;
 
-            for (let enemy of enemies) {
-                world.addWorldObject(new HomingSpike(source.x, source.y, source, enemy, source.spikeDamage, 1, _ => undefined));
-                source.didShootProjectile(1);
+            let tauntBall = getMutableSelect(source, enemies);
+            if (tauntBall.length > 0) {
+                for (let i = 0; i < enemies.length; i--) {
+                    let enemy = Ball.Random.element(tauntBall);
+                    world.addWorldObject(new HomingSpike(source.x, source.y, source, enemy, source.spikeDamage, 1, _ => undefined));
+                }
+            } else {
+                for (let enemy of enemies) {
+                    world.addWorldObject(new HomingSpike(source.x, source.y, source, enemy, source.spikeDamage, 1, _ => undefined));
+                    source.didShootProjectile(1);
+                }
             }
         }
     }

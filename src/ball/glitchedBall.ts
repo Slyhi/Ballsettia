@@ -72,7 +72,7 @@ namespace Balls {
         private static buffAllyDamage(source: GlitchedBall, world: World) {
             let validBalls = getAlliesNotSelf(world, source);
             if (validBalls.length === 0) return false;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
             let randomBall = Ball.Random.element(validBalls);
             world.addWorldObject(new RandomBuff(source.x, source.y, source, randomBall, { dmg: source.power, hp: 0 }, allies => Ball.Random.element(allies)));
             return true;
@@ -81,7 +81,7 @@ namespace Balls {
         private static buffAllyHealth(source: GlitchedBall, world: World) {
             let validBalls = getAlliesNotSelf(world, source);
             if (validBalls.length === 0) return false;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
             let randomBall = Ball.Random.element(validBalls);
             world.addWorldObject(new RandomBuff(source.x, source.y, source, randomBall, { dmg: 0, hp: source.power }, allies => Ball.Random.element(allies)));
             return true;
@@ -90,7 +90,7 @@ namespace Balls {
         private static homingSpikeToRandomEnemy(source: GlitchedBall, world: World) {
             let enemies = getEnemies(world, source);
             if (enemies.length === 0) return false;
-            enemies = getMutableSelect(world, source, enemies);
+            enemies = getMutableSelect(source, enemies);
 
             let spikeCounts = M.batch(source.power, 20);
 
@@ -187,7 +187,7 @@ namespace Balls {
         private static boostAllies(source: GlitchedBall, world: World) {
             let validBalls = getAlliesNotSelf(world, source);
             if (validBalls.length === 0) return false;
-            validBalls = getMutableSelect(world, source, validBalls);
+            validBalls = getMutableSelect(source, validBalls);
 
             let alliesToBoost = Math.min(source.power, validBalls.length);
 

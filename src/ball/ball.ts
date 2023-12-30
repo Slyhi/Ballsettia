@@ -15,7 +15,7 @@ namespace Ball {
                             | BurningStatusEffect | NullifiedStatusEffect | SpreadDamageStatusEffect
                             | MarkedStatusEffect | ScaleAccelerationEffect 
                             // Ballsettia Modded Status Effect
-                            | FreezingStatusEffect | ChillingStatusEffect;
+                            | FreezingStatusEffect | ChillingStatusEffect | RadioactivityStatusEffect;
 
     export type SlowStatusEffect = {
         type: 'slow';
@@ -99,6 +99,11 @@ namespace Ball {
         type: 'chilling';
         timeLeft: number;
         source: Ball;
+    }
+
+    export type RadioactivityStatusEffect = {
+        type: 'radioactivity';
+        timeLeft: number;
     }
 }
 
@@ -372,7 +377,7 @@ class Ball extends Sprite {
         this.dmgbox.setVisible(false);
         this.hpbox = this.addChild(new StatBox('hp'));
         this.hpbox.setVisible(false);
-        this.stars = this.addChild(new Stars(this.properties.metadata.obtainedWithCrown ? 'crowns' : 'stars'));
+        this.stars = this.addChild(new Stars(this.properties.metadata.obtainedWithCrown ? 'crowns' : (this.properties.metadata.obtainedWithPresentBall ? 'bows' : 'stars')));
         this.stars.setVisible(false);
         this.effectIcons = this.addChild(new EffectIcons());
         this.effectIcons.setVisible(false);
@@ -617,6 +622,8 @@ class Ball extends Sprite {
             this.effectAura.tint = 0xFF0000;
         } else if (effects.find(effect => effect === 'healfeedback')) {
             this.effectAura.tint = 0x00FF00;
+        } else if (effects.find(effect => effect === 'radioactivity')) {
+            this.effectAura.tint = 0xEEFF00;
         } else {
             targetAlpha = 0;
         }
@@ -978,6 +985,21 @@ class Ball extends Sprite {
                 source,
             });
             this.world.playSound('freeze', { limit: 2 });
+        }
+    }
+
+    addRadioactivity(time: number) {
+        let currentRadioactivity = <Ball.RadioactivityStatusEffect>this.statusEffects.find(effect => effect.type === 'radioactivity');
+
+        if (currentRadioactivity) {
+            if (currentRadioactivity.timeLeft < time) {
+                currentRadioactivity.timeLeft = time;
+            }
+        } else {
+            this.statusEffects.push({
+                type: 'radioactivity',
+                timeLeft: time,
+            });
         }
     }
 
@@ -1373,6 +1395,10 @@ class Ball extends Sprite {
     }
 
     healFor(amount: number, source: Ball): number {
+        if (source.isRadioactivity()) {
+            return 0;
+        }
+
         let priorHp = this.hp;
         if (this.hp < this.maxhp) {
             this.hp = M.clamp(this.hp + amount, 0, this.maxhp);
@@ -1427,6 +1453,10 @@ class Ball extends Sprite {
 
     isChilling() {
         return !!this.statusEffects.find(effect => effect.type === 'chilling');
+    }
+
+    isRadioactivity() {
+        return !!this.statusEffects.find(effect => effect.type === 'radioactivity');
     }
 
     isPurchasable() {
