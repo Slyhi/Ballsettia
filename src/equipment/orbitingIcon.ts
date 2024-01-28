@@ -34,7 +34,6 @@ class OrbitingIcon extends Sprite {
             this.layer = parent.layer;
             if (Tween.Easing.OscillateSine(this.oscSpeed)(this.life.time * this.direction + 0.25) < 0.5) {
                 World.Actions.orderWorldObjectAfter(this, parent.stars);
-                World.Actions.orderWorldObjectAfter(this, parent.effectIcons);
             }
             else World.Actions.orderWorldObjectBefore(this, parent);
         }

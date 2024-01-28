@@ -20,22 +20,20 @@ class Uranium extends Sprite {
         });
 
         this.source = source;
+        this.auraRadius = auraRadius;
         this.aura = this.addChild(new Sprite({
             texture: 'aura',
-            tint: 0xFFFF00,
+            tint: 0x00FF00,
             blendMode: Texture.BlendModes.ADD,
             scale: this.auraRadius / 64,
             copyFromParent: ['layer'],
         }));
-        this.auraRadius = auraRadius;
         this.lifeTime = lifeTime;
     }
 
     postUpdate(): void {
-        super.postUpdate();
-
         this.aura.alpha = M.lerp(0.8, 1.0, (Math.sin(4*this.aura.life.time) + 1)/2);
-        // this.aura.scale = M.lerpTime(this.aura.scale, this.auraRadius / 64, 100, this.delta);
+        this.aura.scale = M.lerpTime(this.aura.scale, this.auraRadius / 64, 100, this.delta);
         World.Actions.orderWorldObjectBefore(this.aura, this);
     }
 

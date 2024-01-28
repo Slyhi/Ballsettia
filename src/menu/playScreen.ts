@@ -16,7 +16,7 @@ namespace PlayScreen {
         };
 
         let playerName = world.addWorldObject(new SpriteText({
-            x: global.gameWidth/2 + 8, y: 55,
+            x: global.gameWidth/2 + 8, y: 64,
             text: loadName(),
             anchor: Vector2.CENTER,
             justify: 'center',

@@ -1,4 +1,4 @@
-/// <reference path="./projectile.ts" />
+/// <reference path="../../fx/projectile.ts" />
 
 class IcySpike extends Projectile {
     private chillTime: number;

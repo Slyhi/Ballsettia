@@ -1,4 +1,4 @@
-/// <reference path="./projectile.ts" />
+/// <reference path="../../fx/projectile.ts" />
 
 class WebBullet extends Projectile {
     private slowFactor: number;

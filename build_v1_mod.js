@@ -6,6 +6,9 @@ function getFilesFromDirectory(directory) {
     let result = [];
     for (let entry of fs.readdirSync(directory, { withFileTypes: true })) {
         let fullPath = path.join(directory, entry.name);
+        if (directory === excludeDir) {
+            continue;
+        }
         if (entry.isDirectory()) {
             result.push(...getFilesFromDirectory(fullPath));
         } else {
@@ -29,6 +32,7 @@ console.log('Zipping...');
 
 let zip = new JSZip();
 
+let excludeDir = path.join(__dirname, 'bin/assets/slyhi/editing');
 let assetsDir = path.join(__dirname, 'bin/assets');
 let files = getFilesFromDirectory(assetsDir)
             .filter(shouldZip);

@@ -1,4 +1,4 @@
-/// <reference path="./projectile.ts" />
+/// <reference path="../../fx/projectile.ts" />
 
 class StarBullet extends Projectile {
     private damage: number;

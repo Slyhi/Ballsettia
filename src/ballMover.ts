@@ -88,7 +88,6 @@ class BallMover extends WorldObject {
             this.hoverText.style.color = Color.lerpColorByLch(0xFFD800, 0xFFFFFF, Tween.Easing.OscillateSine(2)(this.life.time));
             this.hoverText.setVisible(true);
             World.Actions.orderWorldObjectAfter(this.hoverText, this.movingThing.stars);
-            World.Actions.orderWorldObjectAfter(this.hoverText, this.movingThing.effectIcons);
         } else if (this.isAboutToReplaceItem()) {
             this.hoverText.x = this.movingThing.x;
             this.hoverText.y = this.movingThing.y - (IS_MOBILE ? 24 : 12);

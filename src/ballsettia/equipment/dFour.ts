@@ -1,4 +1,4 @@
-/// <reference path="./orbitEquipment.ts" />
+/// <reference path="../../equipment/orbitEquipment.ts" />
 
 namespace Equipments {
     export class DFour extends OrbitEquipment {

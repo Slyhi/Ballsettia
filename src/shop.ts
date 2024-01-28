@@ -614,8 +614,7 @@ namespace Shop {
 
     function getShopSquadBall(round: number, packs: Pack[], weekly: { week: number }, stockThings: StockThing[], ballType?: number): SquadBall {
         if (ballType === undefined) {
-            let TEMPORARY = [].concat(packs, 'modded') as Pack[]; // Temporary included. Will be remove soon.
-            let purchasableBallTypes = getPurchasableBallTypesForRound(round, TEMPORARY, weekly);
+            let purchasableBallTypes = getPurchasableBallTypesForRound(round, packs, weekly);
             if (GAME_DATA.hasPurchasedDove || hasDoveInShop(stockThings)) {
                 A.removeAll(purchasableBallTypes, 127);
             }
