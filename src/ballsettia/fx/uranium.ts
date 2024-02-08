@@ -23,7 +23,7 @@ class Uranium extends Sprite {
         this.auraRadius = auraRadius;
         this.aura = this.addChild(new Sprite({
             texture: 'aura',
-            tint: 0x00FF00,
+            tint: 0xEEFF00,
             blendMode: Texture.BlendModes.ADD,
             scale: this.auraRadius / 64,
             copyFromParent: ['layer'],

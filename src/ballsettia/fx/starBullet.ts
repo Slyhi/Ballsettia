@@ -50,7 +50,7 @@ class StarBullet extends Projectile {
         let wallHit = collisions.find(c => c.physicsGroup === Battle.PhysicsGroups.walls);
 
         if (ballHit) {
-            this.world.addWorldObject(new StarExplosion(this.x, this.y, { damage: this.radius, inner: this.radius*0.5527864, outer: this.radius*1.4472136 }, { ally: 0, enemy: this.damage }, this.source));
+            this.world.addWorldObject(new StarExplosion(this.x, this.y, { damage: this.radius, inner: this.radius*0.5527864, outer: this.radius*1.4472136 }, { ally: 0, enemy: this.damage }, this.source, 5));
             this.kill();
         } else if (wallHit) {
             // nothing

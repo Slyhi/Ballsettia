@@ -3,10 +3,10 @@ class StarExplosion extends Sprite {
     private damageTo: { ally: number, enemy: number };
     private source: Ball;
 
-    constructor(x: number, y: number, radius: { damage: number, inner?: number, outer?: number }, damageTo: { ally: number, enemy: number }, source?: Ball) {
+    constructor(x: number, y: number, radius: { damage: number, inner?: number, outer?: number }, damageTo: { ally: number, enemy: number }, source?: Ball, point: number = 5) {
         super({
             x, y,
-            texture: new AnchoredTexture(Texture.filledStar(radius.inner??radius.damage*0.5527864, radius.outer??radius.damage*1.4472136, 5, 0xFFFFFF, 1, (90 + Ball.Random.int(0, 71))), 0.5, 0.5),
+            texture: new AnchoredTexture(Texture.filledStar(radius.inner??radius.damage*0.5527864, radius.outer??radius.damage*1.4472136, point, 0xFFFFFF, 1, (90 + Ball.Random.int(0, 71))), 0.5, 0.5),
             layer: Battle.Layers.fx,
         });
 

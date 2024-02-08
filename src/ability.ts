@@ -14,6 +14,7 @@ const ABILITIES = {
     'onDeath': { params: (killedBy: Ball) => null, manual: false, battle: true },
     'onEnterBattle': { params: () => null, manual: false, battle: true },
     'onEquip': { params: () => null, manual: false, battle: false },
+    'onHitWall': { params: () => null, manual: false, battle: true },
     'onKill': { params: (killed: Ball) => null, manual: false, battle: true },
     'onLevelUp': { params: () => null, manual: false, battle: false },
     'onLevelDown': { params: () => null, manual: false, battle: false },

@@ -3,11 +3,10 @@
 namespace Equipments {
     export class PhoenixFeather extends OrbitEquipment {
         getName() { return 'Phoenix Feather'; }
-        getDesc() { return `Immune to fire\n\nOn death, light the killer on fire for [lb]${this.burnTime}s[/lb]`; }
-
-        get burnTime() { return Math.floor(4*Math.log(this.getParentLevel()+1) - 1); }
+        getDesc() { return `Take 50% less damage from the burning or chilling effect and burn the killer for [lb]${this.burnTime}s[/lb] on death`; }
+        get burnTime() { return this.getParentLevel(); }
         
-        fireImmunity = true;
+        BurnChillReduction = true;
 
         constructor() {
             super('equipments/phoenixfeather', 'items/phoenixfeather')

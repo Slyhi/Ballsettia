@@ -25,6 +25,9 @@ namespace Balls {
             ShopActions.removeBallFromSquad(source);
             source.removeFromWorld();
 
+            let metadata = O.deepClone(source.properties.metadata);
+            metadata.obtainedWithBall = 'seeds';
+
             let newBall = world.addWorldObject(squadBallToWorldBall({
                 x: source.x,
                 y: source.y,
@@ -34,7 +37,7 @@ namespace Balls {
                     damage: source.dmg,
                     health: source.hp,
                     equipment: source.equipment ? source.equipment.equipmentType : -1,
-                    metadata: source.properties.metadata,
+                    metadata: metadata,
                 }
             }, GAME_DATA.squad, GAME_DATA.squad.balls.length, source.team));
 

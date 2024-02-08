@@ -3,10 +3,10 @@
 namespace Equipments {
     export class IcyBlast extends Equipment {
         getName() { return 'Icy Blast'; }
-        getDesc() { return `At the start of battle, [lb]freeze[/lb] and [lb]chill[/lb] nearby enemies for ${this.freezeTime} seconds`; }
+        getDesc() { return `At the start of battle, [lb]freeze[/lb] and [lb]chill[/lb] nearby enemies for ${this.freezeTime}s and ${this.chillTime}s`; }
 
         get freezeTime() { return 5; }
-        get chillTime() { return 5; }
+        get chillTime() { return 15; }
         get freezeRadius() { 
             let parent = this.getParent();
             return (!parent || parent.isInShop || parent.isInYourSquadScene) ? parent.physicalRadius-8 + 16 : 45;
@@ -35,14 +35,14 @@ namespace Equipments {
         }
 
         private static onPreBattle(equipment: IcyBlast, source: Ball, world: World) {
-            IcyBlast.καιΞεχνώ(equipment, source, world);
+            IcyBlast.splash(equipment, source, world);
         }
 
         private static onEnterBattle(equipment: IcyBlast, source: Ball, world: World) {
-            IcyBlast.καιΞεχνώ(equipment, source, world);
+            IcyBlast.splash(equipment, source, world);
         }
 
-        private static καιΞεχνώ(equipment: IcyBlast, source: Ball, world: World) {
+        private static splash(equipment: IcyBlast, source: Ball, world: World) {
             let enemyBalls = getEnemies(world, source).filter(enemy => G.distance(source, enemy) < equipment.freezeRadius + enemy.physicalRadius);
             if (enemyBalls.length !== 0) {
                 for (let ball of enemyBalls) {

@@ -9,7 +9,7 @@ namespace Balls {
 
         get auraRadius() {
             if ((this.isInShop || this.isInYourSquadScene) && !this.isBeingMoved()) return 20;
-            return this.physicalRadius-8 + 30 * (1 + (this.level-1)*0.3);
+            return this.physicalRadius-8 + 50 * (1 + (this.level-1)*4);
         }
 
         constructor(config: Ball.Config) {
@@ -17,7 +17,7 @@ namespace Balls {
 
             this.aura = this.addChild(new Sprite({
                 texture: 'aura',
-                tint: 0xFFFF00,
+                tint: 0xEEFF00,
                 blendMode: Texture.BlendModes.ADD,
                 scale: this.auraRadius / 64,
                 copyFromParent: ['layer'],
@@ -50,7 +50,7 @@ namespace Balls {
         static onDeath(source: RadioactiveBall, world: World, killedBy: Ball): void {
             world.addWorldObject(new Explosion(source.x, source.y, source.physicalRadius, { ally: 0, enemy: 0 }));
             world.addWorldObject(newPuff(source.x, source.y, Battle.Layers.fx, 'medium'));
-            let uraniumRadius = 15 * (1 + (source.level-1)*0.3)
+            let uraniumRadius = 30 * (1 + (source.level-1)*3)
             for (let i = 0; i < source.level; i++) {
                 world.addWorldObject(new Uranium(source.x, source.y, Ball.Random.inDisc(75, 140), source, uraniumRadius, 60));
             }

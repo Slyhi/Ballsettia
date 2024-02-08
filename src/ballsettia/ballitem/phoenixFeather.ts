@@ -1,7 +1,7 @@
 namespace BallItems {
     export class PhoenixFeather extends EquipmentItem {
         getName() { return 'Phoenix Feather'; }
-        getDesc() { return `Immune to fire\n\nOn death, light the killer on fire\n\nGain more burntime for each [gold]<star>[/gold] on the equipped ball`; }
+        getDesc() { return `Take 50% less damage from the burning or chilling effect and burn the killerfor [lb]1s[/lb] on death\n\nEach [gold]<star>[/gold] on the equipped ball adds [lb]1s[/lb] to the burn time`; }
         getModName() { return [ModNames.BALLSETTIA]; }
 
         constructor(x: number, y: number) {

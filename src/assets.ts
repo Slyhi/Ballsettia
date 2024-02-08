@@ -217,6 +217,7 @@ namespace Assets {
                 'balls/glitchedgunner': { rect: rect(16, 32, 16, 32) },
                 'balls/currenter': { rect: rect(32, 32, 16, 32) },
                 'balls/presentball': { rect: rect(48, 32, 16, 32) },
+                'balls/wintermelon': { rect: rect(64, 32, 16, 32) },
             }
         },
         'slyhi/presentbow': {anchor: Vector2.CENTER},
@@ -538,6 +539,7 @@ namespace Assets {
         'infoicon': { anchor: Vector2.CENTER },
         // Ballsettia Modded UI
         'slyhi/bow': { anchor: Vector2.CENTER },
+        'slyhi/seed': { anchor: Vector2.CENTER },
 
         'slyhi/effecticon': {
             anchor: Vector2.CENTER,

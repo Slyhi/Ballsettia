@@ -20,8 +20,7 @@ type SquadBallProperties = {
 
 type SquadBallMetadata = {
     extraSellValue?: number;
-    obtainedWithCrown?: boolean;
-    obtainedWithPresentBall?: boolean;
+    obtainedWithBall?: 'crowns' | 'bows' | 'seeds';
     currentRoundPower?: number;
     mutated?: boolean;
 }
@@ -171,7 +170,7 @@ const TYPE_TO_BALL_TYPE_DEF: { [type: number]: BallTypeDef } = {
     // 427: 
     // 428: 
     429: { factory: config => new Balls.PresentBall(config), purchasable: true, tier: 3, pack: 'modded' },
-    // 430: 
+    430: { factory: config => new Balls.Wintermelon(config), purchasable: true, tier: 1, pack: 'modded' },
 }
 
 const TYPE_TO_ITEM_TYPE_DEF: { [type: number]: BallItemTypeDef } = {

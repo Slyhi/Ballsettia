@@ -1,7 +1,7 @@
 namespace Balls {
     export class PresentBall extends Ball {
         getName() { return 'Present Ball'; }
-        getDesc() { return `[gold]Permanently[/gold] copy the type of the closest ally${this.level-1 === 0 ? ` +${this.level-1}[gold]<star>[/gold]` : ''} if it survives a battle\n\n[r]If not, permanently remove this ball from your squad[/r]`; }
+        getDesc() { return `[gold]Permanently[/gold] copy the type of the closest ally if it survives a battle\n\n[r]If not,[/r] drop a candycane and [r]permanently remove this ball from your squad[/r]`; }
         getShopDmg() { return 1; }
         getShopHp() { return 6; }
         getShopRelativePosition() { return vec2(0, 2); }
@@ -56,7 +56,7 @@ namespace Balls {
         }
 
         updateRenderFacade() {
-            if (!this.currentTarget || this.state !== Ball.States.PREP) {
+            if (!this.currentTarget) {
                 this.renderFacade = undefined;
                 return;
             }
@@ -125,12 +125,15 @@ namespace Balls {
 
         private static copyClosestAlly(source: PresentBall, world: World) {
             let closestAlly = PresentBall.getClosestAlly(source, world);
-            if (!closestAlly) return;
+            if (!closestAlly) {
+                source.currentTarget = undefined;
+                return;
+            }
 
             let metadata = O.deepClone(source.properties.metadata);
-            metadata.obtainedWithPresentBall = true;
+            metadata.obtainedWithBall = 'bows';
 
-            let newBall = world.addWorldObject(squadBallToWorldBall({
+            let newBall = world.addWorldObject( squadBallToWorldBall({
                 x: source.x,
                 y: source.y,
                 properties: {
@@ -144,19 +147,25 @@ namespace Balls {
             }, source.squad, source.squadIndexReference, source.team, false, false));
 
             newBall.timesKilledEnemy = source.timesKilledEnemy;
+            newBall.showAllStats();
+
+            source.squad.balls.push({
+                x: newBall.x,
+                y: newBall.y,
+                properties: newBall.properties,
+            });
 
             world.addWorldObject(newXmasPuff(newBall.x, newBall.y, Battle.Layers.fx, 'medium'));
             world.playSound('confetti');
-            newBall.addStun('other', 1);
-
-            source.cancelAbilities();
+            
+            ShopActions.removeBallFromSquad(source);
             source.removeFromWorld();
         }
 
         private static getClosestAlly(source: PresentBall, world: World) {
             if (source.isInShop || source.isInYourSquadScene) return undefined;
             let validBalls = getAlliesNotSelf(world, source).filter(ball =>
-                !ball.isInShop && !ball.isInYourSquadScene && !(ball instanceof Dove));
+                !ball.isInShop && !ball.isInYourSquadScene && !(ball instanceof Dove) && !(ball instanceof PresentBall));
             return M.argmin(validBalls, ball => G.distance(source, ball));
         }
     }

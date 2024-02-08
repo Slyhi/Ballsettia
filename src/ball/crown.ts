@@ -42,7 +42,7 @@ namespace Balls {
             if (killedBy.team === source.team) return;
 
             let metadata = O.deepClone(killedBy.properties.metadata);
-            metadata.obtainedWithCrown = true;
+            metadata.obtainedWithBall = 'crowns';
 
             let squadBall = GAME_DATA.squad.balls[source.squadIndexReference];
             GAME_DATA.squad.balls[source.squadIndexReference] = {

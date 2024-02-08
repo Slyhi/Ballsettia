@@ -9,44 +9,34 @@ namespace Balls {
         get healAmount() { return 0.5*this.level; }
 
         private cooldown: AbilityCooldown;
-        private hitToken: number;
 
         constructor(config: Ball.Config) {
             super('balls/cottonball', 8, config);
 
-            this.cooldown = new AbilityCooldown(1, 2); // in 1 second it can only use its ability 2 times
-            this.hitToken = 0;
+            this.cooldown = new AbilityCooldown(0.5, 1); // in 0.5 second it can only use its ability 1 times
 
-            this.addAbility('update', BallOfCotton.update);
+            this.addAbility('onHitWall', BallOfCotton.onHitWall);
         }
 
         update(): void {
             super.update();
             this.cooldown.update(this.delta);
         }
-        
-        onCollide(collision: Physics.Collision): void {
-            super.onCollide(collision);
-            if (this.state === Ball.States.BATTLE && collision.other.obj.physicsGroup === Battle.PhysicsGroups.walls && this.cooldown.consumeUse() && !this.isNullified()) {
-                this.hitToken++;
-                if (this.shouldActivateAbilityTwice()) {
-                    this.doAfterTime(0.1, () => this.hitToken++);
-                }
+
+        private static onHitWall(source: BallOfCotton, world: World): void {
+            BallOfCotton.giveHeal(source, world);
+            if (source.shouldActivateAbilityTwice()) {
+                source.doAfterTime(0.1, () => BallOfCotton.giveHeal(source, world));
             }
         }
 
-        private static update(source: BallOfCotton, world: World): void {
-            if (source.state !== Ball.States.BATTLE) return;
-            while (source.hitToken >= 1) {
-                source.hitToken--;
+        private static giveHeal(source: BallOfCotton, world: World): void {
+            let validBalls = getAlliesNotSelf(world, source);
+            if (validBalls.length === 0) return;
+            validBalls = getMutableSelect(source, validBalls);
 
-                let validBalls = getAlliesNotSelf(world, source);
-                if (validBalls.length === 0) return;
-                validBalls = getMutableSelect(source, validBalls);
-
-                let randomBall = Ball.Random.element(validBalls);
-                world.addWorldObject(new HomingHeal(source.x, source.y, source, randomBall, source.healAmount, balls => undefined));
-            }
+            let randomBall = Ball.Random.element(validBalls);
+            world.addWorldObject(new HomingHeal(source.x, source.y, source, randomBall, source.healAmount, validBalls => Ball.Random.element(validBalls)));
         }
     }
 }

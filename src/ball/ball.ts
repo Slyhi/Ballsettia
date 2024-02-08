@@ -376,7 +376,7 @@ class Ball extends Sprite {
         this.dmgbox.setVisible(false);
         this.hpbox = this.addChild(new StatBox('hp'));
         this.hpbox.setVisible(false);
-        this.stars = this.addChild(new Stars(this.properties.metadata.obtainedWithCrown ? 'crowns' : (this.properties.metadata.obtainedWithPresentBall ? 'bows' : 'stars')));
+        this.stars = this.addChild(new Stars(this.properties.metadata.obtainedWithBall ?? 'stars'));
         this.stars.setVisible(false);
 
         this.showingAllStats = false;
@@ -570,11 +570,8 @@ class Ball extends Sprite {
             let statusEffect = this.statusEffects[i];
 
             if (statusEffect.type === 'burning') {
-                if (this.equipment && this.equipment.fireImmunity && !this.isNullified()) {
-                    this.removeStatusEffectsOfType('burning');
-                    return
-                }
-                let damageToTake = 1 * this.delta;
+                let damageRate = (this.equipment && this.equipment.BurnChillReduction && !this.isNullified()) ? 0.5 : 1;
+                let damageToTake = damageRate * this.delta;
                 this.leechFor(damageToTake, statusEffect.source);
                 if (this.world.timeScale > 0.01) statusEffect.sound.update(this.delta);
 
@@ -584,7 +581,8 @@ class Ball extends Sprite {
             }
 
             if (statusEffect.type === 'chilling') {
-                let damageToTake = 0.5 * this.delta;
+                let damageRate = (this.equipment && this.equipment.BurnChillReduction && !this.isNullified()) ? 0.25 : 0.5;
+                let damageToTake = damageRate * this.delta;
                 this.leechFor(damageToTake, statusEffect.source);
             }
 
@@ -736,6 +734,7 @@ class Ball extends Sprite {
                 this.addBoostMaxSpeed(this, 'other', 1.5, 1.5, 0.7);
                 this.world.playSound('trampoline', { limit: 4 });
             }
+            this.queueAbilities('onHitWall');
         }
         super.onCollide(collision);
     }
@@ -798,8 +797,6 @@ class Ball extends Sprite {
         if (source.isChilling()) { source.removeStatusEffectsOfType('chilling'); }
 
         if (source.isFreezing()) return;
-
-        if (source.equipment && source.equipment.fireImmunity && !source.isNullified()) return;
 
         let currentBurning = <Ball.BurningStatusEffect>this.statusEffects.find(effect => effect.type === 'burning' && effect.source === source);
 

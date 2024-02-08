@@ -43,7 +43,7 @@ class Equipment extends Sprite {
     chanceToActivateAbilitiesTwice = 0;
     startEarlyTime = 0;
     removable = true;
-    fireImmunity = false;
+    BurnChillReduction = false;
     chanceToTauntOtherAbilities = 0;
     // Do not forget to add isNullified check and hasBattleEffect for future equipment effects!
 
@@ -105,7 +105,7 @@ class Equipment extends Sprite {
         if (this.spreadDamageOverTime !== 0) return true;
         if (this.startEarlyTime > 0) return true;
         if (this.removable) return false;
-        if (this.fireImmunity) return true;
+        if (this.BurnChillReduction) return true;
 
         return false;
     }
